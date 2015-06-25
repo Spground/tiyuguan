@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.spground.MainTab01"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     >
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <com.daimajia.slider.library.SliderLayout
+        android:id="@+id/slider"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        custom:auto_cycle="true"
+        custom:indicator_visibility="visible"
+        custom:pager_animation="Accordion"
+        custom:pager_animation_span="1100" />
+
+    <com.daimajia.slider.library.Indicators.PagerIndicator
+        android:id="@+id/custom_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center" />
+    <!--
+<TextView 
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:gravity="center"
+     android:padding="5dp"
+     android:text="我是首页"
+    />
+<TextView 
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:gravity="center"
+     android:padding="5dp"
+     android:text="我是首页"
+    />
+<TextView 
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:gravity="center"
+     android:padding="5dp"
+     android:text="我是首页"
+    />
+<TextView 
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:gravity="center"
+     android:padding="5dp"
+     android:text="我是首页"
+    />
+<TextView 
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:gravity="center"
+     android:padding="5dp"
+     android:text="我是首页"
+    />
+<TextView 
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:gravity="center"
+     android:padding="5dp"
+     android:text="我是首页"
+    />
+<TextView 
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:gravity="center"
+     android:padding="5dp"
+     android:text="我是首页"
+    />
+<TextView 
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:gravity="center"
+     android:padding="5dp"
+     android:text="我是首页"
+    />
+<TextView 
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:gravity="center"
+     android:padding="5dp"
+     android:text="我是首页"
+    />
+<TextView 
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:gravity="center"
+     android:padding="5dp"
+     android:text="我是首页"
+    />
+<TextView 
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:gravity="center"
+     android:padding="5dp"
+     android:text="我是首页"
+    />
+<TextView 
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:gravity="center"
+     android:padding="5dp"
+     android:text="我是首页"
+    />
+<TextView 
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:gravity="center"
+     android:padding="5dp"
+     android:text="我是首页"
+    />
+<TextView 
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:gravity="center"
+     android:padding="5dp"
+     android:text="我是首页"
+    />
+<TextView 
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:gravity="center"
+     android:padding="5dp"
+     android:text="我是首页"
+    />
+<TextView 
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:gravity="center"
+     android:padding="5dp"
+     android:text="我是首页"
+    />
+<TextView 
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:gravity="center"
+     android:padding="5dp"
+     android:text="我是首页"
+    /> 
+    -->
+
+    <cn.edu.dlut.tiyuguan.adapterview.MyGridView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/homegridview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:gravity="center"
+        android:horizontalSpacing="0.8dp"
+        android:numColumns="3"
+        android:verticalSpacing="0.8dp" >
+    </cn.edu.dlut.tiyuguan.adapterview.MyGridView>
+</LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout   xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ly_main_weixin"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#EFefef" 
+    android:paddingTop="10dip"
+    android:paddingLeft="10dip"
+    android:paddingRight="10dip"
+    
+    
+    >
+
+  
+        
+ <!-- 登录区域 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+       <LinearLayout
+           android:id="@+id/topLinearLayout"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical" 
+           >
+   
+        </LinearLayout>
+        <!-- 功能区域 -->
+  <!-- 我的预约信息区域 -->
+
+  <RelativeLayout
+     
+      android:layout_width="match_parent"
+      android:layout_height="match_parent" 
+      android:orientation="vertical">
+      <!--显示用户信息和预约信息  -->
+
+       <ListView
+           android:id="@+id/listview_aboutbook"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="10dip"
+           android:background="#ffffff" />
+
+       <!--显示其他相关项 -->
+
+  <ListView
+      android:id="@+id/listview1_aboutbook"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/listview_aboutbook"
+      android:layout_marginTop="15dip"
+      android:background="#ffffff" />
+
+  </RelativeLayout>
+ 
+     
+    </LinearLayout>
+
+</LinearLayout>

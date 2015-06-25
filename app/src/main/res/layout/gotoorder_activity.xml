@@ -1,0 +1,277 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+
+<RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="3dip"
+    android:paddingRight="3dip"
+    android:paddingBottom="25dip"
+   >
+   
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center|center"
+        android:background="#000000"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        >
+        </TextView>
+   <ImageView
+       android:layout_marginTop="5dip"
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content" 
+       android:id="@+id/iv"
+      android:layout_below="@id/title"
+       android:scaleType="fitCenter"
+       android:layout_marginBottom="2dip"
+      />
+    
+    <!-- 第二块布局区域 -->
+       <LinearLayout 
+           
+            android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+           android:id="@+id/bookclient_linearlayout_1"
+           android:orientation="horizontal"
+           android:layout_below="@id/iv"
+           android:layout_marginTop="2dip">
+           <!-- 第一个预定区域 -->
+           <LinearLayout 
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/bookclient_linearlayout_1_1"
+               android:orientation="vertical"
+               android:layout_gravity="center_horizontal"
+               android:background="@drawable/book_area_layout_shape"
+               android:layout_weight="1.0"
+            
+               >
+              <TextView 
+                   android:layout_marginTop="5dip"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="今天"
+                  android:textColor="#EE880A"
+                  android:layout_gravity="center_horizontal"
+                  android:textSize="18sp"
+                 
+                  /> 
+               <TextView
+                   android:id="@+id/dateToday"
+                  android:layout_marginTop="5dip"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                
+                  android:textColor="#BF42E3"
+                  android:textSize="20sp"
+                  android:layout_gravity="center_horizontal"
+                   
+                   />
+
+               <Button
+                    android:id="@+id/btnToday"
+                    android:layout_marginTop="5dip"
+                   android:layout_width="wrap_content"
+                   android:layout_height="30dp"
+                   android:layout_gravity="center_horizontal"
+                   android:text="预定"
+                   android:clickable="true"
+                   
+                   android:paddingLeft="10dip"
+                   android:paddingRight="10dip"
+                   android:textColor="#1379CB"
+                   android:textSize="15sp" 
+                   android:background="@drawable/select"
+                   android:layout_marginBottom="10dip"
+                   android:onClick="doClick"/>
+               
+           </LinearLayout>
+              <!-- 第二个预定区域 -->
+            <LinearLayout 
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/bookclient_linearlayout_1_2"
+               android:orientation="vertical"
+               android:layout_gravity="center_horizontal"
+               android:background="@drawable/book_area_layout_shape"
+               android:layout_weight="1.0"
+               android:layout_marginLeft="2dip"
+            
+               >
+              <TextView 
+                   android:layout_marginTop="5dip"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="明天"
+                  android:textColor="#EE880A"
+                  android:layout_gravity="center_horizontal"
+                  android:textSize="18sp"
+                 
+                  /> 
+               <TextView 
+                   android:id="@+id/dateTomorrow"
+                    android:layout_marginTop="5dip"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                 
+                  android:textColor="#BF42E3"
+                  android:textSize="20sp"
+                  android:layout_gravity="center_horizontal"
+                   
+                   />
+
+               <Button
+                   android:id="@+id/btnTomorrow"
+                    android:layout_marginTop="5dip"
+                   android:layout_width="wrap_content"
+                   android:layout_height="30dp"
+                   android:layout_gravity="center_horizontal"
+                   android:background="@drawable/select"
+                   android:paddingLeft="10dip"
+                   android:paddingRight="10dip"
+                   android:text="预定"
+                   android:textColor="#1379CB"
+                   android:textSize="15sp"
+                   android:layout_marginBottom="10dip"
+                   android:onClick="doClick"
+                    />
+               
+           </LinearLayout>
+              <!-- 第三个预定区域 -->
+            <LinearLayout 
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/bookclient_linearlayout_1_3"
+               android:orientation="vertical"
+               android:layout_gravity="center_horizontal"
+               android:background="@drawable/book_area_layout_shape"
+               android:layout_weight="1.0"
+               android:layout_marginLeft="2dip"
+            
+               >
+              <TextView 
+                  android:layout_marginTop="5dip"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="后天"
+                  android:textColor="#EE880A"
+                  android:layout_gravity="center_horizontal"
+                  android:textSize="18sp"
+                 
+                  /> 
+               <TextView 
+                    android:id="@+id/dateTheDayAfterTomorrow"
+                   android:layout_marginTop="5dip"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                
+                  android:textColor="#BF42E3"
+                  android:textSize="20sp"
+                  android:layout_gravity="center_horizontal"
+                   
+                   />
+
+               <Button
+                   android:id="@+id/btnTheDayAfterTomorrow"
+                  
+                   android:layout_marginTop="5dip"
+                   android:layout_width="wrap_content"
+                   android:layout_height="30dp"
+                   android:layout_gravity="center_horizontal"
+                    android:background="@drawable/select"
+                   android:text="预定"
+                   android:paddingLeft="10dip"
+                   android:paddingRight="10dip"
+                   android:textColor="#1379CB"
+                   android:textSize="15sp"
+                   android:layout_marginBottom="10dip"
+                   android:onClick="doClick" />
+               
+           </LinearLayout>
+       </LinearLayout>
+       <!-- 第三块布局区域显示营业时间和收费标准 -->
+       
+       <LinearLayout 
+           android:layout_below="@+id/bookclient_linearlayout_1"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical"
+           android:layout_marginTop="10dip"
+           android:layout_marginBottom="10dip"
+       >
+           <TextView 
+              
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="营业时间:"
+               android:textSize="22sp"
+               android:layout_marginTop="10dip"
+               android:layout_weight="1.0"
+               />
+           <LinearLayout 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/info_textview"
+                android:layout_marginTop="5dip"
+                android:layout_weight="2.0"
+              
+               >
+                <TextView 
+                     android:id="@+id/openTime"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+                android:textColor="#000000"
+              
+               android:textSize="16sp"
+               android:layout_marginLeft="8dip"
+               android:layout_marginTop="10dip"
+               android:layout_marginBottom="20dip"
+              
+              />
+               
+           </LinearLayout>
+         
+           <TextView 
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="收费标准:"
+               
+               android:textSize="22sp"
+               android:layout_marginTop="10dip"
+               android:layout_weight="1.0"
+               />
+           
+            <LinearLayout 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/info_textview"
+                android:layout_weight="2.0"
+                android:layout_marginTop="5dip"
+               >
+                <TextView 
+                     android:id="@+id/chargeStandar"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+             
+               android:textColor="#000000"
+               android:textSize="16sp"
+               android:layout_marginLeft="8dip"
+               android:layout_marginTop="10dip"
+               android:layout_marginBottom="20dip"
+              
+              />
+               
+           </LinearLayout>
+       </LinearLayout>
+       
+       
+</RelativeLayout>
+</ScrollView>

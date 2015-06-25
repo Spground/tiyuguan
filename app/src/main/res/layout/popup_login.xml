@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:whatever="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#efefef" 
+    android:paddingLeft="5dip"
+    android:paddingRight="5dip"
+    android:paddingTop="5dip"
+    android:paddingBottom="5dip">
+    
+    <!-- 登陆布局界面 -->
+    <LinearLayout 
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:background="@drawable/login_shape"
+         android:layout_marginTop="0dip"
+         android:paddingTop="10dip"
+         android:paddingLeft="5dip"
+         android:paddingRight="5dip"
+         android:paddingBottom="0dip"
+         android:orientation="vertical"
+        
+        >
+
+     <TableRow
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:background="#ffffff" 
+         android:gravity="center"
+         >
+
+         <ImageView
+             android:layout_width="wrap_content"
+             android:layout_height="match_parent"
+             android:src="@drawable/my_bookinfo1" 
+             android:adjustViewBounds="true"
+             android:contentDescription="@string/appname"
+            
+             />
+
+         <com.andreabaccega.widget.FormEditText
+             android:id="@+id/account_edittext"
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="15dip"
+             android:hint="学号"
+             whatever:emptyErrorString="用户名不能为空"
+             android:inputType="number"
+             android:textColorHint="#000000" />
+
+        
+         
+     </TableRow>
+     <TableRow 
+         android:layout_marginTop="5dip"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:background="#ffffff"
+         android:gravity="end"
+         >
+
+         <ImageView
+             android:layout_width="wrap_content"
+             android:layout_height="match_parent"
+             android:adjustViewBounds="true" 
+             android:src="@drawable/password_bg" />
+
+         <com.andreabaccega.widget.FormEditText
+              whatever:emptyErrorString="密码不能为空" 
+             android:id="@+id/password_edittext"
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="15dip"
+             android:hint="密码"
+             android:inputType="textPassword"
+             android:textColorHint="#000000" />
+     </TableRow>
+     <CheckBox 
+         android:id="@+id/rememberme"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="是否记住密码？"
+         android:layout_gravity="center_horizontal"
+         android:textColor="#123456"
+         
+         
+         />
+     </LinearLayout>
+     
+     
+</LinearLayout>

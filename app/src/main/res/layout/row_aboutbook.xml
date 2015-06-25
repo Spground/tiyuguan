@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_mybookinfo"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingLeft="15dip"
+    android:paddingTop="10dip" 
+    android:paddingBottom="10dip"
+    android:paddingRight="20dip"
+    >
+    <ImageView 
+        android:id="@+id/iv_mybookinfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:layout_alignBottom="@+id/tv1_mybookinfo"
+        
+        />
+<TextView 
+   android:layout_toRightOf="@id/iv_mybookinfo"
+   android:layout_marginLeft="20dip"
+    android:id="@+id/tv1_mybookinfo"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="我的预约信息"
+    android:textColor="#000000"
+    android:textSize="20sp"
+    />
+
+    <TextView
+    android:id="@+id/tv2_mybookinfo"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:layout_alignParentRight="true"
+     android:text=">" 
+     android:textColor="#C0C0C0"
+     android:textSize="20sp"
+     
+    />
+    <!-- 分割线 -->
+    
+   
+</RelativeLayout>

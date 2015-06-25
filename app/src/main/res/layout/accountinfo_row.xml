@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/listview_item_selector" 
+    android:paddingLeft="15dip"
+    android:paddingTop="10dip" 
+    android:paddingBottom="10dip"
+    
+    >
+  <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:descendantFocusability="blocksDescendants"
+     >
+    <TextView 
+    android:id="@+id/accountinfo_row_left"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textColor="#000000"
+    android:textSize="20sp"
+    
+    />
+  </LinearLayout>  
+
+<LinearLayout
+    android:descendantFocusability="blocksDescendants"
+    android:layout_marginRight="10dip" 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="right"
+    >
+
+   
+    <TextView 
+    android:id="@+id/accountinfo_row_right"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="修改 > "
+    android:focusable="false"
+    android:textColor="#C0C0C0"
+    android:textSize="15sp"
+    android:layout_marginRight="0dip"
+    />
+
+</LinearLayout>
+
+</LinearLayout>

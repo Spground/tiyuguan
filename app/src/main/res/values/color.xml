@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="red">#fd8d8d</color>
+	<color name="green">#9cfda3</color>
+	<color name="blue">#8d9dfd</color>
+	<color name="white">#FFFFFF</color>
+	<color name="black">#000000</color>
+	<color name="gray">#cfcfcf</color>
+	<color name="transparent">#bbaacc</color>
+	<color name="titlecolor">#368ADD</color>  
+	<color name="feedbackbackground">#F8F8F8</color>
+	<color name="holobluelight">#cccccc</color>
+	<color name="light_green">#99cc33</color>
+	<color name="dark_green">#99aa00</color>
+	<!-- 以下是开源库notifyDialogeffect的颜色文件 -->
+	<color name="text_color">#FFFFFF</color>
+    <color name="divider_color">#11000000</color>
+    <color name="msg_color">#FFFFFFFF</color>
+    <color name="dialog_bg">#ffe74c3c</color>
+    <color name="btn_press_color">#66000000</color>
+    <color name="btn_unpress_color">#22000000</color>
+    <color name="dialog_bg1">#17b3ed</color>
+    <color name="main_color">#17b3ed</color>
+    <color name="light_gray">#efefef</color>
+    <color name="tab_pressed_textcolor">#15b2ea</color>
+    <color name="tab_normal_textcolor">#9d9e9e</color>
+    <color name="pink">#ff8e9b</color>
+     <color name="darkred">#FF0000</color>
+    <color name="darkgreen">#47EE5C</color>
+</resources>
