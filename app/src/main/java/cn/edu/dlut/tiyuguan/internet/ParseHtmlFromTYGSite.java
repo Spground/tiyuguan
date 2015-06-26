@@ -12,34 +12,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 
-/*public class ParseHtmlFromURL {
-
-	/**
-	 * @param args
-	 * @throws IOException 
-	 */
-	/*public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
-            String url="http://tyg.dlut.edu.cn/";
-            LinkedHashMap< String, String> news;
-            ParseHtmlFromTYGSite temp=new ParseHtmlFromTYGSite(url,5);
-            news=temp.getNewsLinks();
-            int i=0;         
-            news=temp.getNewsImgSrcByLink(news);
-            @SuppressWarnings("rawtypes")
-			Iterator iter = news.entrySet().iterator();
-            while(iter.hasNext()){
-            	@SuppressWarnings("unchecked")
-				Map.Entry<String,String> entry=(Map.Entry<String,String>)iter.next();
-            	System.out.print((++i)+"----");
-            	System.out.println(entry.getKey());
-            	System.out.println(entry.getValue());
-            	
-            }
-	}
-
-}*/
-
 /**
  * @author asus
  * 
@@ -49,7 +21,7 @@ import org.jsoup.select.Elements;
 public class ParseHtmlFromTYGSite{
      String URL;
 	 Document doc;
-	 int num=5;
+	 int num=5;//抓取的数量
 	/**
 	 * @param URL传入的URL
 	 * @throws java.io.IOException
@@ -61,20 +33,19 @@ public class ParseHtmlFromTYGSite{
 		this.doc=Jsoup.connect(URL).userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31").timeout(9000).get();
 		//Jsoup.
 		this.num=n;
-		//System.out.println("进来了");
-		
+
 	}
     /**
      * @return LinkedHashMap<String,String>所有的新闻动态的文章-地址hash集合
      */
+    /*获取前n条新闻的链接*/
     public LinkedHashMap<String,String> getNewsLinks(){
-    	LinkedHashMap<String,String> news=new LinkedHashMap<String,String>();
+    	LinkedHashMap<String,String> news=new LinkedHashMap<>();
     	if(doc!=null){
     		Elements links=doc.getElementsByClass("c63065");
     		if(links!=null){
     			//System.out.println(links.size());
     		}
-    		
     			int i=0;
     			for(Element link:links){
     				if(++i>this.num) break;
@@ -82,76 +53,65 @@ public class ParseHtmlFromTYGSite{
     				String newstitle=link.text();
     				newslink=URL+newslink;
     				news.put(newstitle, newslink);
-    				
-    				
-    				
     			}
     		
     	}
     	return news;
     }
+    /*根据新闻的链接抓取对应链接中的第一张图片的地址*/
     public   LinkedHashMap<String, String> getNewsImgSrcByLink( LinkedHashMap<String, String> link) {
-    	 LinkedHashMap<String, String> imgsrc=new LinkedHashMap<String, String>();
-    	 @SuppressWarnings("rawtypes")
-		Iterator iter = link.entrySet().iterator();
-    	 String src = "http://www.dlut.edu.cn/xiaohua.jpg";//初始值
+    	 LinkedHashMap<String, String> imgsrc=new LinkedHashMap<>();
+ 		 Iterator iter = link.entrySet().iterator();
+    	 String src = "http://www.dlut.edu.cn/xiaohua.jpg";//初始值的默认
     	 String title="";
     	 Element div=null;
     	 Elements imgs=null;
     	 Document doc=null;
-    	 Connection t=null;
+    	 Connection con=null;
     	 while(iter.hasNext()){
          	@SuppressWarnings("unchecked")
 		   Map.Entry<String,String> entry=(Map.Entry<String,String>)iter.next();
          	String url=entry.getValue();
          	System.out.println(url);
          	try {
-         		 t= Jsoup.connect(url).userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31").timeout(3000);
+                con = Jsoup.connect(url).userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31").timeout(3000);
          		
-         		 if(t!=null)
-         		      doc=t.get();
-         		 
+         		 if(con != null)
+         		      doc = con.get();
          		 else
          			 System.out.println("t连接为空");
-				if(doc==null){
+				if(doc == null){
 					System.out.println("doc为空");
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-         	if(doc==null){
+
+         	if(doc == null){
 				System.out.println("doc为空");
 			}
          	else{
-         		div=doc.getElementById("vsb_content_2");
-             	title=(doc.getElementsByTag("title")).text();
+         		div = doc.getElementById("vsb_content_2");
+             	title = (doc.getElementsByTag("title")).text();
          	}
          	
-         	if(div==null) 
+         	if(div == null)
          		{
          		  System.out.println("div为空");
          		}
          	else{
-         		
-         		 imgs=div.getElementsByTag("img");
+         		 imgs = div.getElementsByTag("img");
          	}
-         	
-         	if(imgs!=null){
+
+         	if(imgs != null){
          	for(Element img:imgs){
-         		src=img.attr("src");
-         		src="http://tyg.dlut.edu.cn/"+src.substring(6);
+         		src = img.attr("src");
+         		src = "http://tyg.dlut.edu.cn/"+src.substring(6);
          		break;//只需要第一个img
-         		
          	}
          	}
          	imgsrc.put(title, src);
-         	System.gc();
-         
-         	
-         	
-         	
-         	
          }
     	 
     	 return imgsrc;

@@ -90,28 +90,23 @@ public class MainActivity extends FragmentActivity
 				updateTabStyle(mTabHost);
 			}
 		});
-        //异步加载
-		//new LoadImgSrcTask().execute();
-        //新建一个线程来检查静态类
      super.onCreate(savedInstanceState);
 	}
 	//动态更新tab的样式
 	private void updateTabStyle(FragmentTabHost mTabHost) {
 		resetTabStyle(mTabHost);//从新设置
-		for(int i=0;i<mTabHost.getTabWidget().getChildCount();i++){
-			if(mTabHost.getCurrentTab()==i){
+		for(int i = 0;i < mTabHost.getTabWidget().getChildCount();i++){
+			if(mTabHost.getCurrentTab() == i){
 				System.out.println("被调用");
 				((ImageButton)mTabHost.getTabWidget().getChildAt(i).findViewById(R.id.tab_imgbtn)).setImageResource(resImagePressed[i]);
 				((TextView)mTabHost.getTabWidget().getChildAt(i).findViewById(R.id.tab_textview)).setTextColor(getResources().getColor(R.color.tab_pressed_textcolor));
-				
-				
 			}
 		}
 	};
 	//重设tab的样式,包括图片按钮，文字颜色
 	protected void resetTabStyle(FragmentTabHost mTabHost)
 	{
-		for(int i=0;i<mTabHost.getTabWidget().getChildCount();i++){
+		for(int i = 0;i < mTabHost.getTabWidget().getChildCount();i++){
 			((ImageButton)mTabHost.getTabWidget().getChildAt(i).findViewById(R.id.tab_imgbtn)).setImageResource(resImage[i]);
 			((TextView)mTabHost.getTabWidget().getChildAt(i).findViewById(R.id.tab_textview)).setTextColor(getResources().getColor(R.color.tab_normal_textcolor));
 			((TextView)mTabHost.getTabWidget().getChildAt(i).findViewById(R.id.tab_textview)).setText(textView[i]);
@@ -120,10 +115,10 @@ public class MainActivity extends FragmentActivity
 //初始化fragmenttanhost
 	private void initFragmenttabHost(FragmentTabHost mTabHost,@SuppressWarnings("rawtypes") Class fragmentArrary[],int resTabItem)
 	{
-		LayoutInflater inflater=getLayoutInflater();
+		LayoutInflater inflater = getLayoutInflater();
 		//View indicator=getLayoutInflater().inflate(resTabItem, null);
-		int size=fragmentArrary.length;
-		for(int i=0;i<size;i++){
+		int size = fragmentArrary.length;
+		for(int i = 0;i < size;i++){
 			indicator=inflater.inflate(resTabItem, null);		
 	        resetTabStyle(mTabHost);
 	        mTabHost.addTab(mTabHost.newTabSpec(textView[i]).setIndicator(indicator), fragmentArrary[i], null); 
@@ -138,11 +133,10 @@ public class MainActivity extends FragmentActivity
 		 
 	    final NiftyDialogBuilder dialogBuilder=NiftyDialogBuilder.getInstance(this); 
 		dialogBuilder
-	      .withTitle("登陆")                                  //.withTitle(null)  no title
+	      .withTitle("登陆")
 	      .withTitleColor("#FFFFFF")                                  //def
 	      .withDividerColor("#11000000")                              //def
 	      .withMessage(null) 
-	      //.withMessage(null)  no Msg
 	      .withMessageColor("#FFFFFFFF")                              //def  | withMessageColor(int resid)
 	      .withDialogColor("#17b3ed")                               //def  | withDialogColor(int resid)
 	      .withIcon(getResources().getDrawable(R.drawable.ic_launcher))

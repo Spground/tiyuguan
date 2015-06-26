@@ -79,82 +79,36 @@ public class WelcomeActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); 
 		setContentView(R.layout.welcome_activity);
-		//定时执行下一个活动
-        final Intent it = new Intent(this, MainActivity.class); //你要转向的Activity
+        init();
+
+	}
+/*初始化操作*/
+    private void init(){
+        final Intent intent = new Intent(this, MainActivity.class);
         //检查网络连接情况
         if(CheckInternet.isConn(this))
         {
-        //从服务器接受数据初始化场馆信息++++++++++++++++++++++++++++++++++++++++++++++++
-        
-           RefreshVenusInfo.doRefreshVenusInfo(UserInfo.httpClient,parentHandler);
-           //加载图片
-          new Thread(){
-  			 public void run() {
-  				 ParseHtmlFromTYGSite parsehtml = null;
-  					try {
-  						parsehtml = new ParseHtmlFromTYGSite("http://tyg.dlut.edu.cn/", 6);
-  					} catch (IOException e) {
-  						// TODO Auto-generated catch block
-  						e.printStackTrace();
-  					}
-  					//不为空
-  					if(parsehtml!=null){
-  						LinkedHashMap<String, String> newsLink=parsehtml.getNewsLinks();
-  						Img.img=parsehtml.getNewsImgSrcByLink(newsLink);
-  						Message msg=new Message();
-  						msg.what=0x1236;
-  						msg.obj="图片加载成功了!";
-  						Looper.prepare();
-  						parentHandler.sendMessage(msg);
-  						Looper.loop();
-  					}
-  				 
-  			 };
-  		 }.start();
-           internetIsWork=true;
-         //读取用户的设置，是否为记住密码
-       	if(UserInfo.rememberme)
-       	{
-       		//new Thread(new DoPost(UserInfo.httpClient, parentHandler, "http://192.168.0.106:8080/GymBook/login.action", 1)).start();
-       	}
-       	
+            //从服务器接受数据初始化场馆信息++++++++++++++++++++++++++++++++++++++++++++++++
+            RefreshVenusInfo.doRefreshVenusInfo(UserInfo.httpClient,parentHandler);
+            internetIsWork=true;
+            //读取用户的设置，是否为记住密码
+            if(UserInfo.rememberme)
+            {
+                //new Thread(new DoPost(UserInfo.httpClient, parentHandler, "http://192.168.0.106:8080/GymBook/login.action", 1)).start();
+            }
         }
         else
         {
-        	CheckInternet.setNetworkMethod(this);
+            CheckInternet.setNetworkMethod(this);
         }
-        //++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-         //
         //调用postDelayed方法延时，插入消息队列中执行线程跳转
-		parentHandler.postDelayed(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				startActivity(it);
-				finish();
-			}
-		}, 4000);
-        //定时器
-        /*Timer timer = new Timer();
-    	TimerTask task = new TimerTask() {
-    		@Override
-    		public void run() {
-    			
-    			if(true)
-    			{
-   		        startActivity(it); //执行
-    			finish();//销毁此activity
-    			}
-    			else
-    			{
-    				Toast.makeText(getBaseContext(), "网络连接异常！", Toast.LENGTH_LONG).show();
-    			}
-    			
-    		}
-    	};
-    	timer.schedule(task, 1000 * 5);//三秒后执行task*/
-		
-		
-	}
+        parentHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                startActivity(intent);
+                finish();
+            }
+        }, 4000);
+    }
 }

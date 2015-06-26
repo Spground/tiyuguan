@@ -14,7 +14,7 @@ public class LoadImgSrcThread  implements Runnable{
 	Handler parent=null;
 	public LoadImgSrcThread(Handler parent) {
 		// TODO Auto-generated constructor stub
-		this.parent=parent;
+		this.parent = parent;
 	}
 	@Override
 	public void run() {
@@ -26,20 +26,19 @@ public class LoadImgSrcThread  implements Runnable{
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+                return;
 			}
-			//不为空
-			if(parsehtml!=null){
-				LinkedHashMap<String, String> newsLink=parsehtml.getNewsLinks();
-				Img.img=parsehtml.getNewsImgSrcByLink(newsLink);
-				if(Img.img!=null){
+				LinkedHashMap<String, String> newsLink = parsehtml.getNewsLinks();
+				Img.img = parsehtml.getNewsImgSrcByLink(newsLink);
+				if(Img.img != null){
 					Message msg=new Message();
-					msg.what=0x1238;
-					msg.obj="图片加载成功了哦";
+					msg.what = 0x1238;
+					msg.obj = "图片加载成功了哦";
 					Looper.prepare();
 					parent.sendMessage(msg);
 					Looper.loop();
 				}
-			}
+
 		 
 	}
 }
