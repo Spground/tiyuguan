@@ -55,34 +55,32 @@ public class MainTab03Fragment extends Fragment
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		
-		
 		View newsLayout = inflater.inflate(R.layout.main_tab_03, container, false);
 		//顶部的布局
 		LinearLayout topLinearLayout=(LinearLayout)newsLayout.findViewById(R.id.topLinearLayout);
-		View temp=null;
+		View temp = null;
 		//选择性添加顶部视图
 		if(!LoginInfo.getLoginState())//如果已经登陆了
 		{
-			       temp=(View)inflater.inflate(R.layout.toplinearlayout0, null);
+			       temp = (View)inflater.inflate(R.layout.toplinearlayout0, null);
 		}
 		else
 		{
-			       temp=(View)inflater.inflate(R.layout.toplinearlayout1, null);
+			       temp = (View)inflater.inflate(R.layout.toplinearlayout1, null);
 			       ((TextView)temp.findViewById(R.id.show_userid_textview)).setText(LoginInfo.getLoginUserId()+",欢迎你！");
 		}      
 		topLinearLayout.addView(temp);
 	    //找到布局文件的listview
-		final Button loginBtn=(Button)newsLayout.findViewById(R.id.login_btn);
+		final Button loginBtn = (Button)newsLayout.findViewById(R.id.login_btn);
         //显示用户信息与用户预约信息的listview
-        ListView listview=(ListView)newsLayout.findViewById(R.id.listview_aboutbook);
+        ListView listview = (ListView)newsLayout.findViewById(R.id.listview_aboutbook);
         //显示其他相关项的listview
-        ListView listview1=(ListView)newsLayout.findViewById(R.id.listview1_aboutbook);
+        ListView listview1 = (ListView)newsLayout.findViewById(R.id.listview1_aboutbook);
         //分别设置各自的适配器
-        MyListAdapter my=new MyListAdapter(newsLayout.getContext(),new String[]{"预约信息","账号信息"},
+        MyListAdapter my = new MyListAdapter(newsLayout.getContext(),new String[]{"预约信息","账号信息"},
         				new int[]{R.drawable.my_bookinfo,R.drawable.my_bookinfo1});
         listview.setAdapter(my);
-        MyListAdapter my1=new MyListAdapter(newsLayout.getContext(),new String[]{"意见反馈","咨询体育馆",
+        MyListAdapter my1 = new MyListAdapter(newsLayout.getContext(),new String[]{"意见反馈","咨询体育馆",
         
         "检查更新","关于"},new int[]{R.drawable.user_feedback,R.drawable.tel_question,R.drawable.check_update,R.drawable.about});
         //
@@ -122,7 +120,7 @@ public class MainTab03Fragment extends Fragment
 					{
 						Toast.makeText(getActivity(), "请登陆！", Toast.LENGTH_SHORT).show();
 						//loginBtn.performClick();//弹出对话框
-						Intent intent=new Intent((MainActivity)getActivity(),AccountInfoActivity.class);
+						Intent intent = new Intent((MainActivity)getActivity(),AccountInfoActivity.class);
 						startActivity(intent);					}
 					else
 					{
@@ -153,7 +151,7 @@ public class MainTab03Fragment extends Fragment
 				{
 					//Intent intentBasketballOrder=new Intent((M0Activity)getActivity(),GotoOrder.class);
 					//startActivity(intentBasketballOrder);
-					Intent intentFeedBackActivity =new Intent((MainActivity)getActivity(),FeedBackActivity.class);
+					Intent intentFeedBackActivity = new Intent((MainActivity)getActivity(),FeedBackActivity.class);
 					startActivity(intentFeedBackActivity);
 					
 					
@@ -188,7 +186,7 @@ public class MainTab03Fragment extends Fragment
 					  .setMessage( "你将拨打体育馆服务热线，是否继续？")
 					  .create()
 					  .show();*/
-					final NiftyDialogBuilder dialogBuilder=NiftyDialogBuilder.getInstance((MainActivity)getActivity());
+					final NiftyDialogBuilder dialogBuilder = NiftyDialogBuilder.getInstance((MainActivity)getActivity());
 				      dialogBuilder
 				      .withTitle("咨询体育馆")                                  //.withTitle(null)  no title
 				      .withTitleColor("#FFFFFF")                                  //def
@@ -295,9 +293,9 @@ public class MainTab03Fragment extends Fragment
 		   //构造函数
 		   MyListAdapter(Context context,String[] title,int[] img)
 		   {
-			   this.context=context;
-			   this.title=title;
-			   this.img=img;
+			   this.context = context;
+			   this.title = title;
+			   this.img = img;
 			   }
 		   private LayoutInflater mInflater;
 		@Override
@@ -322,16 +320,16 @@ public class MainTab03Fragment extends Fragment
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			// TODO Auto-generated method stub
-			ViewHolder viewholder=null;
-			View view=convertView;
+			ViewHolder viewholder = null;
+			View view = convertView;
 			if(true)
 			{
-			 viewholder=new ViewHolder();
-			  this.mInflater=LayoutInflater.from(context);
-			  view=this.mInflater.inflate(R.layout.row_aboutbook, null);
-			  viewholder.imageview=(ImageView)view.findViewById(R.id.iv_mybookinfo);
-			  viewholder.textview1=(TextView)view.findViewById(R.id.tv1_mybookinfo);
-			  viewholder.textview2=(TextView)view.findViewById(R.id.tv2_mybookinfo);
+			  viewholder = new ViewHolder();
+			  this.mInflater = LayoutInflater.from(context);
+			  view = this.mInflater.inflate(R.layout.row_aboutbook, null);
+			  viewholder.imageview =( ImageView)view.findViewById(R.id.iv_mybookinfo);
+			  viewholder.textview1 = (TextView)view.findViewById(R.id.tv1_mybookinfo);
+			  viewholder.textview2 = (TextView)view.findViewById(R.id.tv2_mybookinfo);
 			  viewholder.imageview.setBackgroundResource(img[position]);
 			  viewholder.textview1.setText(title[position]);
 			  //int colorid=getResources().getColor(R.color.blue);
@@ -341,7 +339,7 @@ public class MainTab03Fragment extends Fragment
 			}
 			else
 			{
-				viewholder=(ViewHolder)view.getTag();
+				viewholder = (ViewHolder)view.getTag();
 			}
 			return view;
 			
@@ -352,14 +350,6 @@ public class MainTab03Fragment extends Fragment
 			ImageView imageview;
 			TextView textview1,textview2;
 		}
-		
-		
-
-			
-
-			
-		
-		   
 	   }
 	   
 	}
@@ -372,7 +362,6 @@ class LoginListener implements View.OnClickListener
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		
 		
 }
 }

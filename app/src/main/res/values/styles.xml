@@ -10,7 +10,7 @@
         <item name="android:background">#17b3ed</item>
     </style>
     <style name="test" parent="android:Theme">
-        <item name="android:windowTitleSize">50dp</item>
+        <item name="android:windowTitleSize">?attr/actionBarSize</item>
         <item name="android:windowTitleBackgroundStyle">@style/CustomWindowTitleBackground</item>
 
     </style>

@@ -5,17 +5,7 @@
     android:background="#eee"
     android:orientation="vertical" >
     <include layout="@layout/title_bar"/>
-<!--  
-    <android.support.v4.view.ViewPager
-        android:id="@+id/id_viewpager"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" >
-    </android.support.v4.view.ViewPager>
-
-    <include layout="@layout/bottom_bar" />
-    -->
-    <FrameLayout 
+    <FrameLayout
         android:id="@+id/realtabcontent"
         android:layout_width="match_parent"
         android:layout_height="0dp"

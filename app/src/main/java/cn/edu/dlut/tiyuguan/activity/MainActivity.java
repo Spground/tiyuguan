@@ -36,23 +36,21 @@ import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity 
 {
-
-	//
 	private long end_time = 0;//按下返回键的上一次时间
 	private LayoutInflater inflater;
-	//++++++++++++++++++++++
-	//用户名，密码，是否记住密码？
+
 	private String userName="";
 	private String passWord="";
 	private Boolean rememberme=false;
-//+++++++++++++++++++++++++++++++++
-	private int resImage[]={R.drawable.tab_home_normal,R.drawable.tab_book_normall,R.drawable.tab_aboutme_normal};
-    private int resImagePressed[]={R.drawable.tab_home_pressed,R.drawable.tab_book_pressed,R.drawable.tab_aboutme_pressed};
-    private String[] textView={"首页","预约","我的"};
-	private FragmentTabHost mTabHost = null;;  
-    private View indicator = null;
+
+	private int resImage[] = {R.drawable.tab_home_normal,R.drawable.tab_book_normall,R.drawable.tab_aboutme_normal};
+    private int resImagePressed[] = {R.drawable.tab_home_pressed,R.drawable.tab_book_pressed,R.drawable.tab_aboutme_pressed};
+    private String[] textView = {"首页","预约","我的"};
+
+    private FragmentTabHost mTabHost;
+    private View indicator;
    
-    public Handler parentHandler=new Handler(){
+    public Handler parentHandler = new Handler(){
     	@Override
     	public void handleMessage(Message msg) {
     		// TODO Auto-generated method stub
@@ -70,18 +68,17 @@ public class MainActivity extends FragmentActivity
     @Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-    	
+        super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_m0);
-		mTabHost=(FragmentTabHost)findViewById(android.R.id.tabhost);
+		mTabHost = (FragmentTabHost)findViewById(android.R.id.tabhost);
 		mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
-        inflater=LayoutInflater.from(this);
+        inflater = LayoutInflater.from(this);
      // 添加tab名称和图标  
-        indicator=inflater.inflate(R.layout.tab_item_view, null);
+        indicator = inflater.inflate(R.layout.tab_item_view, null);
         @SuppressWarnings("rawtypes")
-		Class[] fragmentArrary={MainTab01Fragment.class,MainTab02Fragment.class,MainTab03Fragment.class};       
-        //int resImage[]={R.drawable.tab_settings_pressed,R.drawable.tab_find_frd_normal,R.drawable.tab_address_normal};     
-        int resTabItem=R.layout.tab_item_view;//布局资源indicator       
-        initFragmenttabHost(mTabHost, fragmentArrary,resTabItem );
+		Class[] fragmentArrary = {MainTab01Fragment.class,MainTab02Fragment.class,MainTab03Fragment.class};
+        int resTabItem = R.layout.tab_item_view;//布局资源indicator
+        initFragmentTabHost(mTabHost, fragmentArrary,resTabItem );
         mTabHost.setOnTabChangedListener(new OnTabChangeListener() {
 			
 			@Override
@@ -90,7 +87,7 @@ public class MainActivity extends FragmentActivity
 				updateTabStyle(mTabHost);
 			}
 		});
-     super.onCreate(savedInstanceState);
+
 	}
 	//动态更新tab的样式
 	private void updateTabStyle(FragmentTabHost mTabHost) {
@@ -113,10 +110,9 @@ public class MainActivity extends FragmentActivity
 		}
 	}
 //初始化fragmenttanhost
-	private void initFragmenttabHost(FragmentTabHost mTabHost,@SuppressWarnings("rawtypes") Class fragmentArrary[],int resTabItem)
+	private void initFragmentTabHost(FragmentTabHost mTabHost,@SuppressWarnings("rawtypes") Class fragmentArrary[],int resTabItem)
 	{
 		LayoutInflater inflater = getLayoutInflater();
-		//View indicator=getLayoutInflater().inflate(resTabItem, null);
 		int size = fragmentArrary.length;
 		for(int i = 0;i < size;i++){
 			indicator=inflater.inflate(resTabItem, null);		
@@ -129,44 +125,42 @@ public class MainActivity extends FragmentActivity
 	//响应MainTab03的登陆按钮
 	public void logInBtn(View view)
 	{
-			//采用的好看的开源控件
-		 
-	    final NiftyDialogBuilder dialogBuilder=NiftyDialogBuilder.getInstance(this); 
+		//采用的好看的开源控件
+	    final NiftyDialogBuilder dialogBuilder = NiftyDialogBuilder.getInstance(this);
 		dialogBuilder
 	      .withTitle("登陆")
-	      .withTitleColor("#FFFFFF")                                  //def
-	      .withDividerColor("#11000000")                              //def
+	      .withTitleColor("#FFFFFF")
+	      .withDividerColor("#11000000")
 	      .withMessage(null) 
-	      .withMessageColor("#FFFFFFFF")                              //def  | withMessageColor(int resid)
-	      .withDialogColor("#17b3ed")                               //def  | withDialogColor(int resid)
+	      .withMessageColor("#FFFFFFFF")
+	      .withDialogColor("#17b3ed")
 	      .withIcon(getResources().getDrawable(R.drawable.ic_launcher))
-	      .withDuration(700)                                          //def
-	      .withEffect(Effectstype.Shake)                                         //def Effectstype.Slidetop
-	      .withButton1Text("登陆")                                      //def gone
-	      .withButton2Text("取消")                                  //def gone
-	      .isCancelableOnTouchOutside(false)                           //def    | isCancelable(true)
-	      .setCustomView(R.layout.popup_login,view.getContext())         //.setCustomView(View or ResId,context)
+	      .withDuration(700)
+	      .withEffect(Effectstype.Shake)
+	      .withButton1Text("登陆")
+	      .withButton2Text("取消")
+	      .setCustomView(R.layout.popup_login,view.getContext())
 	      .setButton1Click(new View.OnClickListener() {
 	          @Override
 	          public void onClick(View v) {
 	        	  //登陆代码在这里写      	
-	        	  View parent=(View) v.getParent().getParent();//获取当前dialog的根视图
-	        	  View customPanel=(FrameLayout) parent.findViewById(R.id.customPanel);//获取Dialog_Layout布局中的FramLayout的视图        	 
-	        	  if(customPanel==null){
+	        	  View parent = (View) v.getParent().getParent();//获取当前dialog的根视图
+	        	  View customPanel = (FrameLayout) parent.findViewById(R.id.customPanel);//获取Dialog_Layout布局中的FramLayout的视图
+	        	  if(customPanel == null){
 	        		  return;	        		 	        		  
 	        	  }	
-	        	 ViewGroup viewGroup=(ViewGroup) customPanel;//将FrameLayout视图装换位ViewGroup
-	        	 View childView=viewGroup.getChildAt(0);
-	        	 if(childView!=null){//获取输入框的内容
+	        	 ViewGroup viewGroup = (ViewGroup) customPanel;//将FrameLayout视图装换位ViewGroup
+	        	 View childView = viewGroup.getChildAt(0);
+	        	 if(childView != null){//获取输入框的内容
 	        		 System.out.println("childView非空");
-	        		 FormEditText  userNameEdt=((FormEditText)childView.findViewById(R.id.account_edittext));
+	        		 FormEditText  userNameEdt = ((FormEditText)childView.findViewById(R.id.account_edittext));
 	        		 userNameEdt.testValidity();
-	        		 FormEditText passWordEdt=((FormEditText)childView.findViewById(R.id.password_edittext));
+	        		 FormEditText passWordEdt = ((FormEditText)childView.findViewById(R.id.password_edittext));
 	        		 passWordEdt.testValidity();
-	        		 CheckBox isrememberme=(CheckBox)childView.findViewById(R.id.rememberme);
-		        	 userName=userNameEdt.getText().toString();
-		        	 passWord=passWordEdt.getText().toString();
-		        	 rememberme=isrememberme.isChecked();
+	        		 CheckBox isrememberme = (CheckBox)childView.findViewById(R.id.rememberme);
+		        	 userName = userNameEdt.getText().toString();
+		        	 passWord = passWordEdt.getText().toString();
+		        	 rememberme = isrememberme.isChecked();
 	        	 }
 	        	 else
 	        	 {
@@ -178,7 +172,6 @@ public class MainActivity extends FragmentActivity
 					if(!verifyInput(userName, passWord)){
 						
 						//验证用户失败，然后弹出对话框
-						//Toast.makeText(getBaseContext(), "用户名或密码不能为空！",Toast.LENGTH_LONG).show();
 						YoYo.with(Techniques.Shake).playOn(childView);
 					     //AppMsg.cancelAll(currentActivity);	//防止用户点击很多次				
 						//AppMsg.makeText(currentActivity, "用户名或密码不能为空", AppMsg.STYLE_ALERT).setLayoutGravity(Gravity.TOP).setAnimation(android.R.anim.slide_in_left, android.R.anim.slide_out_right).show();
@@ -220,13 +213,13 @@ public class MainActivity extends FragmentActivity
 	{
 		
 		
-		Handler handler=new Handler()
+		Handler handler = new Handler()
 		{
 			@SuppressLint("InflateParams") @Override
 			public void handleMessage(Message msg) {
 				// TODO Auto-generated method stub
 				super.handleMessage(msg);
-				if(msg.what==0x123)
+				if(msg.what == 0x123)
 				{
 					String result=msg.obj.toString();
 					if(!result.equals("false"))//登陆成功
@@ -235,17 +228,17 @@ public class MainActivity extends FragmentActivity
 						LoginInfo.settLoginState(true);
 						//顶部的布局
 						LinearLayout topLinearLayout=(LinearLayout)findViewById(R.id.topLinearLayout);
-						View temp=null;
+						View temp = null;
 						topLinearLayout.removeAllViews();
 						//选择性添加顶部视图
 						if(!LoginInfo.getLoginState())//如果登陆失败
 						{
-							       temp=(View)inflater.inflate(R.layout.toplinearlayout0, null);
+							       temp = (View)inflater.inflate(R.layout.toplinearlayout0, null);
 							       
 						}
 						else//如果登陆成功
 						{
-							       temp=(View)inflater.inflate(R.layout.toplinearlayout1, null);
+							       temp = (View)inflater.inflate(R.layout.toplinearlayout1, null);
 						}          ((TextView)temp.findViewById(R.id.show_userid_textview)).setText(LoginInfo.userID+",欢迎你！");
 						
 						topLinearLayout.addView(temp);
@@ -267,7 +260,7 @@ public class MainActivity extends FragmentActivity
 	private Boolean verifyInput(String userName,String passWord)
 	{
 		
-		if((userName.trim()).length()==0||passWord.trim().length()==0) return false;
+		if((userName.trim()).length() == 0||passWord.trim().length() == 0) return false;
 		else return true;
 	}
 	//按两次按钮退出

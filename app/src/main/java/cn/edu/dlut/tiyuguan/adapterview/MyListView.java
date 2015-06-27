@@ -1,11 +1,8 @@
  package cn.edu.dlut.tiyuguan.adapterview;
-      
-import java.util.Date;  
-
+import java.util.Date;
 import cn.edu.dlut.tiyuguan.R;
 import cn.edu.dlut.tiyuguan.adapter.LvAdapter;
-      
-import android.content.Context;  
+import android.content.Context;
 import android.util.AttributeSet;  
 import android.view.LayoutInflater;  
 import android.view.MotionEvent;  
@@ -94,23 +91,20 @@ import android.widget.TextView;
             addHeaderView(headerView, null, false);  
             // 设置滚动监听事件  
             setOnScrollListener(this);  
-      
-            // 设置旋转动画事件  
+            // 设置旋转动画事件
             animation = new RotateAnimation(0, -180,  
                     RotateAnimation.RELATIVE_TO_SELF, 0.5f,  
                     RotateAnimation.RELATIVE_TO_SELF, 0.5f);  
             animation.setInterpolator(new LinearInterpolator());  
             animation.setDuration(250);  
             animation.setFillAfter(true);  
-      
-            reverseAnimation = new RotateAnimation(-180, 0,  
+            reverseAnimation = new RotateAnimation(-180, 0,
                     RotateAnimation.RELATIVE_TO_SELF, 0.5f,  
                     RotateAnimation.RELATIVE_TO_SELF, 0.5f);  
             reverseAnimation.setInterpolator(new LinearInterpolator());  
             reverseAnimation.setDuration(200);  
             reverseAnimation.setFillAfter(true);  
-      
-            // 一开始的状态就是下拉刷新完的状态，所以为DONE  
+            // 一开始的状态就是下拉刷新完的状态，所以为DONE
             state = DONE;  
             // 是否正在刷新  
             isRefreshable = false;  
@@ -233,11 +227,9 @@ import android.widget.TextView;
                 lvHeaderProgressBar.setVisibility(View.GONE);  
                 lvHeaderTipsTv.setVisibility(View.VISIBLE);  
                 lvHeaderLastUpdatedTv.setVisibility(View.VISIBLE);  
-      
-                lvHeaderArrowIv.clearAnimation();// 清除动画  
+                lvHeaderArrowIv.clearAnimation();// 清除动画
                 lvHeaderArrowIv.startAnimation(animation);// 开始动画效果  
-      
-                lvHeaderTipsTv.setText("松开刷新");  
+                lvHeaderTipsTv.setText("松开刷新");
                 break;  
             case PULL_To_REFRESH:  
                 lvHeaderProgressBar.setVisibility(View.GONE);  
