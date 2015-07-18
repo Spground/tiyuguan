@@ -19,11 +19,11 @@ public class CheckInternet {
 
 	//静态方法用于检测网络是否连接
 	 public static boolean isConn(Context context){
-	        boolean bisConnFlag=false;
+	        boolean bisConnFlag = false;
 	        ConnectivityManager conManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
 	        NetworkInfo network = conManager.getActiveNetworkInfo();
 	        //检查网络是否可用
-	        if(network!=null){
+	        if(network != null){
 	            bisConnFlag=conManager.getActiveNetworkInfo().isAvailable();
 	        }
 	        return bisConnFlag;
@@ -31,7 +31,6 @@ public class CheckInternet {
 	 
 	 public static void setNetworkMethod(final Context context){
 	        //提示对话框
-
 	        Builder builder=new Builder(context);
 	        //对话框
 	        builder.setTitle("网络设置提示").setMessage("网络连接不可用,是否进行设置?").setPositiveButton("设置", new DialogInterface.OnClickListener() {

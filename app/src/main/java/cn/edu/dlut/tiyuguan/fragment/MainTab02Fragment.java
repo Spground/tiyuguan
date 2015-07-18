@@ -9,8 +9,8 @@ import cn.edu.dlut.tiyuguan.adapterview.MyListView.OnRefreshListener;
 import cn.edu.dlut.tiyuguan.activity.GotoOrderActivity;
 import cn.edu.dlut.tiyuguan.activity.MainActivity;
 import cn.edu.dlut.tiyuguan.global.UserInfo;
-import cn.edu.dlut.tiyuguan.global.VenusInfo;
-import cn.edu.dlut.tiyuguan.internet.RefreshVenusInfo;
+import cn.edu.dlut.tiyuguan.global.VenueInfo;
+import cn.edu.dlut.tiyuguan.internet.RefreshVenueInfo;
 
 import cn.edu.dlut.tiyuguan.adapterview.MyListView;
 import cn.edu.dlut.tiyuguan.R;
@@ -56,7 +56,7 @@ public class MainTab02Fragment extends Fragment{
 				}
 				else
 				{
-				   VenusInfo.setVenusInfo(str);
+				   VenueInfo.setVenueInfo(str);
 				}
 			}
 			
@@ -129,7 +129,7 @@ public class MainTab02Fragment extends Fragment{
                             e.printStackTrace();
                         }
                         //      list.add("刷新后添加的内容");
-                        RefreshVenusInfo.doRefreshVenusInfo(UserInfo.httpClient,parentHandler);
+                        RefreshVenueInfo.doRefreshVenueInfo(UserInfo.httpClient, parentHandler);
                         return null;
                     }
 
