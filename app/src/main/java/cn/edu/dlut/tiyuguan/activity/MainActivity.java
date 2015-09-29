@@ -39,9 +39,9 @@ public class MainActivity extends FragmentActivity
 	private long end_time = 0;//按下返回键的上一次时间
 	private LayoutInflater inflater;
 
-	private String userName="";
-	private String passWord="";
-	private Boolean rememberme=false;
+	private String userName = "";
+	private String passWord = "";
+	private Boolean rememberme = false;
 
 	private int resImage[] = {R.drawable.tab_home_normal,R.drawable.tab_book_normall,R.drawable.tab_aboutme_normal};
     private int resImagePressed[] = {R.drawable.tab_home_pressed,R.drawable.tab_book_pressed,R.drawable.tab_aboutme_pressed};
