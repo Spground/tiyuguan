@@ -77,6 +77,7 @@ public class ChooseActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_choose);
 		init();
+		init();
 		//获得intent传来的数据
 		Bundle intentBundle = getIntent().getExtras();
 		this.venuename = intentBundle.getString("venuename");
