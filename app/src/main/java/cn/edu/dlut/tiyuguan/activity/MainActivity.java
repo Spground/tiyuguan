@@ -43,6 +43,7 @@ public class MainActivity extends FragmentActivity
 	private String passWord = "";
 	private Boolean rememberme = false;
 	//测试Git临时加的注释，用后即删。。。。。
+	//我又增加了一行注释 20150929 21:28
 	private int resImage[] = {R.drawable.tab_home_normal,R.drawable.tab_book_normall,R.drawable.tab_aboutme_normal};
     private int resImagePressed[] = {R.drawable.tab_home_pressed,R.drawable.tab_book_pressed,R.drawable.tab_aboutme_pressed};
     private String[] textView = {"首页","预约","我的"};
