@@ -3,6 +3,7 @@ package cn.edu.dlut.tiyuguan.fragment;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
+import cn.edu.dlut.tiyuguan.activity.TiyuguanGuideActivity;
 import cn.edu.dlut.tiyuguan.core.sportanalysis.SportAnalysisActivity;
 import cn.edu.dlut.tiyuguan.core.weather.WeatherActivity;
 import cn.edu.dlut.tiyuguan.adapterview.MyGridView;
@@ -37,7 +38,7 @@ public class MainTab01Fragment extends Fragment implements BaseSliderView.OnSlid
 	 private View view;
 
      private int resImage[]={R.drawable.ic_action_cloudy,R.drawable.ic_action_news,R.drawable.ic_action_alarm,R.drawable.ic_action_calculator,R.drawable.ic_action_home,R.drawable.ic_action_tv,R.drawable.ic_action_location,R.drawable.ic_action_book,R.drawable.ic_action_alarm};
-	 private String resString[]={"大连天气","体育馆新闻","预约提醒","我的运动分析","互动社区","赛事资讯","附近的人","运动指南","校园生活"};
+	 private String resString[]={"大连天气","体育馆指南","预约提醒","我的运动分析","互动社区","赛事资讯","附近的人","运动指南","校园生活"};
 	 protected LinkedHashMap<String, String> url_maps;
 
      private LayoutInflater inflater;
@@ -60,12 +61,12 @@ public class MainTab01Fragment extends Fragment implements BaseSliderView.OnSlid
 	public View onCreateView(LayoutInflater inflater,
 			 ViewGroup container,  Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		this.inflater=inflater;
-		this.container=container;
+		this.inflater = inflater;
+		this.container = container;
 		this.savedInstanceState=savedInstanceState;
         initView();
-		if(Img.img!=null){
-			url_maps=Img.img;
+		if(Img.img != null){
+			url_maps = Img.img;
 		}
 		else{
 			System.out.println("为空");
@@ -82,11 +83,11 @@ public class MainTab01Fragment extends Fragment implements BaseSliderView.OnSlid
 	}
 /*初始化视图*/
     private  void initView(){
-        this.view=(getLayoutInflater(savedInstanceState)).inflate(R.layout.main_tab_01, null, false);
+        this.view = (getLayoutInflater(savedInstanceState)).inflate(R.layout.main_tab_01, null, false);
 
         initSliderView();
 
-        MyGridView gridView=(MyGridView)view.findViewById(R.id.homegridview);
+        MyGridView gridView = (MyGridView)view.findViewById(R.id.homegridview);
         if(gridView!=null){
             gridView.setAdapter(new MyGridViewAdapter());
             gridView.setSelector(R.color.blue);
@@ -192,7 +193,8 @@ public class MainTab01Fragment extends Fragment implements BaseSliderView.OnSlid
 		case "大连天气":
 			startActivity(new Intent(getActivity(), WeatherActivity.class));			
 			break;
-		case "体育馆新闻":
+		case "体育馆指南":
+			startActivity(new Intent(getActivity(), TiyuguanGuideActivity.class));
 			break;
 		case "预约提醒":
 			break;

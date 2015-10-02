@@ -23,6 +23,7 @@
     <string name="grid_item_imageview_contentDescription">grid_item_imageview</string>
     <string name="serveraddr">http://dutgymbook.sinaapp.com</string>
     <string name="home_activity_title">体育馆预约</string>
+    <string name="title_activity_tiyuguan_guide">TiyuguanGuideActivity</string>
   
 
 </resources>
