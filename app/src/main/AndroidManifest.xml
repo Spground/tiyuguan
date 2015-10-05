@@ -119,13 +119,13 @@
             android:theme="@style/ActivityTheme_DefTitle_Style" >
         </activity>
         <activity
-<<<<<<< HEAD
             android:name=".activity.TiyuguanGuideActivity"
             android:label="@string/title_activity_tiyuguan_guide"
             android:screenOrientation="portrait"
             android:theme="@style/ActivityTheme_DefTitle_Style"
             >
-=======
+        </activity>
+        <activity
             android:name=".core.fitness_point.Fitness_point"
             android:label="@string/title_activity_fitness_point"
             android:screenOrientation="portrait" >
@@ -135,7 +135,6 @@
         <activity android:name=".core.fitness_point.Fitness_point2" >
         </activity>
         <activity android:name=".core.Test" >
->>>>>>> pr/4
         </activity>
     </application>
 
