@@ -7,7 +7,6 @@ import cn.edu.dlut.tiyuguan.internet.CheckInternet;
 import cn.edu.dlut.tiyuguan.internet.RefreshVenueInfo;
 
 import cn.edu.dlut.tiyuguan.R;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
