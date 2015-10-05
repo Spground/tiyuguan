@@ -125,14 +125,7 @@
             android:theme="@style/ActivityTheme_DefTitle_Style"
             >
         </activity>
-        <activity
-            android:name=".core.fitness_point.Fitness_point"
-            android:label="@string/title_activity_fitness_point"
-            android:screenOrientation="portrait" >
-        </activity>
         <activity android:name=".core.Fit_Advice" >
-        </activity>
-        <activity android:name=".core.fitness_point.Fitness_point2" >
         </activity>
         <activity android:name=".core.Test" >
         </activity>

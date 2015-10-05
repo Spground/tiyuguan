@@ -3,7 +3,7 @@ package cn.edu.dlut.tiyuguan.fragment;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import cn.edu.dlut.tiyuguan.activity.TiyuguanGuideActivity;
-import cn.edu.dlut.tiyuguan.core.fitness_point.Fitness_point2;
+import cn.edu.dlut.tiyuguan.core.Fit_Advice;
 import cn.edu.dlut.tiyuguan.core.sportanalysis.SportAnalysisActivity;
 import cn.edu.dlut.tiyuguan.core.weather.WeatherActivity;
 import cn.edu.dlut.tiyuguan.adapterview.MyGridView;
@@ -14,7 +14,6 @@ import cn.edu.dlut.tiyuguan.core.location.MapActivity;
 import cn.edu.dlut.tiyuguan.ChildAnimationExample;
 import cn.edu.dlut.tiyuguan.R;
 
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -39,7 +38,7 @@ public class MainTab01Fragment extends Fragment implements BaseSliderView.OnSlid
 
 
      private int resImage[]={R.drawable.ic_action_cloudy,R.drawable.ic_action_calculator,R.drawable.ic_action_location,
-			 R.drawable.ic_action_news,R.drawable.ic_action_alarm,R.drawable.ic_action_fitness,R.drawable.ic_action_tv,R.drawable.ic_action_book,R.drawable.ic_action_alarm};
+			 R.drawable.ic_action_news,R.drawable.ic_action_alarm,R.drawable.ic_action_alarm,R.drawable.ic_action_tv,R.drawable.ic_action_book,R.drawable.ic_action_alarm};
 	 private String resString[]={"大连天气","我的运动分析","附近的人","体育馆指南","运动提醒","运动指南"};
 
 	 protected LinkedHashMap<String, String> url_maps;
@@ -200,7 +199,8 @@ public class MainTab01Fragment extends Fragment implements BaseSliderView.OnSlid
 			startActivity(new Intent(getActivity(), TiyuguanGuideActivity.class));
 			break;
 		case "运动指南":
-			startActivity(new Intent(getActivity(), Fitness_point2.class));
+			startActivity(new Intent(getActivity(), Fit_Advice.class));
+
 			break;
 		case "我的运动分析":
 			startActivity(new Intent(getActivity(), SportAnalysisActivity.class));
