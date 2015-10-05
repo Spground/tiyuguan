@@ -3,7 +3,12 @@ package cn.edu.dlut.tiyuguan.fragment;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
+<<<<<<< HEAD
 import cn.edu.dlut.tiyuguan.activity.TiyuguanGuideActivity;
+=======
+
+import cn.edu.dlut.tiyuguan.core.fitness_point.Fitness_point2;
+>>>>>>> pr/4
 import cn.edu.dlut.tiyuguan.core.sportanalysis.SportAnalysisActivity;
 import cn.edu.dlut.tiyuguan.core.weather.WeatherActivity;
 import cn.edu.dlut.tiyuguan.adapterview.MyGridView;
@@ -37,8 +42,14 @@ public class MainTab01Fragment extends Fragment implements BaseSliderView.OnSlid
 	 private SliderLayout mDemoSlider;
 	 private View view;
 
+<<<<<<< HEAD
      private int resImage[]={R.drawable.ic_action_cloudy,R.drawable.ic_action_news,R.drawable.ic_action_alarm,R.drawable.ic_action_calculator,R.drawable.ic_action_home,R.drawable.ic_action_tv,R.drawable.ic_action_location,R.drawable.ic_action_book,R.drawable.ic_action_alarm};
 	 private String resString[]={"大连天气","体育馆指南","预约提醒","我的运动分析","互动社区","赛事资讯","附近的人","运动指南","校园生活"};
+=======
+     private int resImage[]={R.drawable.ic_action_cloudy,R.drawable.ic_action_calculator,R.drawable.ic_action_location,
+			 R.drawable.ic_action_news,R.drawable.ic_action_alarm,R.drawable.ic_action_fitness,R.drawable.ic_action_tv,R.drawable.ic_action_book,R.drawable.ic_action_alarm};
+	 private String resString[]={"大连天气","我的运动分析","附近的人","体育馆新闻","运动提醒","运动指南"};
+>>>>>>> pr/4
 	 protected LinkedHashMap<String, String> url_maps;
 
      private LayoutInflater inflater;
@@ -155,7 +166,7 @@ public class MainTab01Fragment extends Fragment implements BaseSliderView.OnSlid
 		@Override
 		public int getCount() {
 			// TODO Auto-generated method stub
-			return 9;
+			return 6;
 		}
 
 		@Override
@@ -196,7 +207,8 @@ public class MainTab01Fragment extends Fragment implements BaseSliderView.OnSlid
 		case "体育馆指南":
 			startActivity(new Intent(getActivity(), TiyuguanGuideActivity.class));
 			break;
-		case "预约提醒":
+		case "运动指南":
+			startActivity(new Intent(getActivity(), Fitness_point2.class));
 			break;
 		case "我的运动分析":
 			startActivity(new Intent(getActivity(), SportAnalysisActivity.class));
