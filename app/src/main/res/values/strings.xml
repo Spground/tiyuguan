@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">体育馆</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="appname">体育馆预约</string>
+    <string name="bask">篮球</string>
+    <string name="swim">游泳</string>
+    <string name="taiqiu">台球</string>
+    <string name="ping">乒乓球</string>
+    <string name="yumao">羽毛球</string>
+    <string name="next">&gt;</string>
+    <string name="phone">电话预约</string>
+    <string name="title">刘长春体育馆</string>
+    <string name="inform">重要通知</string>
+    <string name="host" >http://192.168.0.100:8080/</string>
+    <string name="us_info">DUT移动互联网实验室出品</string>
+    <string name="us_contact">Email:958340585@qq.com</string>
+    <string name="us_addr">大连理工大学研教楼820室</string>
+    <string name="question_via_tel">您将拨打体育馆服务热线，是否继续?</string>
+    <string name="question_tel">&quot;tel:0411——84708978&quot;</string>
+    <string name="grid_item_imageview_contentDescription">grid_item_imageview</string>
+    <string name="serveraddr">http://dutgymbook.sinaapp.com</string>
+    <string name="home_activity_title">体育馆预约</string>
+    <string name="title_activity_tiyuguan_guide">TiyuguanGuideActivity</string>
+  
+
+</resources>

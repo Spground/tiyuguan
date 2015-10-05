@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   android:id="@+id/dialog_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/progressdialogshape"  
+    android:gravity="center"  
+    android:paddingLeft="60dp" 
+    android:paddingRight="60dp" 
+    android:paddingTop="40dp" 
+    android:paddingBottom="40dp"  
+     >
+     <ImageView   
+        android:id="@+id/img"  
+        android:layout_width="wrap_content"   
+        android:layout_height="wrap_content"  
+        android:scaleType="fitCenter" 
+        android:src="@drawable/loading" 
+        android:contentDescription="@string/appname" 
+        /> 
+   <TextView   
+        android:id="@+id/tipTextView"  
+        android:layout_width="wrap_content"   
+        android:layout_height="wrap_content"  
+        android:textColor="@color/black"  />  
+</LinearLayout>

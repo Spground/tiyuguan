@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="#efefef"
+    android:paddingLeft="0dip"
+    android:paddingRight="0dip"
+    android:paddingTop="0dip"
+    android:paddingBottom="0dip"
+    >
+   
+   <RelativeLayout 
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:id="@+id/body_relativelayout"
+       android:layout_marginTop="0dip"
+      
+       >
+   
+    <cn.edu.dlut.tiyuguan.widget.pull2zoomview.PullToZoomListViewEx
+        android:id="@+id/accountinfo_pulltozoomlistview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:cacheColorHint="@android:color/transparent"
+        android:listSelector="@drawable/listview_item_selector" 
+        android:divider="#efefef"
+        android:dividerHeight="1.5dip"
+        android:focusable="true"     
+        />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_below="@id/body_relativelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dip"
+         >
+     <Button 
+         
+         android:layout_marginTop="20dip"
+         android:id="@+id/exit_btn"
+          android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="注销"
+         android:textSize="25dip"
+         android:paddingTop="8dip"
+         android:paddingBottom="8dip"
+         android:background="@drawable/exit_button_selector"
+         
+         />
+     </RelativeLayout>
+</RelativeLayout>
