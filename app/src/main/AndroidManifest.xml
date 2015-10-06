@@ -129,7 +129,7 @@
         <!-- 运动指南-->
         <activity
             android:name=".activity.FitAdviceActivity"
-            android:theme="@style/actionbar_def_style"
+            android:theme="@style/ActivityTheme_DefTitle_Style"
             >
         </activity>
 
