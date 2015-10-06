@@ -54,7 +54,7 @@ public class MainTab01Fragment extends Fragment implements BaseSliderView.OnSlid
 					if(str!=null)
 						Toast.makeText(getActivity(),str, Toast.LENGTH_LONG).show();
 			 }
-		 };
+		 }
 	 };
 	 
 
