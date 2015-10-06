@@ -12,6 +12,7 @@ import cn.edu.dlut.tiyuguan.base.BaseMessage;
 import cn.edu.dlut.tiyuguan.base.BaseService;
 import cn.edu.dlut.tiyuguan.global.NameConstant;
 import cn.edu.dlut.tiyuguan.util.AppUtil;
+import cn.edu.dlut.tiyuguan.util.ToastUtil;
 
 /**
  * Created by asus on 2015/10/6.
@@ -88,7 +89,8 @@ public class AutoLoginService extends BaseService {
 
     @Override
     public void onTaskCompleted(int taskId, String data) {
-
+        /**login请求完成以后**/
+        ToastUtil.showInfoToast(this,data);
     }
 
     @Override

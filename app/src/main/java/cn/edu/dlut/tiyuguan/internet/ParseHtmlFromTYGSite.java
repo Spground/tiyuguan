@@ -22,11 +22,6 @@ public class ParseHtmlFromTYGSite{
      String URL;
 	 Document doc;
 	 int num=5;//抓取的数量
-	/**
-	 * @param URL传入的URL
-	 * @throws java.io.IOException
-	 * 
-	 */
 	public ParseHtmlFromTYGSite(String URL,int n) throws IOException {
 		// TODO Auto-generated constructor stub
 		this.URL=URL;

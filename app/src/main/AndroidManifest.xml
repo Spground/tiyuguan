@@ -103,6 +103,7 @@
             android:name=".activity.AccountInfoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ActivityTheme_DefTitle_Style" />
+        <!-- 天气-->
         <activity
             android:name=".core.weather.WeatherActivity"
             android:screenOrientation="portrait"
@@ -125,10 +126,20 @@
             android:theme="@style/ActivityTheme_DefTitle_Style"
             >
         </activity>
-        <activity android:name=".core.Fit_Advice" >
+        <!-- 运动指南-->
+        <activity
+            android:name=".activity.FitAdviceActivity"
+            android:theme="@style/actionbar_def_style"
+            >
         </activity>
-        <activity android:name=".core.Test" >
-        </activity>
+
+        <!-- Service-->
+        <service android:name=".service.AutoLoginService"
+            android:enabled="true"
+            >
+
+        </service>
+        <!-- Service-->
     </application>
 
 </manifest>

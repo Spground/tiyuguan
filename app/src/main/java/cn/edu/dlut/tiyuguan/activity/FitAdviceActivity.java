@@ -1,11 +1,11 @@
-package cn.edu.dlut.tiyuguan.core;
+package cn.edu.dlut.tiyuguan.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import cn.edu.dlut.tiyuguan.R;
 
-public class Fit_Advice extends AppCompatActivity {
+public class FitAdviceActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

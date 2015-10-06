@@ -34,7 +34,7 @@ tasks.withType(JavaCompile) {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.2.0'
-    compile 'com.squareup.picasso:picasso:2.3.2'
+    compile 'com.squareup.picasso:picasso:2.4.0'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.daimajia.slider:library:1.1.5@aar'
     compile 'com.daimajia.easing:library:1.0.1@aar'
@@ -42,6 +42,8 @@ dependencies {
     compile 'com.github.johnkil.android-appmsg:appmsg:1.2.0'
     compile 'com.andreabaccega:android-form-edittext:1.1.0@aar'
     compile 'com.android.support:cardview-v7:22.2.0'
+    compile 'com.squareup.okhttp:okhttp:2.4.0'
+    compile 'com.squareup.okhttp:okhttp-urlconnection:2.2.0'
     compile files('libs/achartengine-1.0.0.jar')
     compile files('libs/jsoup-1.8.1.jar')
     compile files('libs/BaiduLBS_Android.jar')

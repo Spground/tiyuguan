@@ -11,6 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cn.edu.dlut.tiyuguan.R;
+import cn.edu.dlut.tiyuguan.service.WeatherService;
 
 import android.app.Activity;
 import android.app.AlertDialog;

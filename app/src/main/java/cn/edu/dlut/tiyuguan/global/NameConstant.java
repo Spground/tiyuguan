@@ -10,10 +10,14 @@ public class NameConstant {
     //the api info of remote server
     public static class api{
         //url of the login
-        public static String login = "url";
+        public static String login = "http://192.168.0.104:8080/GymBook/loginmobile.action";
     }
 
     public static class task{
         public static int login = 1000;
+    }
+
+    public static class dir{
+        public static String root = "GymBook";
     }
 }
