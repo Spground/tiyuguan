@@ -10,9 +10,13 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import cn.edu.dlut.tiyuguan.base.BaseMessage;
 import cn.edu.dlut.tiyuguan.global.NameConstant;
 
 /**
@@ -92,5 +96,22 @@ public class AppUtil {
                 dialog.dismiss();
             }
         }).show();
+    }
+
+    /**根据json原始字符串提取合成一个message对象**/
+    public static BaseMessage getMessage(String jsonStr) throws Exception{
+        BaseMessage message = new BaseMessage();
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject(jsonStr);
+            message.setCode(jsonObject.getInt("code"));
+            message.setMessage(jsonObject.getString("message"));
+            message.setDataStr(jsonObject.getString("result"));
+        } catch (JSONException e) {
+            throw new Exception("Json format error");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return message;
     }
 }
