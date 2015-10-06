@@ -16,4 +16,8 @@ public class NameConstant {
     public static class task{
         public static int login = 1000;
     }
+
+    public static class dir{
+        public static String root = "";
+    }
 }

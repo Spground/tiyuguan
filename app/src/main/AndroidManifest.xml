@@ -103,6 +103,7 @@
             android:name=".activity.AccountInfoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ActivityTheme_DefTitle_Style" />
+        <!-- 天气预报界面-->
         <activity
             android:name=".core.weather.WeatherActivity"
             android:screenOrientation="portrait"
@@ -129,6 +130,14 @@
         </activity>
         <activity android:name=".core.Test" >
         </activity>
+
+        <!-- Service-->
+        <service android:name=".service.AutoLoginService"
+            android:enabled="true"
+            >
+
+        </service>
+        <!-- Service-->
     </application>
 
 </manifest>

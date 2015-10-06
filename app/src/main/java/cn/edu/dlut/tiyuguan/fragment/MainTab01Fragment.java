@@ -8,11 +8,11 @@ import cn.edu.dlut.tiyuguan.core.sportanalysis.SportAnalysisActivity;
 import cn.edu.dlut.tiyuguan.core.weather.WeatherActivity;
 import cn.edu.dlut.tiyuguan.adapterview.MyGridView;
 import cn.edu.dlut.tiyuguan.global.Img;
-import cn.edu.dlut.tiyuguan.internet.CheckInternet;
 import cn.edu.dlut.tiyuguan.core.location.MapActivity;
 
 import cn.edu.dlut.tiyuguan.ChildAnimationExample;
 import cn.edu.dlut.tiyuguan.R;
+import cn.edu.dlut.tiyuguan.util.AppUtil;
 
 import android.support.v4.app.Fragment;
 import android.content.Intent;
@@ -73,7 +73,7 @@ public class MainTab01Fragment extends Fragment implements BaseSliderView.OnSlid
 		else{
 			System.out.println("为空");
 			 //新建一个线程去实时访问img可用不
-			if(CheckInternet.isConn(getActivity())){
+			if(AppUtil.isConnected(getActivity())){
 			}
 			else{
 				System.out.println("网络连接不可用");

@@ -3,10 +3,11 @@ package cn.edu.dlut.tiyuguan.activity;
 import cn.edu.dlut.tiyuguan.global.Img;
 import cn.edu.dlut.tiyuguan.global.UserInfo;
 import cn.edu.dlut.tiyuguan.global.VenueInfo;
-import cn.edu.dlut.tiyuguan.internet.CheckInternet;
 import cn.edu.dlut.tiyuguan.internet.RefreshVenueInfo;
 
 import cn.edu.dlut.tiyuguan.R;
+import cn.edu.dlut.tiyuguan.util.AppUtil;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -79,7 +80,7 @@ public class WelcomeActivity extends Activity{
     private void init(){
         final Intent intent = new Intent(this, MainActivity.class);
         //检查网络连接情况
-        if(CheckInternet.isConn(this)) {
+        if(AppUtil.isConnected(this)) {
             //从服务器接受数据初始化场馆信息++++++++++++++++++++++++++++++++++++++++++++++++
             RefreshVenueInfo.doRefreshVenueInfo(UserInfo.httpClient, parentHandler);
             internetIsWork = true;
@@ -91,7 +92,7 @@ public class WelcomeActivity extends Activity{
         }
         else
         {
-            CheckInternet.setNetworkMethod(this);
+            AppUtil.setNetworkMethod(this);
         }
         //调用postDelayed方法延时，插入消息队列中执行线程跳转
         parentHandler.postDelayed(new Runnable() {

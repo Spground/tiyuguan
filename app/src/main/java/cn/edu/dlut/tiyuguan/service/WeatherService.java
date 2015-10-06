@@ -1,4 +1,4 @@
-package cn.edu.dlut.tiyuguan.core.weather;
+package cn.edu.dlut.tiyuguan.service;
 
 
 import java.io.ByteArrayOutputStream;

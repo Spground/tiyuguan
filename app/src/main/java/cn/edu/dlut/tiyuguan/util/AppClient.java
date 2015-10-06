@@ -11,8 +11,13 @@ public class AppClient {
     }
 
 
+    //post request to remote server
     public String post(HashMap taskArgs){
 
+        return null;
+    }
+
+    public String get(String url){
         return null;
     }
 }
