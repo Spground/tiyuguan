@@ -18,26 +18,31 @@ public class CustomProgressDialog extends Dialog{
 	public CustomProgressDialog(Context context, int theme) {
         super(context, theme);
     }
-	public static Dialog createDialog(Context context){
+	public static Dialog createDialog(Context context,String dlgText,boolean cancelable){
 		LayoutInflater inflater = LayoutInflater.from(context); 
-		View v = inflater.inflate(R.layout.loading_dialog, null);// 得到加载view  
-        LinearLayout layout = (LinearLayout) v.findViewById(R.id.dialog_view);// 加载布局  
-        // main.xml中的ImageView  
-        ImageView spaceshipImage = (ImageView) v.findViewById(R.id.img);  
-        TextView tipTextView = (TextView) v.findViewById(R.id.tipTextView);// 提示文字  
-        // 加载动画  
+		View dlgView = inflater.inflate(R.layout.loading_dialog, null);
+
+        LinearLayout layout = (LinearLayout) dlgView.findViewById(R.id.dialog_view);
+        ImageView spaceshipImage = (ImageView) dlgView.findViewById(R.id.img);
+        TextView tipTextView = (TextView) dlgView.findViewById(R.id.tipTextView);
+
+        // 加载动画 使用ImageView显示动画
         Animation hyperspaceJumpAnimation = AnimationUtils.loadAnimation(  
                 context, R.anim.loading_animation);  
-        // 使用ImageView显示动画  
-        spaceshipImage.startAnimation(hyperspaceJumpAnimation);  
-        tipTextView.setText("正在定位,请稍等....");// 设置加载信息  
-        Dialog loadingDialog = new Dialog(context, R.style.loading_dialog);// 创建自定义样式dialog  
-        
-        loadingDialog.setCancelable(true);// 可以用“返回键”取消  
+        spaceshipImage.startAnimation(hyperspaceJumpAnimation);
+
+        // 设置加载信息
+        tipTextView.setText(dlgText);
+
+        // 创建自定义样式dialog
+        Dialog loadingDialog = new Dialog(context, R.style.loading_dialog);
+
+        //是否可以用“返回键”取消
+        loadingDialog.setCancelable(cancelable);
         loadingDialog.setContentView(layout, new LinearLayout.LayoutParams(  
                 LinearLayout.LayoutParams.MATCH_PARENT,  
-                LinearLayout.LayoutParams.MATCH_PARENT));// 设置布局  
+                LinearLayout.LayoutParams.MATCH_PARENT));
         return loadingDialog;
     }
-        
+
 }  
