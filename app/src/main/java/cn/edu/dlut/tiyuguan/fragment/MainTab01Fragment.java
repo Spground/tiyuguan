@@ -3,7 +3,7 @@ package cn.edu.dlut.tiyuguan.fragment;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import cn.edu.dlut.tiyuguan.activity.TiyuguanGuideActivity;
-import cn.edu.dlut.tiyuguan.core.Fit_Advice;
+import cn.edu.dlut.tiyuguan.activity.FitAdviceActivity;
 import cn.edu.dlut.tiyuguan.core.sportanalysis.SportAnalysisActivity;
 import cn.edu.dlut.tiyuguan.core.weather.WeatherActivity;
 import cn.edu.dlut.tiyuguan.adapterview.MyGridView;
@@ -199,7 +199,7 @@ public class MainTab01Fragment extends Fragment implements BaseSliderView.OnSlid
 			startActivity(new Intent(getActivity(), TiyuguanGuideActivity.class));
 			break;
 		case "运动指南":
-			startActivity(new Intent(getActivity(), Fit_Advice.class));
+			startActivity(new Intent(getActivity(), FitAdviceActivity.class));
 
 			break;
 		case "我的运动分析":
