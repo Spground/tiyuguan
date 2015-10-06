@@ -26,19 +26,19 @@ import cn.edu.dlut.tiyuguan.widget.CustomProgressDialog;
 
 public class LocateUtil {
 
-    private  Boolean isFirstLoc=true;
-	private  LocationClient locationClient=null;
-	private  BaiduMap baiduMap=null;
-	private Dialog progressDialog=null;
-	private Context context=null;
+    private  Boolean isFirstLoc = true;
+	private  LocationClient locationClient;
+	private  BaiduMap baiduMap;
+	private Dialog progressDialog;
+	private Context context;
 
 	public LocateUtil(Context context,BaiduMap baiduMap){
 
 		SDKInitializer.initialize(context.getApplicationContext());
-		this.context=context;
-		this.locationClient=new LocationClient(context);
-		this.baiduMap=baiduMap;	
-	    progressDialog=CustomProgressDialog.createDialog(context);
+		this.context = context;
+		this.locationClient = new LocationClient(context);
+		this.baiduMap = baiduMap;
+	    progressDialog = CustomProgressDialog.createDialog(context,"正在定位，请稍等。。。",true);
 
 	}
     /*下面是展示我的位置在地图上*/
@@ -48,7 +48,7 @@ public class LocateUtil {
 		this.locationClient.registerLocationListener(new MyLocationListener());
 		locationClient.start();
 
-		if(locationClient!=null&&locationClient.isStarted())
+		if(locationClient != null&&locationClient.isStarted())
 			  locationClient.requestLocation();
 		else if(!locationClient.isStarted()){
 			System.out.println("locationClient未启动");
@@ -56,8 +56,6 @@ public class LocateUtil {
 		else{
 			System.out.println("locationClient为空");
 		}
-
-
 
 		LocationClientOption option = new LocationClientOption();		
 		option.setLocationMode(LocationMode.Hight_Accuracy);//设置定位模式
@@ -76,8 +74,8 @@ public class LocateUtil {
 
         double latitude,longitude;
 
-		latitude=location.getLatitude();
-		longitude=location.getLongitude();
+		latitude = location.getLatitude();
+		longitude = location.getLongitude();
 		LatLng mylatLng = new LatLng(latitude, longitude); //经纬度
 
 		BitmapDescriptor bitmap = BitmapDescriptorFactory  
@@ -114,7 +112,7 @@ public class LocateUtil {
 			if (location == null)
 	            return ;
 		StringBuffer sb = new StringBuffer(256);
-		String toastInfo="";
+		String toastInfo = "";
 		sb.append("time : ");
 		sb.append(location.getTime());
 		sb.append("\nerror code : ");

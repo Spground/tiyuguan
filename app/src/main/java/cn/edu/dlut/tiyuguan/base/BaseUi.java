@@ -1,9 +1,15 @@
 package cn.edu.dlut.tiyuguan.base;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 
+import cn.edu.dlut.tiyuguan.R;
 import cn.edu.dlut.tiyuguan.util.ToastUtil;
 
 /**
@@ -21,6 +27,21 @@ public class BaseUi extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
+    protected void initActionBar(String title){
+        //初始化actionbar
+        ActionBar actionBar = this.getActionBar();
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setTitle(" ");
+
+        View actionbarView = LayoutInflater.from(this).inflate(R.layout.tv, null);
+        ((TextView)actionbarView).setText(title);
+        actionBar.setDisplayShowCustomEnabled(true);
+        ActionBar.LayoutParams layout = new  ActionBar.LayoutParams(Gravity.CENTER);
+        actionBar.setCustomView(actionbarView,layout);
+    }
+
 
     @Override
     protected void onResume() {

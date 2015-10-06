@@ -1,27 +1,27 @@
 package cn.edu.dlut.tiyuguan.activity;
 
-import android.app.ActionBar;
-import android.app.Activity;
+import android.app.Dialog;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
-import android.widget.TextView;
+import android.webkit.WebViewClient;
 
 import cn.edu.dlut.tiyuguan.R;
+import cn.edu.dlut.tiyuguan.base.BaseUi;
+import cn.edu.dlut.tiyuguan.widget.CustomProgressDialog;
 
 /**
  * Email:958340585@qq.com
  * Author:wujie
  * Last Modified:
  */
-public class TiyuguanGuideActivity extends Activity {
+public class TiyuguanGuideActivity extends BaseUi {
 
     private WebView mWebView ;
+    private Dialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,23 +34,23 @@ public class TiyuguanGuideActivity extends Activity {
      */
     private void init(){
         //初始化actionbar
-        ActionBar actionBar = this.getActionBar();
-        actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setTitle(" ");
-        View actionbarLayout = LayoutInflater.from(this).inflate(R.layout.tv, null);
-        ((TextView)actionbarLayout).setText("体育馆指南");
-        actionBar.setDisplayShowCustomEnabled(true);
-        ActionBar.LayoutParams layout = new  ActionBar.LayoutParams(Gravity.CENTER);
-        actionBar.setCustomView(actionbarLayout,layout);
-        //actionbar初始化结束
+        initActionBar("体育馆指南");
+
+        progressDialog = CustomProgressDialog.createDialog(this,"正在加载，请稍后...",true);
+        progressDialog.show();
 
         mWebView = (WebView)findViewById(R.id.id_webview_tiyuguanguide);
         if(mWebView != null){
             mWebView.loadUrl("file:///android_asset/html/tiyuguanguide.html");
             mWebView.getSettings().setJavaScriptEnabled(true);
+            mWebView.setWebViewClient(new WebViewClient(){
+                @Override
+                public void onPageFinished(WebView view, String url) {
+                    super.onPageFinished(view, url);
+                    TiyuguanGuideActivity.this.progressDialog.hide();
+                }
+            });
             mWebView.setWebChromeClient(new WebChromeClient());
-            //mWebView.getSettings().setAllowUniversalAccessFromFileURLs(true);
         }
 
     }
