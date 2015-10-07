@@ -10,6 +10,35 @@ public class User extends BaseModel {
     private String userEmail;
     private String creditRating;//信用等级
 
+    private String name;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getCreditworthiness() {
+        return creditworthiness;
+    }
+
+    public void setCreditworthiness(String creditworthiness) {
+        this.creditworthiness = creditworthiness;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    private String id;
+    private String creditworthiness;
+
     private String face;
     private String department;//学部学院
     private String major;//专业

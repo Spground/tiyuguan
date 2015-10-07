@@ -1,6 +1,7 @@
 package cn.edu.dlut.tiyuguan.base;
 
 import android.app.ActionBar;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import cn.edu.dlut.tiyuguan.R;
 import cn.edu.dlut.tiyuguan.util.ToastUtil;
+import cn.edu.dlut.tiyuguan.widget.CustomProgressDialog;
 
 /**
  * Created by asus on 2015/10/6.
@@ -24,11 +26,23 @@ public class BaseUi extends FragmentActivity {
 
     protected boolean shownLoadBar = false;
     protected boolean isPaused = true;
+
+    private Dialog progressDlg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        progressDlg = CustomProgressDialog.createDialog(this,"正在处理请稍后...",false);
     }
 
+    /**显示的ProgressDlg的内容**/
+    protected String getProgressDlgTxt(){
+        return "正在处理请稍后...";
+    }
+
+    /**返回是否可以返回键取消**/
+    protected boolean getProgressDlgCanceable(){
+        return false;
+    }
     protected void initActionBar(String title){
         //初始化actionbar
         ActionBar actionBar = this.getActionBar();
@@ -47,7 +61,6 @@ public class BaseUi extends FragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         isPaused = false;
     }
 
@@ -88,13 +101,20 @@ public class BaseUi extends FragmentActivity {
         ToastUtil.showWarningToast(this,msg);
     }
 
-    //TODO:
-    public void showLoadingDlg(){
-
+    /**显示加载进度dlg**/
+    public void showProgressDlg(){
+        if(progressDlg == null || progressDlg.isShowing())
+            return ;
+        progressDlg.show();
+        return ;
     }
-    //TODO:
-    public void hideLoadingDlg(){
 
+    /**隐藏加载进度dlg**/
+    public void hideProgressDlg(){
+        if(progressDlg != null && progressDlg.isShowing()){
+            progressDlg.dismiss();
+        }
+        return;
     }
     /********************各种弹出消息 END***************************/
 

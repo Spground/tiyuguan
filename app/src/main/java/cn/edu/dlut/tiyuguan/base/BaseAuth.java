@@ -27,6 +27,11 @@ public class BaseAuth {
         user.setFace(mc.getFace());
         user.setDepartment(mc.getDepartment());
         user.setMajor(mc.getMajor());
+        /**实际的字段**/
+        user.setId(mc.getId());
+        user.setName(mc.getName());
+        user.setCreditworthiness(mc.getCreditworthiness());
+
     }
 
     static public User getUser () {

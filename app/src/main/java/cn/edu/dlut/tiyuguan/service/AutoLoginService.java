@@ -9,10 +9,12 @@ import java.util.concurrent.Executors;
 
 import cn.edu.dlut.tiyuguan.base.BaseAuth;
 import cn.edu.dlut.tiyuguan.base.BaseMessage;
+import cn.edu.dlut.tiyuguan.base.BaseMessageEvent;
 import cn.edu.dlut.tiyuguan.base.BaseService;
 import cn.edu.dlut.tiyuguan.global.NameConstant;
 import cn.edu.dlut.tiyuguan.util.AppUtil;
 import cn.edu.dlut.tiyuguan.util.ToastUtil;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by asus on 2015/10/6.
@@ -60,9 +62,11 @@ public class AutoLoginService extends BaseService {
             public void run() {
                 SharedPreferences sp = AppUtil.getSharedPreferences(AutoLoginService.this);
                 HashMap<String,String> urlParams = new HashMap<>();
+                String nowtime = AppUtil.getTimeTag();
 
-                urlParams.put("username",sp.getString("username",null));
-                urlParams.put("password",sp.getString("password",null));
+                urlParams.put("userid",sp.getString("username",null));
+                urlParams.put("password",AppUtil.getSHA256(AppUtil.getSHA256(sp.getString("password",null)) + nowtime));
+                urlParams.put("nowtime",nowtime);
 
                 while(runLoop){
                     //if user login
@@ -80,9 +84,6 @@ public class AutoLoginService extends BaseService {
                         }
                     }
                 }
-
-
-
             }
         });
     }
@@ -90,7 +91,8 @@ public class AutoLoginService extends BaseService {
     @Override
     public void onTaskCompleted(int taskId, String data) {
         /**login请求完成以后**/
-        ToastUtil.showInfoToast(this,data);
+        /**ToastUtil.showInfoToast(this,data);**/
+        EventBus.getDefault().post(new BaseMessageEvent(data));
     }
 
     @Override

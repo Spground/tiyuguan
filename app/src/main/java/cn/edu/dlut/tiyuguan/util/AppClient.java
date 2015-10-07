@@ -47,7 +47,7 @@ public class AppClient {
         Response response = client.newCall(request).execute();
         if(!response.isSuccessful())
             throw new IOException("Unexpected code " + response);
-        return response.body().toString();
+        return response.body().string();
     }
 
     /**get from remote server**/

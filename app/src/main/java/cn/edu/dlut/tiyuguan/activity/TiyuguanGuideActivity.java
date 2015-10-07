@@ -47,7 +47,7 @@ public class TiyuguanGuideActivity extends BaseUi {
                 @Override
                 public void onPageFinished(WebView view, String url) {
                     super.onPageFinished(view, url);
-                    TiyuguanGuideActivity.this.progressDialog.hide();
+                    TiyuguanGuideActivity.this.progressDialog.dismiss();
                 }
             });
             mWebView.setWebChromeClient(new WebChromeClient());
@@ -59,5 +59,11 @@ public class TiyuguanGuideActivity extends BaseUi {
         // Inflate the menu; this adds items to the action bar if it is present.
         //getMenuInflater().inflate(R.menu.menu_tiyuguan_guide, menu);
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        progressDialog = null;
     }
 }

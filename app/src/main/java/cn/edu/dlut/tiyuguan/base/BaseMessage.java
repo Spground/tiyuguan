@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -100,7 +101,22 @@ public class BaseMessage {
 
     /**json对象转model对象**/
     private BaseModel json2Model(String modelClassName,JSONObject modelJsonObject) throws Exception{
-        BaseModel modelObj = (BaseModel)(Class.forName(modelClassName).newInstance());
+        BaseModel modelObj = null;
+        try {
+            modelObj = (BaseModel)(Class.forName(modelClassName).newInstance());
+        } catch (InstantiationException e) {
+            throw e;
+        } catch (IllegalAccessException e) {
+            /**单例模式的情况**/
+            Object[] objects = null;
+            Class<?>[] classes = null;
+
+            Method getInstanceMethod = Class.forName(modelClassName).getDeclaredMethod("getInstance",   classes);
+            modelObj = (BaseModel)getInstanceMethod.invoke(null,objects);
+        } catch (ClassNotFoundException e) {
+            throw e;
+        }
+        /**得到这个实例的类对象**/
         Class<? extends BaseModel> modelClass = modelObj.getClass();
         // auto-setting model fields
         Iterator<String> it = modelJsonObject.keys();

@@ -8,8 +8,7 @@
            android:paddingBottom="8dip"
            android:background="@drawable/aboutme_top_background"
            android:layout_gravity="center_horizontal"
-            >
-
+    >
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -18,8 +17,7 @@
         android:padding="5dip"
         android:background="@drawable/aboutme_avatar_background"
         />
-
-           <TextView 
+           <TextView
                 android:id="@+id/show_userid_textview"
                 android:layout_marginLeft="0dip"
                 android:layout_width="match_parent"
@@ -28,5 +26,4 @@
                 android:textColor="@color/black"
                 android:textSize="20sp"
                />
-       
 </LinearLayout>
