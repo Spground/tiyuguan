@@ -159,14 +159,14 @@ public class MainActivity extends BaseUi {
 					  SharedPreferences.Editor editor = sp.edit();
 					  editor.putString("username", userName);
 					  editor.putString("password", passWord);
+					  editor.putBoolean("rememberme", rememberme);
 					  editor.commit();
 					  /**登录的权限验证**/
-					  //validateAccess();
 					  /**开启登录服务去登陆**/
+					  dialogBuilder.dismiss();
 					  Intent loginIntent = new Intent(MainActivity.this, AutoLoginService.class);
 					  loginIntent.setAction(AutoLoginService.NAME + BaseService.ACTION_START);
 					  startService(loginIntent);
-					  dialogBuilder.dismiss();
 					  showProgressDlg();
 				  }
 			  }

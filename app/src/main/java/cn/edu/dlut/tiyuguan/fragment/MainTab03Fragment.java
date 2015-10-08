@@ -4,27 +4,24 @@ import cn.edu.dlut.tiyuguan.activity.AccountInfoActivity;
 import cn.edu.dlut.tiyuguan.activity.FeedBackActivity;
 import cn.edu.dlut.tiyuguan.activity.MainActivity;
 import cn.edu.dlut.tiyuguan.base.BaseAuth;
-import cn.edu.dlut.tiyuguan.base.BaseMessage;
-import cn.edu.dlut.tiyuguan.base.BaseMessageEvent;
-import cn.edu.dlut.tiyuguan.base.BaseService;
 
 import com.devspark.appmsg.AppMsg;
 import cn.edu.dlut.tiyuguan.R;
 import cn.edu.dlut.tiyuguan.animation.lib.Effectstype;
 import cn.edu.dlut.tiyuguan.animation.lib.NiftyDialogBuilder;
-import cn.edu.dlut.tiyuguan.model.User;
-import cn.edu.dlut.tiyuguan.service.AutoLoginService;
+import cn.edu.dlut.tiyuguan.event.ExceptionErrorEvent;
+import cn.edu.dlut.tiyuguan.event.LoginFailedEvent;
+import cn.edu.dlut.tiyuguan.event.LoginSuccessEvent;
+import cn.edu.dlut.tiyuguan.event.NetworkErrorEvent;
 import cn.edu.dlut.tiyuguan.util.AppUtil;
 import cn.edu.dlut.tiyuguan.util.ToastUtil;
 import de.greenrobot.event.EventBus;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,37 +43,63 @@ public class MainTab03Fragment extends Fragment {
 	private LayoutInflater inflater;
 	private View fragmentView;
 
+	private boolean eventBusRgister = false;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		AppUtil.debugV("=====TAG=====","TAG Main03 onCreate");
 		inflater = LayoutInflater.from(getActivity());
-		EventBus.getDefault().register(this);
-	}
-
-	@Override
-	public void onStart() {
-		super.onStart();
-		updateTopView();
-		init();
-	}
-
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		AppUtil.debugV("=====TAG=====", "TAG Main03 onCreateView");
 		fragmentView = inflater.inflate(R.layout.main_tab_03, container, false);
 		return fragmentView;
 	}
 
 	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		AppUtil.debugV("=====TAG=====", "TAG Main03 onActivityCreated");
+	}
+	@Override
+	public void onStart() {
+		super.onStart();
+		AppUtil.debugV("=====TAG=====", "TAG Main03 onStart");
+		updateTopView();
+		init();
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		AppUtil.debugV("=====TAG=====", "TAG Main03 onResume");
+		if(!eventBusRgister){
+			EventBus.getDefault().register(this);
+			eventBusRgister = true;
+		}
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+		AppUtil.debugV("=====TAG=====", "TAG Main03 onStop");
+		if(eventBusRgister){
+			EventBus.getDefault().unregister(this);
+			eventBusRgister = false;
+		}
+	}
+
+	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		EventBus.getDefault().unregister(this);
+		AppUtil.debugV("=====TAG=====", "TAG Main03 onDestroy");
+		if(eventBusRgister){
+			EventBus.getDefault().unregister(this);
+			eventBusRgister = false;
+		}
 	}
 	/**初始化视图**/
 	private void init(){
@@ -206,32 +229,26 @@ public class MainTab03Fragment extends Fragment {
 		});
 	}
 
-	/**EventBus回调的方法**/
-	public void onEventMainThread(BaseMessageEvent event) {
-		ToastUtil.showToast(getActivity(),"我在UI线程中得到了登录返回的消息:" + event.data);
-		Log.v("TAG", "我在UI线程中得到了登录返回的消息\n:" + event.data);
-		try {
-			BaseMessage message = AppUtil.getMessage(event.data);
-			User user = (User)message.getData("User");
-			Log.v("TAG", "user对象\n:" + ((User)user).getName());
-			if((user).getName() != null || message.getMessage().equals("success")){
-				BaseAuth.setUser(user);
-				BaseAuth.setLogin(true);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			ToastUtil.showErrorToast(getActivity(),"error msg code:0000" + e);
-		}
-		finally {
-			updateTopView();
-			((MainActivity)getActivity()).hideProgressDlg();
-		}
-
-		/**stop登录服务**/
-		Intent loginIntent = new Intent(getActivity(), AutoLoginService.class);
-		loginIntent.setAction(AutoLoginService.NAME + BaseService.ACTION_STOP);
-		getActivity().startService(loginIntent);
-
+	/**登录成功 EventBus回调的方法**/
+	public void onEventMainThread(LoginSuccessEvent event) {
+		AppUtil.debugV("=====TAG=====", "我在UI线程中得到了登录返回的消息\n:" + event.getData());
+		updateTopView();
+		((MainActivity)getActivity()).hideProgressDlg();
+	}
+	/**登录失败 EventBus回调的方法**/
+	public void onEventMainThread(LoginFailedEvent event){
+		ToastUtil.showErrorToast(getActivity(),"用户名或密码错误！");
+		((MainActivity) getActivity()).hideProgressDlg();
+	}
+	/**网络错误 EventBus回调的方法**/
+	public void onEventMainThread(NetworkErrorEvent errorEvent){
+		ToastUtil.showErrorToast(getActivity(),"网络未连接或出现错误！");
+		((MainActivity) getActivity()).hideProgressDlg();
+	}
+	/**异常发生 EventBus回调的方法**/
+	public void onEventMainThread(ExceptionErrorEvent excepttonErrorEvent){
+		ToastUtil.showErrorToast(getActivity(),excepttonErrorEvent.getEventDesc());
+		((MainActivity) getActivity()).hideProgressDlg();
 	}
 
 	/**根据用户是否登录更新TopView视图**/

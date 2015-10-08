@@ -13,6 +13,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 /**
  * JSON字符串,封装成消息，提供消息转Model实例的能力
@@ -128,5 +129,35 @@ public class BaseMessage {
             field.set(modelObj, varValue);
         }
         return modelObj;
+    }
+
+    /**json对象转为HashMap**/
+    private Map<String,String> jsonToMap(JSONObject jsonObject){
+        HashMap<String,String> hashMap = new HashMap<>();
+        Iterator<String> it = jsonObject.keys();
+        while (it.hasNext()) {
+            String jsonKey = it.next();
+            try {
+                hashMap.put(jsonKey,jsonObject.getString(jsonKey));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return hashMap;
+    }
+
+    /**消息是否成功**/
+    public boolean isSuccessful(){
+
+        boolean success =  false;
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject(message);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return false;
+        }
+        success = jsonToMap(jsonObject).get("result").equals("success") ? true : false;
+        return success;
     }
 }

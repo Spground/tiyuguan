@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
@@ -39,7 +40,6 @@ public class BaseService extends Service {
                     onNetworkError();
                     break;
             }
-            super.handleMessage(msg);
         }
     };
 
@@ -95,6 +95,7 @@ public class BaseService extends Service {
                     sendMessage(TASK_COMPLETE, taskId, httpResult);
                 } catch (Exception e) {
                     sendMessage(TASK_ERROR, taskId, null);
+                    Log.v("======TAG========","Network Error");
                     e.printStackTrace();
                 }
 

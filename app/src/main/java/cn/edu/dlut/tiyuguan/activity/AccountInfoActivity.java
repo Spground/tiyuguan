@@ -3,9 +3,12 @@ package cn.edu.dlut.tiyuguan.activity;
 import cn.edu.dlut.tiyuguan.base.BaseAuth;
 import cn.edu.dlut.tiyuguan.base.BaseUi;
 import cn.edu.dlut.tiyuguan.model.User;
+import cn.edu.dlut.tiyuguan.util.AppUtil;
+import cn.edu.dlut.tiyuguan.util.ToastUtil;
 import cn.edu.dlut.tiyuguan.widget.pull2zoomview.PullToZoomListViewEx;
 import cn.edu.dlut.tiyuguan.R;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -37,6 +40,13 @@ public class AccountInfoActivity extends BaseUi {
 			@Override
 			public void onClick(View view) {
 				BaseAuth.setLogin(false);
+				/**update the preferences file**/
+				SharedPreferences sp = AppUtil.getSharedPreferences(AccountInfoActivity.this);
+				SharedPreferences.Editor editor = sp.edit();
+				editor.putBoolean("rememberme",false);
+				editor.commit();
+
+				ToastUtil.showInfoToast(AccountInfoActivity.this,"注销成功！");
 				AccountInfoActivity.this.finish();
 			}
 		});

@@ -1,5 +1,7 @@
 package cn.edu.dlut.tiyuguan.util;
 
+import android.util.Log;
+
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -33,6 +35,7 @@ public class AppClient {
     /**post request to remote server**/
     public String post(HashMap<String,String> taskArgs) throws IOException {
         if(taskArgs == null) return null;
+        AppUtil.debugV("======TAG========","post invoked");
         FormEncodingBuilder fEBuilder = new FormEncodingBuilder();
         for(String key : taskArgs.keySet() ){
             String value = taskArgs.get(key);
@@ -45,8 +48,9 @@ public class AppClient {
                 .post(formBody)
                 .build();
         Response response = client.newCall(request).execute();
-        if(!response.isSuccessful())
+        if(!response.isSuccessful()){
             throw new IOException("Unexpected code " + response);
+        }
         return response.body().string();
     }
 

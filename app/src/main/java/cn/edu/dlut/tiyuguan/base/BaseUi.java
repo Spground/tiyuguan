@@ -31,7 +31,7 @@ public class BaseUi extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        progressDlg = CustomProgressDialog.createDialog(this,"正在处理请稍后...",false);
+        progressDlg = CustomProgressDialog.createDialog(this,"正在处理请稍后...",true);
     }
 
     /**显示的ProgressDlg的内容**/

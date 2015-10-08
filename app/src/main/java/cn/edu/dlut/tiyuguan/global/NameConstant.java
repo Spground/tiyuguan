@@ -20,4 +20,17 @@ public class NameConstant {
     public static class dir{
         public static String root = "GymBook";
     }
+
+    public static class message_event_code{
+        public static String MsgEvntCode_Login = "1000";
+    }
+
+    public static class debug{
+        public static boolean Debug_Mode = true;
+    }
+
+    public static class ErrorCode{
+        /**error code like "err4xx" **/
+        public static String Network_Error="err400";
+    }
 }

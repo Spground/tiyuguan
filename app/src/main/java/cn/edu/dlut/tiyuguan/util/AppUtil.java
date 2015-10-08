@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.format.Time;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -134,5 +135,10 @@ public class AppUtil {
         nowtime = Integer.toString(year)+Integer.toString(month)+Integer.toString(day)+Integer.toString(hour)+Integer.toString(minute)+Integer.toString(second);
         return nowtime;
 
+    }
+
+    public static void debugV(String tag,String content){
+        if(NameConstant.debug.Debug_Mode)
+            Log.v(tag,content);
     }
 }
