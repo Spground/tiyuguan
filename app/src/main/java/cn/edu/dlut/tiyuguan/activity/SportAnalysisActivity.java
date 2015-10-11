@@ -1,4 +1,4 @@
-package cn.edu.dlut.tiyuguan.core.sportanalysis;
+package cn.edu.dlut.tiyuguan.activity;
 import java.util.ArrayList;
 
 import com.github.mikephil.charting.charts.CombinedChart;

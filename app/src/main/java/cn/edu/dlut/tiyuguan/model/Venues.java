@@ -6,62 +6,91 @@ import cn.edu.dlut.tiyuguan.base.BaseModel;
  * Created by asus on 2015/10/7.
  */
 public class Venues extends BaseModel{
-    private String id;
-    private String  v_name;
-
-    private String open_time;
-    private String close_time;
-
-    private String num;
-    private String charge;
-
-
-    public String getId() {
-        return id;
+    public String getVenuesId() {
+        return venuesId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setVenuesId(String venuesId) {
+        this.venuesId = venuesId;
     }
 
-    public String getV_name() {
-        return v_name;
+    public String getGymId() {
+        return gymId;
     }
 
-    public void setV_name(String v_name) {
-        this.v_name = v_name;
+    public void setGymId(String gymId) {
+        this.gymId = gymId;
     }
 
-    public String getOpen_time() {
-        return open_time;
+    public String getSportId() {
+        return sportId;
     }
 
-    public void setOpen_time(String open_time) {
-        this.open_time = open_time;
+    public void setSportId(String sportId) {
+        this.sportId = sportId;
     }
 
-    public String getClose_time() {
-        return close_time;
+    public String getVenuesName() {
+        return venuesName;
     }
 
-    public void setClose_time(String close_time) {
-        this.close_time = close_time;
+    public void setVenuesName(String venuesName) {
+        this.venuesName = venuesName;
     }
 
-    public String getNum() {
-        return num;
+    public String getOpenTime() {
+        return openTime;
     }
 
-    public void setNum(String num) {
-        this.num = num;
+    public void setOpenTime(String openTime) {
+        this.openTime = openTime;
     }
 
-    public String getCharge() {
-        return charge;
+    public String getCloseTime() {
+        return closeTime;
     }
 
-    public void setCharge(String charge) {
-        this.charge = charge;
+    public void setCloseTime(String closeTime) {
+        this.closeTime = closeTime;
     }
+
+    public String getVenuesNum() {
+        return venuesNum;
+    }
+
+    public void setVenuesNum(String venuesNum) {
+        this.venuesNum = venuesNum;
+    }
+
+    public String getVenuesCharge() {
+        return venuesCharge;
+    }
+
+    public void setVenuesCharge(String venuesCharge) {
+        this.venuesCharge = venuesCharge;
+    }
+
+    public String getIsOpen() {
+        return isOpen;
+    }
+
+    public void setIsOpen(String isOpen) {
+        this.isOpen = isOpen;
+    }
+
+    /**数据库字段**/
+    private String venuesId;//场馆id
+    private String  gymId;
+    private String sportId;
+    private String venuesName;
+    private String openTime;//开放时间
+    private String closeTime;//关闭时间
+
+    private String venuesNum;//剩余数量
+    private String venuesCharge;//收费
+
+    private String isOpen;
+
+
 
 }

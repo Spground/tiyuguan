@@ -93,7 +93,7 @@ public class BaseMessage {
         return this.dataMap.get(modelName);
     }
     /**根据名字得到很多model**/
-    public ArrayList<BaseModel> getDataList(String modelName){
+    public ArrayList<? extends BaseModel> getDataList(String modelName){
         return this.dataMapList.get(modelName);
     }
     private String getModelName(String jsonKey){

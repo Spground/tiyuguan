@@ -17,7 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;  
 import android.widget.ProgressBar;  
 import android.widget.TextView;  
-      
+
+ /**custome listview**/
     public class MyListView extends ListView implements OnScrollListener {  
       
         private final static int RELEASE_To_REFRESH = 0;// 下拉过程的状态值  
@@ -49,7 +50,8 @@ import android.widget.TextView;
       
         // 用于保证startY的值在一个完整的touch事件中只被记录一次  
         private boolean isRecored;  
-      
+
+        /**callback interface**/
         private OnRefreshListener refreshListener;  
       
         private boolean isRefreshable;  
@@ -264,7 +266,7 @@ import android.widget.TextView;
       
                 lvHeaderProgressBar.setVisibility(View.GONE);  
                 lvHeaderArrowIv.clearAnimation();  
-                lvHeaderArrowIv.setImageResource(R.drawable.arrow);  
+                lvHeaderArrowIv.setImageResource(R.drawable.ic_action_arrow_bottom);
                 lvHeaderTipsTv.setText("下拉刷新");  
                 lvHeaderLastUpdatedTv.setVisibility(View.VISIBLE);  
                 break;  

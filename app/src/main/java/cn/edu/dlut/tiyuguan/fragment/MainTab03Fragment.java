@@ -3,6 +3,7 @@ package cn.edu.dlut.tiyuguan.fragment;
 import cn.edu.dlut.tiyuguan.activity.AccountInfoActivity;
 import cn.edu.dlut.tiyuguan.activity.FeedBackActivity;
 import cn.edu.dlut.tiyuguan.activity.MainActivity;
+import cn.edu.dlut.tiyuguan.activity.RecordListActivity;
 import cn.edu.dlut.tiyuguan.base.BaseAuth;
 
 import com.devspark.appmsg.AppMsg;
@@ -109,7 +110,7 @@ public class MainTab03Fragment extends Fragment {
 		ListView listview1 = (ListView)fragmentView.findViewById(R.id.listview1_aboutbook);
 
 		//set adapter
-		MyListAdapter myListAdapter = new MyListAdapter(fragmentView.getContext(),new String[]{"预约信息","账号信息"}, new int[]{R.drawable.my_bookinfo,R.drawable.my_bookinfo1});
+		MyListAdapter myListAdapter = new MyListAdapter(fragmentView.getContext(),new String[]{"预约订单","账号信息"}, new int[]{R.drawable.my_bookinfo,R.drawable.my_bookinfo1});
 		listview.setAdapter(myListAdapter);
 		MyListAdapter myListAdapter1 = new MyListAdapter(fragmentView.getContext(),new String[]{"意见反馈","咨询体育馆",
 				"检查更新","关于"},new int[]{R.drawable.user_feedback,R.drawable.tel_question,R.drawable.check_update,R.drawable.about});
@@ -130,12 +131,17 @@ public class MainTab03Fragment extends Fragment {
 						}
 						else {
 							ToastUtil.showToast(getActivity(),"您已经登录成功！！");
+							Intent intentRecordeList = new Intent(getActivity(), RecordListActivity.class);
+							startActivity(intentRecordeList);
 						}
 						break;
 					//查看账号信息
 					case 1:
 						if(!BaseAuth.isLogin()) {
 							ToastUtil.showToast(getActivity(), "请登录！");
+							if(loginBtn != null){
+								loginBtn.performClick();
+							}
 						}
 						else {
 							//TODO:
@@ -259,7 +265,7 @@ public class MainTab03Fragment extends Fragment {
 		topLinearLayout.removeAllViews();
 		if(BaseAuth.isLogin()){
 			topView = inflater.inflate(R.layout.toplinearlayout1, null);
-			((TextView)topView.findViewById(R.id.show_userid_textview)).setText(BaseAuth.getUser().getName()+",欢迎你！");
+			((TextView)topView.findViewById(R.id.show_userid_textview)).setText(BaseAuth.getUser().getUserName()+",欢迎你！");
 		}
 		else{
 			topView = inflater.inflate(R.layout.toplinearlayout0, null);

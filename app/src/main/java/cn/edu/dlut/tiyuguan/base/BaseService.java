@@ -9,12 +9,18 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.squareup.okhttp.Headers;
+
 import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import cn.edu.dlut.tiyuguan.event.ExceptionErrorEvent;
+import cn.edu.dlut.tiyuguan.event.NetworkErrorEvent;
 import cn.edu.dlut.tiyuguan.util.AppClient;
+import cn.edu.dlut.tiyuguan.util.AppUtil;
 import cn.edu.dlut.tiyuguan.util.ToastUtil;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by asus on 2015/10/6.
@@ -37,7 +43,7 @@ public class BaseService extends Service {
                     onTaskCompleted(taskId, data);
                     break;
                 case TASK_ERROR:
-                    onNetworkError();
+                    onNetworkError(new Exception("Network Error"));
                     break;
             }
         }
@@ -74,14 +80,7 @@ public class BaseService extends Service {
         m.setData(b);
         handler.sendMessage(m);
     }
-    //TODO:
-    protected void doTaskAsyn(final int taskId){
 
-    }
-    //TODO:
-    protected void doTaskAsyn(final int taskId,final String taskUrl){
-
-    }
     //TODO:
     protected void doTaskAsyn(final int taskId,final String taskUrl,final HashMap<String,String> taskArgs){
         ExecutorService es = Executors.newSingleThreadExecutor();
@@ -89,37 +88,51 @@ public class BaseService extends Service {
             @Override
             public void run() {
                 try {
-                    AppClient client = new AppClient(taskUrl);
+                    AppClient client = AppClient.getInstance();
                     //block until post() method  return;
-                    String httpResult = client.post(taskArgs);
+                    String httpResult = client.post(taskUrl,taskArgs);
                     sendMessage(TASK_COMPLETE, taskId, httpResult);
                 } catch (Exception e) {
                     sendMessage(TASK_ERROR, taskId, null);
-                    Log.v("======TAG========","Network Error");
+                    Log.v("======TAG========","Network Error httpresult" + e);
                     e.printStackTrace();
                 }
 
             }
         });
     }
+
+    /****/
+    protected void doTaskAsyn(final BaseTask task){
+        ExecutorService es = Executors.newSingleThreadExecutor();
+        es.execute(new Runnable() {
+            @Override
+            public void run() {
+                task.start();
+            }
+        });
+    }
     /*****************Handler 回调方法 BEGIN *********************/
-    /**
-     * this method should be override
-     * @param taskId
-     * @param data
-     */
-    public void onTaskCompleted(int taskId,String data){
+    public void onTaskCompleted(int taskId,String response){
 
     }
 
-    public void onNetworkError(){
-        this.toastE("Network Error!");
+    /**Network Error occur**/
+    public void onNetworkError(Exception e){
+        e.printStackTrace();
+        AppUtil.debugV("====TAG====","Network Error" + e);
+        NetworkErrorEvent errorEvent = new NetworkErrorEvent();
+        EventBus.getDefault().post(errorEvent);
+        stopSelf();
+    }
+
+    /**Exception Error occur**/
+    public void onExceptionError(Exception e){
+        AppUtil.debugV("====TAG====","Exception:" + e.toString());
+        ExceptionErrorEvent exceptionErrorEvent = new ExceptionErrorEvent();
+        EventBus.getDefault().post(exceptionErrorEvent);
+        stopSelf();
     }
     /*****************Handler 回调方法 END*********************/
-
-
-    public void toastE(String msg) {
-        ToastUtil.showErrorToast(this,msg);
-    }
 
 }

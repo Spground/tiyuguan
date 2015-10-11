@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"  
                 android:layout_height="wrap_content"  
                 android:layout_gravity="center"  
-                android:src="@drawable/arrow" />  
+                android:src="@drawable/ic_action_arrow_bottom" />
   
             <!-- 进度条 -->  
   
@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"  
                 android:layout_height="wrap_content"  
                 android:layout_gravity="center"  
-                android:visibility="gone" />  
+                android:visibility="gone" />
         </FrameLayout>  
   
         <!-- 提示、最近更新 -->  
@@ -57,8 +57,8 @@
                 android:layout_width="wrap_content"  
                 android:layout_height="wrap_content"  
                 android:text="下拉刷新"  
-                android:textColor="@color/black"  
-                android:textSize="20sp" />  
+                android:textColor="@color/accent_material_light"
+                android:textSize="18sp" />
   
             <!-- 最近更新 -->  
   
@@ -67,7 +67,7 @@
                 android:layout_width="wrap_content"  
                 android:layout_height="wrap_content"  
                 android:text="上次更新"  
-                android:textColor="@color/black"  
+                android:textColor="@color/accent_material_light"
                 android:textSize="10sp" />  
         </LinearLayout>  
     </RelativeLayout>  

@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -63,13 +65,13 @@ public class AutoLoginService extends BaseService {
                 HashMap<String,String> urlParams = new HashMap<>();
                 String nowtime = AppUtil.getTimeTag();
 
-                urlParams.put("userid",sp.getString("username",null));
+                urlParams.put("userId",sp.getString("username",null));
                 urlParams.put("password",AppUtil.getSHA256(AppUtil.getSHA256(sp.getString("password",null)) + nowtime));
-                urlParams.put("nowtime",nowtime);
+                urlParams.put("nowTime",nowtime);
 
                     //if user login
                     if(!AppUtil.isConnected(getApplicationContext())){
-                        onNetworkError();
+                        onNetworkError(new Exception("network is invalid！"));
                         return;
                     }
                     if(BaseAuth.isLogin()){
@@ -93,15 +95,31 @@ public class AutoLoginService extends BaseService {
     public void onTaskCompleted(int taskId, String data) {
         /**login请求完成以后**/
         /**ToastUtil.showInfoToast(this,data);**/
+        AppUtil.debugV("====AotoLogin Result:====",data);
         try {
             BaseMessage message = AppUtil.getMessage(data);
             if(message.isSuccessful()){
                 User user = (User)message.getData("User");
-                Log.v("TAG", "user对象\n:" + ((User) user).getName());
+                Log.v("TAG", "user对象\n:" + ((User) user).getUserName());
                 //login success
-                if((user).getName() != null){
+                if((user).getUserName() != null){
                     BaseAuth.setUser(user);
                     BaseAuth.setLogin(true);
+
+                    /**登录成功以后，看是否Record为空**/
+                    if(BaseAuth.getUser().getRecordMap() == null){
+                        AppUtil.debugV("====TAG====","AutoLoginService 正在启动QueryRecordService");
+                        Intent intentQueryRecord = new Intent(this,QueryRecordService.class);
+                        intentQueryRecord.setAction(QueryRecordService.NAME + BaseService.ACTION_START );
+
+                        Date now = new Date(System.currentTimeMillis());
+                        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+                        String endTime = format.format(now) + "240000";
+                        String startTime = AppUtil.getBeforeTime(3,format,now) + "000000";
+                        AppUtil.debugV("====TAG====","startTime:" + startTime + "endTime:" + endTime);
+                        intentQueryRecord.putExtra("queryUrl",NameConstant.api.queryUserRecord + "?userId=" + BaseAuth.getUser().getUserId()+"&startTime=" + startTime + "&endTime=" + endTime);
+                        startService(intentQueryRecord);
+                    }
                     /**post loginsuccessevent  to who need this**/
                     LoginSuccessEvent event = new LoginSuccessEvent();
                     event.setEventDesc("login success!");
@@ -110,34 +128,21 @@ public class AutoLoginService extends BaseService {
             }
             //login failed
             else{
-                LoginFailedEvent event = new LoginFailedEvent();
                 /**登录失败后，就设置记住密码为false**/
                 SharedPreferences sp = AppUtil.getSharedPreferences(this);
                 SharedPreferences.Editor editor = sp.edit();
                 editor.putBoolean("rememberme", false);
                 editor.commit();
 
+                LoginFailedEvent event = new LoginFailedEvent();
                 event.setEventDesc("login failed!");
                 EventBus.getDefault().post(event);
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            ExceptionErrorEvent event = new ExceptionErrorEvent();
-            event.setEventDesc("exception" + e);
-            EventBus.getDefault().post(event);
+            onExceptionError(e);
         }
         /**stop when  task is completed**/
         stopSelf();
     }
 
-    @Override
-    public void onNetworkError() {
-        if(isFirst){
-            isFirst = false;
-        }
-        /**post message to who need this**/
-        NetworkErrorEvent event = new NetworkErrorEvent(NameConstant.ErrorCode.Network_Error,"NetWork Error","null");
-        EventBus.getDefault().post(event);
-        stopSelf();
-    }
 }

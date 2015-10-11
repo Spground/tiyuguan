@@ -39,6 +39,7 @@ public class AccountInfoActivity extends BaseUi {
 		logout_btn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
+				BaseAuth.getUser().setRecordMap(null);
 				BaseAuth.setLogin(false);
 				/**update the preferences file**/
 				SharedPreferences sp = AppUtil.getSharedPreferences(AccountInfoActivity.this);
@@ -67,7 +68,7 @@ public class AccountInfoActivity extends BaseUi {
 
 		/**设置用户profile**/
 		View headerView = this.getLayoutInflater().inflate(R.layout.profile_head_view, null);
-		((TextView)(headerView.findViewById(R.id.tv_user_name))).setText(User.getInstance().getName());
+		((TextView)(headerView.findViewById(R.id.tv_user_name))).setText(User.getInstance().getUserName());
 		list.setHeaderView(headerView);
 
 		/**设置头像背景**/
@@ -109,13 +110,13 @@ public class AccountInfoActivity extends BaseUi {
 			TextView tvLeft=(TextView)(convertView.findViewById(R.id.accountinfo_row_left));
 			switch (position) {
 				case 0:
-					tvLeft.setText("用户ID:" + User.getInstance().getId());
+					tvLeft.setText("用户ID:" + User.getInstance().getUserId());
 					break;
 				case 1:
-					tvLeft.setText("用户名:" + User.getInstance().getName());
+					tvLeft.setText("用户名:" + User.getInstance().getUserName());
 					break;
 				case 2:
-					tvLeft.setText("信用等级:" + User.getInstance().getCreditworthiness());
+					tvLeft.setText("信用等级:" + User.getInstance().getCreditWorthiness());
 					break;
 				default:
 					break;

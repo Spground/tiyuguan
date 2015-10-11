@@ -6,36 +6,31 @@ import cn.edu.dlut.tiyuguan.base.BaseModel;
  * Created by asus on 2015/10/7.
  */
 public class Record extends BaseModel {
-    private String id;//订单号
-    private String venues_id;
-    private String user_id;
-    private String location;
 
-    private String order_start_time;
-    private String order_end_time;
 
-    public String getId() {
-        return id;
+
+    public String getVenuesId() {
+        return venuesId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setVenuesId(String venuesId) {
+        this.venuesId = venuesId;
     }
 
-    public String getVenues_id() {
-        return venues_id;
+    public String getRecordId() {
+        return recordId;
     }
 
-    public void setVenues_id(String venues_id) {
-        this.venues_id = venues_id;
+    public void setRecordId(String recordId) {
+        this.recordId = recordId;
     }
 
-    public String getUser_id() {
-        return user_id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getLocation() {
@@ -46,21 +41,41 @@ public class Record extends BaseModel {
         this.location = location;
     }
 
-    public String getOrder_start_time() {
-        return order_start_time;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public void setOrder_start_time(String order_start_time) {
-        this.order_start_time = order_start_time;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 
-    public String getOrder_end_time() {
-        return order_end_time;
+    public String getEndTime() {
+        return endTime;
     }
 
-    public void setOrder_end_time(String order_end_time) {
-        this.order_end_time = order_end_time;
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
+
+    public String getVenuesName() {
+        return venuesName;
+    }
+
+    public void setVenuesName(String venuesName) {
+        this.venuesName = venuesName;
+    }
+
+    /**数据库字段**/
+    private String recordId;
+    private String venuesId;
+    private String userId;
+
+    private String venuesName;
+    private String location;//位置
+    private String startTime;
+    private String endTime;
+
+
 
 
 
