@@ -1,18 +1,74 @@
 package cn.edu.dlut.tiyuguan.model;
 
+import java.util.LinkedHashMap;
+
 import cn.edu.dlut.tiyuguan.base.BaseModel;
 
 /**
  * Created by asus on 2015/10/6.
  */
 public class User extends BaseModel {
-    private String userName;
-    private String userEmail;
-    private String creditRating;//信用等级
+    /**http**/
+    private String sessionid;//用户的SessionID值
 
+    private String userEmail;
     private String face;
     private String department;//学部学院
     private String major;//专业
+
+    /**以下为数据库的字段名**/
+    private String userName;
+    private String userId;
+    private String userRole;
+    private String creditWorthiness;
+
+    private LinkedHashMap<String,Record> recordMap;//订单记录 订单号---Record对象
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public static User getUserInstance() {
+        return userInstance;
+    }
+
+    public static void setUserInstance(User userInstance) {
+        User.userInstance = userInstance;
+    }
+
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
+    }
+
+    public String getCreditWorthiness() {
+        return creditWorthiness;
+    }
+
+    public void setCreditWorthiness(String creditWorthiness) {
+        this.creditWorthiness = creditWorthiness;
+    }
+
+    public void setIsLogin(boolean isLogin) {
+        this.isLogin = isLogin;
+    }
+
+
+    public LinkedHashMap<String,Record>getRecordMap() {
+        return recordMap;
+    }
+
+    public void setRecordMap(LinkedHashMap<String, Record> recordMap) {
+        this.recordMap = recordMap;
+    }
+
 
     public String getUserName() {
         return userName;
@@ -28,14 +84,6 @@ public class User extends BaseModel {
 
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
-    }
-
-    public String getCreditRating() {
-        return creditRating;
-    }
-
-    public void setCreditRating(String creditRating) {
-        this.creditRating = creditRating;
     }
 
     public String getFace() {
@@ -62,9 +110,18 @@ public class User extends BaseModel {
         this.major = major;
     }
 
+    public String getSessionid() {
+        return sessionid;
+    }
+
+    public void setSessionid(String sessionid) {
+        this.sessionid = sessionid;
+    }
+    /*****/
     //login
     //default is no login
     private boolean isLogin = false;
+
     public boolean isLogin() {
         return isLogin;
     }

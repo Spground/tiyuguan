@@ -1,8 +1,9 @@
-package cn.edu.dlut.tiyuguan.core.location;
+package cn.edu.dlut.tiyuguan.util;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
@@ -32,7 +33,7 @@ public class LocateUtil {
 	private Dialog progressDialog;
 	private Context context;
 
-	public LocateUtil(Context context,BaiduMap baiduMap){
+	public LocateUtil(Context context, BaiduMap baiduMap){
 
 		SDKInitializer.initialize(context.getApplicationContext());
 		this.context = context;

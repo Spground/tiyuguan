@@ -8,12 +8,14 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import cn.edu.dlut.tiyuguan.base.BaseService;
+
 /**
  *根据api获取本地天气信息
  * @author asus
  *
  */
-public class WeatherService {
+public class WeatherService extends BaseService {
 
 	public static String getHtml(String path) {
 		URL url;

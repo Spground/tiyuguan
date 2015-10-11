@@ -107,7 +107,8 @@ https://github.com/android/platform_frameworks_base/blob/master/core/res/res/lay
             android:id="@+id/customPanel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"></FrameLayout>
+            android:layout_weight="1">
+        </FrameLayout>
 
         <LinearLayout
             android:layout_marginTop="10dip"
@@ -121,7 +122,6 @@ https://github.com/android/platform_frameworks_base/blob/master/core/res/res/lay
                 android:layout_marginRight="5dp"
                 android:text="OK"
                 android:visibility="gone" 
-                
                 />
 
             <Button

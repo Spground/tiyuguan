@@ -56,8 +56,7 @@ public class DoPost implements Runnable {
 		
 	}
 	//构造函数1用于cookie登陆使用
-	public DoPost(HttpClient postClient,Handler sendHandler,String url,int event)
-	{
+	public DoPost(HttpClient postClient,Handler sendHandler,String url,int event) {
 		this.postClient = postClient;
 		this.sendHandler = sendHandler;
 		this.url = url;
@@ -67,8 +66,7 @@ public class DoPost implements Runnable {
 	public void run() {
 		// TODO Auto-generated method stub
 		//如果是登陆时事件++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		if(event==0)
-		{
+		if(event==0) {
 			//开始加密密码，生成密码摘要
 			//得到时间戳
 			String nowtime = getTimeTag();
@@ -86,27 +84,22 @@ public class DoPost implements Runnable {
 				post.setEntity(new UrlEncodedFormEntity(params,HTTP.UTF_8));
 				HttpResponse response = postClient.execute(post);
 				//判断http通讯完成
-				if(response.getStatusLine().getStatusCode() == 200)
-				{
+				if(response.getStatusLine().getStatusCode() == 200) {
 					//服务器返回的页面内容，据此判断是否登陆成功。。这个有待改进
 					HttpEntity entity = response.getEntity();
 					BufferedReader br = new BufferedReader(new InputStreamReader(entity.getContent()));
 					String line = "";
 					String tem = null;
-					while((tem = br.readLine())!=null)
-					{
+					while((tem = br.readLine())!=null) {
 						line += tem;
 					}
 					//取出cookie的全部值
 					List<Cookie> cookies = ((AbstractHttpClient)postClient).getCookieStore().getCookies();
 					//为cookieValue和sessionID赋值
 					UserInfo userInfo = new UserInfo();
-					for(int i = 0;i < cookies.size();i++)
-					{
-						if(cookies.get(i).getName().equals("SESSION_LOGIN_USERNAME"))
-							{
+					for(int i = 0;i < cookies.size();i++) {
+						if(cookies.get(i).getName().equals("SESSION_LOGIN_USERNAME")) {
 							   cookieValue = cookies.get(i).getValue();
-							   
 							}
 			            if(cookies.get(i).getName().equals("JSESSIONID"))
 			            	{
@@ -130,7 +123,6 @@ public class DoPost implements Runnable {
 					Looper.prepare();
 					sendHandler.sendMessage(msg1);
 					Looper.loop();
-					
 				}
 				
 			} catch (UnsupportedEncodingException e) {

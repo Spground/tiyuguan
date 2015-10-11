@@ -103,19 +103,19 @@
             android:name=".activity.AccountInfoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ActivityTheme_DefTitle_Style" />
-        <!-- 天气-->
+        <!-- 天气 -->
         <activity
-            android:name=".core.weather.WeatherActivity"
+            android:name=".activity.WeatherActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ActivityTheme_DefTitle_Style" />
         <!-- 百度定位 -->
         <activity
-            android:name=".core.location.MapActivity"
+            android:name=".activity.MapActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ActivityTheme_DefTitle_Style" />
         <!-- 我的运动分析 -->
         <activity
-            android:name=".core.sportanalysis.SportAnalysisActivity"
+            android:name=".activity.SportAnalysisActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ActivityTheme_DefTitle_Style" >
         </activity>
@@ -123,23 +123,37 @@
             android:name=".activity.TiyuguanGuideActivity"
             android:label="@string/title_activity_tiyuguan_guide"
             android:screenOrientation="portrait"
+            android:theme="@style/ActivityTheme_DefTitle_Style" >
+        </activity>
+        <!-- 运动指南 -->
+        <activity
+            android:name=".activity.FitAdviceActivity"
+            android:theme="@style/ActivityTheme_DefTitle_Style" >
+        </activity>
+        <!-- 订单记录-->
+        <activity
+            android:name=".activity.RecordListActivity"
+            android:label="@string/title_activity_record_list"
             android:theme="@style/ActivityTheme_DefTitle_Style"
             >
         </activity>
-        <!-- 运动指南-->
-        <activity
-            android:name=".activity.FitAdviceActivity"
-            android:theme="@style/actionbar_def_style"
-            >
-        </activity>
 
-        <!-- Service-->
-        <service android:name=".service.AutoLoginService"
+        <!--*************************************************************************************-->
+        <!-- Service Service Service Service Service Service Service　Service-->
+        <service
+            android:name=".service.AutoLoginService"
+            android:enabled="true" >
+        </service>
+        <!-- Service -->
+        <service android:name=".service.QueryRecordService"
+            android:enabled="true">
+        </service>
+        <service android:name=".service.QueryVenuesInfoService"
             android:enabled="true"
             >
-
         </service>
-        <!-- Service-->
+        <!-- Service Service Service Service Service Service Service　Service-->
+        <!--*************************************************************************************-->
     </application>
 
 </manifest>

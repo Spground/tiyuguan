@@ -40,8 +40,7 @@ public class ChooseActivity extends Activity{
 			public void handleMessage(Message msg) {
 				// TODO Auto-generated method stub
 				super.handleMessage(msg);
-				if(msg.what == 0x1234)
-				{
+				if(msg.what == 0x1234) {
 					//交给全局类去处理这个字符串
 					String str=msg.obj.toString();
 					//Toast.makeText(getBaseContext(),str, Toast.LENGTH_LONG).show();
@@ -122,8 +121,7 @@ public class ChooseActivity extends Activity{
 		actionBar.setCustomView(actionbarLayout,layout);
 	}
 	//给listview家监听
-	public void addRefreshListener(MyListView lv,MyListAdapter mylistadapter,Handler activity)
-	{
+	public void addRefreshListener(MyListView lv,MyListAdapter mylistadapter,Handler activity) {
 		final MyListView mylv=lv;
 		final MyListAdapter ba=mylistadapter;
 		 mylv.setonRefreshListener(new OnRefreshListener() {  
@@ -162,8 +160,7 @@ public class ChooseActivity extends Activity{
 	        }); 
 	}
 	//判断日期是否可用
-	private Boolean isAvailable(String date)
-	{
+	private Boolean isAvailable(String date) {
 		Boolean isAvailable = false;
 		String[] temp = VenueInfo.getAvailableDate();
 		System.out.println(temp[0]);
@@ -241,18 +238,15 @@ public class ChooseActivity extends Activity{
 			 int[] time;
 			 HashMap<Integer, Integer> info_=null;
 			 //更新info
-			 public void updateHashMapInfo()
-			 {
+			 public void updateHashMapInfo() {
 				 info_= VenueInfo.getRemainingQuantity(getVenueIdByName(venuename), date);
 			 }
-			 public MyListAdapter(Context context,int[] time, HashMap<Integer, Integer> info)
-			 {
+			 public MyListAdapter(Context context,int[] time, HashMap<Integer, Integer> info) {
 				 this.context=context;
 				 this.temp=LayoutInflater.from(context);
 				 this.time=time;
 				 this.info_=info;
-				 for(int i=0;i<time.length;i++)
-				 {
+				 for(int i=0;i<time.length;i++) {
 					 System.out.println(time[i]);
 				 }
 			 }

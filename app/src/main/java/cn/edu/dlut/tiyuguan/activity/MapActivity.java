@@ -1,6 +1,7 @@
-package cn.edu.dlut.tiyuguan.core.location;
+package cn.edu.dlut.tiyuguan.activity;
 
 import cn.edu.dlut.tiyuguan.R;
+import cn.edu.dlut.tiyuguan.util.LocateUtil;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;

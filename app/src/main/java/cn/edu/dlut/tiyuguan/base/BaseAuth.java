@@ -23,10 +23,16 @@ public class BaseAuth {
         User user = User.getInstance();
         user.setUserName(mc.getUserName());
         user.setUserEmail(mc.getUserEmail());
-        user.setCreditRating(mc.getCreditRating());
         user.setFace(mc.getFace());
         user.setDepartment(mc.getDepartment());
         user.setMajor(mc.getMajor());
+
+        /**实际的数据库字段**/
+        user.setUserId(mc.getUserId());
+        user.setUserName(mc.getUserName());
+        user.setCreditWorthiness(mc.getCreditWorthiness());
+        user.setUserRole(mc.getUserRole());
+
     }
 
     static public User getUser () {

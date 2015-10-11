@@ -26,4 +26,5 @@
     <string name="title_activity_tiyuguan_guide">TiyuguanGuideActivity</string>
     <string name="title_activity_fitness_point">fitness_point</string>
     <string name="fitness_exciese">  塑形者建议：应该尽量每天锻炼，有氧跑步（或游泳、单车等）然后再配合进行足量腰腹锻炼，能较快让你接近腹肌的梦想。尤其锻炼腰腹的动作，一定要选用强度一般，能坚持多次数的卷腹动作。比如要选择平地瑜伽垫上的卷腹（或仰卧起坐）就不要选择有难度的上斜卷腹（或仰卧起坐）；要选择无负重的卷腹，而不是抱着铃片做卷腹。很多胖子上斜卷腹、负重卷腹根本做不了几次就累了，能有什么锻炼效果？肯定不如选择体旋转、体侧屈、一般的卷腹。选择中低强度的卷腹动作，关键在于能够做更多的次数，如果你每天累计做几百次，相当于针对腰腹的有氧运动，目的是消耗肚子上的脂肪，这样才能让你本有的腹肌逐渐显露出来。</string>
+    <string name="title_activity_record_list">RecordListActivity</string>
 </resources>

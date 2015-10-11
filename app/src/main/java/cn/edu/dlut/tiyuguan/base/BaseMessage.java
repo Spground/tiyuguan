@@ -9,9 +9,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 /**
  * JSON字符串,封装成消息，提供消息转Model实例的能力
@@ -91,7 +93,7 @@ public class BaseMessage {
         return this.dataMap.get(modelName);
     }
     /**根据名字得到很多model**/
-    public ArrayList<BaseModel> getDataList(String modelName){
+    public ArrayList<? extends BaseModel> getDataList(String modelName){
         return this.dataMapList.get(modelName);
     }
     private String getModelName(String jsonKey){
@@ -100,7 +102,22 @@ public class BaseMessage {
 
     /**json对象转model对象**/
     private BaseModel json2Model(String modelClassName,JSONObject modelJsonObject) throws Exception{
-        BaseModel modelObj = (BaseModel)(Class.forName(modelClassName).newInstance());
+        BaseModel modelObj = null;
+        try {
+            modelObj = (BaseModel)(Class.forName(modelClassName).newInstance());
+        } catch (InstantiationException e) {
+            throw e;
+        } catch (IllegalAccessException e) {
+            /**单例模式的情况**/
+            Object[] objects = null;
+            Class<?>[] classes = null;
+
+            Method getInstanceMethod = Class.forName(modelClassName).getDeclaredMethod("getInstance",   classes);
+            modelObj = (BaseModel)getInstanceMethod.invoke(null,objects);
+        } catch (ClassNotFoundException e) {
+            throw e;
+        }
+        /**得到这个实例的类对象**/
         Class<? extends BaseModel> modelClass = modelObj.getClass();
         // auto-setting model fields
         Iterator<String> it = modelJsonObject.keys();
@@ -112,5 +129,35 @@ public class BaseMessage {
             field.set(modelObj, varValue);
         }
         return modelObj;
+    }
+
+    /**json对象转为HashMap**/
+    private Map<String,String> jsonToMap(JSONObject jsonObject){
+        HashMap<String,String> hashMap = new HashMap<>();
+        Iterator<String> it = jsonObject.keys();
+        while (it.hasNext()) {
+            String jsonKey = it.next();
+            try {
+                hashMap.put(jsonKey,jsonObject.getString(jsonKey));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return hashMap;
+    }
+
+    /**消息是否成功**/
+    public boolean isSuccessful(){
+
+        boolean success =  false;
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject(message);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return false;
+        }
+        success = jsonToMap(jsonObject).get("result").equals("success") ? true : false;
+        return success;
     }
 }

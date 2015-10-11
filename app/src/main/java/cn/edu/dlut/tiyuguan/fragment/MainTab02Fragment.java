@@ -34,37 +34,29 @@ public class MainTab02Fragment extends Fragment{
 			R.drawable.taiqiu,R.drawable.yumao,R.drawable.ping};
 	int[] nameIds={R.string.bask,R.string.swim,
 			R.string.taiqiu,R.string.yumao,R.string.ping};
-
 	 View messageLayout;
      MyListView mListView;
      MyAdapter myAdapter;
 
-	public  Handler parentHandler=new Handler()
-	{
+	public  Handler parentHandler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
 			// TODO Auto-generated method stub
 			super.handleMessage(msg);
-			if(msg.what==0x1234)
-			{
+			if(msg.what==0x1234) {
 				//交给全局类去处理这个字符串
 				String str=msg.obj.toString();
-				//Toast.makeText(getBaseContext(),str, Toast.LENGTH_LONG).show();
-				if(str.equals("false"))
-				{
+				if(str.equals("false")) {
 					
 				}
-				else
-				{
+				else {
 				   VenueInfo.setVenueInfo(str);
 				}
 			}
-			
 		}
 		
 	};
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-	{
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         messageLayout = inflater.inflate(R.layout.main_tab_02, container, false);
         initView();
@@ -84,10 +76,8 @@ public class MainTab02Fragment extends Fragment{
             public void onItemClick(AdapterView<?> arg0, View arg1, int postion,
                                     long arg3) {
                 // TODO Auto-generated method stub
-                //实例化将要跳转到预定界面的Intent
-                Intent intent=new Intent((MainActivity)getActivity(),GotoOrderActivity.class);
-                switch(postion)
-                {
+                Intent intent = new Intent((MainActivity)getActivity(),GotoOrderActivity.class);
+                switch(postion) {
                     //篮球预约
                     case 1:
                         intent.putExtra("index", 1);

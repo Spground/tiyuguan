@@ -1,4 +1,4 @@
-package cn.edu.dlut.tiyuguan.core.weather;
+package cn.edu.dlut.tiyuguan.activity;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
@@ -12,6 +12,8 @@ import org.json.JSONObject;
 
 import cn.edu.dlut.tiyuguan.R;
 import cn.edu.dlut.tiyuguan.service.WeatherService;
+import cn.edu.dlut.tiyuguan.util.AppUtil;
+import cn.edu.dlut.tiyuguan.util.ToastUtil;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -56,16 +58,13 @@ public class WeatherActivity extends Activity {
 			// 比较天气缓存文件中的有效期，如果超时了，则访问网络更新天气，否则从缓存文件中得到天气情况
 			if (currentTime >= vaildTime) {
 				new LoadWeatherInfoTask().execute("http://weatherapi.market.xiaomi.com/wtr-v2/weather?cityId=101070201","http://m.weather.com.cn/atad/101070201.html");
-				Toast.makeText(WeatherActivity.this, "1", Toast.LENGTH_SHORT)
-						.show();
+				ToastUtil.showInfoToast(this,"1");
 			} else {
 				setWeatherSituation(sp);
-				Toast.makeText(WeatherActivity.this, "2", Toast.LENGTH_SHORT)
-						.show();
+				ToastUtil.showInfoToast(this, "2");
 			}
 		} else {
-			Toast.makeText(WeatherActivity.this, "无互联网连接", Toast.LENGTH_SHORT)
-					.show();
+			ToastUtil.showInfoToast(this, "无互联网连接！");
 			setWeatherSituation(sp);
 		}
 	}
@@ -76,13 +75,6 @@ public class WeatherActivity extends Activity {
 			SharedPreferences sp = getSharedPreferences(STORE_WEATHER,
 					WeatherActivity.MODE_PRIVATE);
 			SharedPreferences.Editor editor = sp.edit();
-			// jsonStr = WeatherService
-			// .getHtml("http://weatherapi.market.xiaomi.com/wtr-v2/weather?cityId=101070201");
-			// System.out.println(jsonStr);
-			// jsonStr2 = WeatherService
-			// .getHtml("http://m.weather.com.cn/atad/101070201.html");
-			// http://m.weather.com.cn/atad/101070201.html
-
 			final JSONObject forecast = new JSONObject(jsonStr)
 					.getJSONObject("forecast");
 			final JSONObject weatherinfo = new JSONObject(jsonStr2)

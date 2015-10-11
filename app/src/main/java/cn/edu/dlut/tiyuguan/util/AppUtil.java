@@ -7,14 +7,24 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Bundle;
+import android.text.format.Time;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.logging.SimpleFormatter;
 
 import cn.edu.dlut.tiyuguan.base.BaseMessage;
 import cn.edu.dlut.tiyuguan.global.NameConstant;
@@ -106,12 +116,46 @@ public class AppUtil {
             jsonObject = new JSONObject(jsonStr);
             message.setCode(jsonObject.getInt("code"));
             message.setMessage(jsonObject.getString("message"));
-            message.setDataStr(jsonObject.getString("result"));
+            message.setDataStr(jsonObject.getString("data"));
         } catch (JSONException e) {
             throw new Exception("Json format error");
         } catch (Exception e) {
             e.printStackTrace();
         }
         return message;
+    }
+
+    /**得到当前时间戳**/
+    public static String getTimeTag(){
+        //取系统当前时间
+        String nowtime;
+        Time time = new Time();
+        time.setToNow();
+
+        int year = time.year;
+        int month = time.month;
+        int day = time.monthDay;
+        int hour = time.hour; // 0-23
+        int minute = time.minute;
+        int second = time.second;
+
+        //合成时间字符串字符串
+        nowtime = Integer.toString(year)+Integer.toString(month)+Integer.toString(day)+Integer.toString(hour)+Integer.toString(minute)+Integer.toString(second);
+        return nowtime;
+
+    }
+
+    /**Debug Util**/
+    public static void debugV(String tag,String content){
+        if(NameConstant.debug.Debug_Mode)
+            Log.v(tag,content);
+    }
+
+    /**得到指定前几个月的格式的毫秒数的时间格式**/
+    public static String getBeforeTime(int months,SimpleDateFormat format,Date now){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(now);
+        calendar.add(calendar.MONTH,-months);
+        return format.format(calendar.getTime());
     }
 }

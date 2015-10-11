@@ -66,8 +66,7 @@ public class GotoOrderActivity extends Activity{
 			//获取日期信息
 			HashMap<String, String> date = VenueBasicInfo.getOrderDate();
 		    HashMap<String, String> detailInfo = null;
-			switch(index)
-			{
+			switch(index) {
 			//篮球馆
 			case 1:{
 				     iV.setBackgroundResource(R.drawable.background);
@@ -126,8 +125,7 @@ public class GotoOrderActivity extends Activity{
 	
 	
 	//统一按钮响应事件
-	public void doClick(View v)
-	{
+	public void doClick(View v) {
 		int tag = (Integer)v.getTag();//0代表今天 1代表明天 2代表后天
 		String date = null;//预定日期
 		Intent intent = new Intent(this,ChooseActivity.class);

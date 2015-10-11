@@ -47,7 +47,7 @@ public class TiyuguanGuideActivity extends BaseUi {
                 @Override
                 public void onPageFinished(WebView view, String url) {
                     super.onPageFinished(view, url);
-                    TiyuguanGuideActivity.this.progressDialog.hide();
+                    TiyuguanGuideActivity.this.progressDialog.dismiss();
                 }
             });
             mWebView.setWebChromeClient(new WebChromeClient());
@@ -62,19 +62,8 @@ public class TiyuguanGuideActivity extends BaseUi {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
-
-            default:
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
+    protected void onDestroy() {
+        super.onDestroy();
+        progressDialog = null;
     }
 }
