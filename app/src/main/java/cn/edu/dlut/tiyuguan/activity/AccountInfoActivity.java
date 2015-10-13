@@ -22,6 +22,7 @@ import android.widget.TextView;
 public class AccountInfoActivity extends BaseUi {
 
 	private Button logout_btn;
+	private String[] names = new String[]{"用户ID","用户名","信用等级"};
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -106,24 +107,39 @@ public class AccountInfoActivity extends BaseUi {
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			// TODO Auto-generated method stub
-			convertView = mInflater.inflate(R.layout.accountinfo_row, null);
-			TextView tvLeft=(TextView)(convertView.findViewById(R.id.accountinfo_row_left));
+			ViewHolder viewHolder = null;
+			if(convertView == null){
+				convertView = mInflater.inflate(R.layout.accountinfo_row, null);
+				viewHolder = new ViewHolder();
+				viewHolder.nameTextView = (TextView)convertView.findViewById(R.id.accountinfo_row_name);
+				viewHolder.contentTextView = (TextView)convertView.findViewById(R.id.accountinfo_row_content);
+				convertView.setTag(viewHolder);
+			}
+			else{
+				viewHolder = (ViewHolder)convertView.getTag();
+			}
+
+			/**fulfill data**/
+			String content = "";
+			viewHolder.nameTextView.setText(names[position]);
 			switch (position) {
 				case 0:
-					tvLeft.setText("用户ID:" + User.getInstance().getUserId());
+					content = User.getInstance().getUserId();
 					break;
 				case 1:
-					tvLeft.setText("用户名:" + User.getInstance().getUserName());
+					content = User.getInstance().getUserName();
 					break;
 				case 2:
-					tvLeft.setText("信用等级:" + User.getInstance().getCreditWorthiness());
+					content = User.getInstance().getCreditWorthiness();
 					break;
 				default:
 					break;
 			}
+			viewHolder.contentTextView.setText(content);
 			return convertView;
 		}
-
-		//内部类
+	}
+	static class ViewHolder{
+		TextView nameTextView,contentTextView;
 	}
 }

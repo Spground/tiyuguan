@@ -39,8 +39,8 @@ public class NameConstant {
     }
 
     public static class Host{
-//        public static String HOST_ADDR = "192.168.0.104";
-        public static String HOST_ADDR = "58.155.219.41";
+        public static String HOST_ADDR = "192.168.15.236";
+//        public static String HOST_ADDR = "58.155.219.41";
         public static String HTTP_PORT = "8080";
     }
 }
