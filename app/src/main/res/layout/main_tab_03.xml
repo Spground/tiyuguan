@@ -19,12 +19,6 @@
            android:layout_height="wrap_content"
            android:orientation="vertical" 
            >
-            <!--<include-->
-                <!--layout ="@layout/toplinearlayout0"-->
-                <!--/>-->
-            <!--<include-->
-                <!--layout="@layout/toplinearlayout1"-->
-                <!--/>-->
         </LinearLayout>
         <!-- 功能区域 -->
         <!-- 其他杂项信息 -->
@@ -38,7 +32,12 @@
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:layout_marginTop="10dip"
-               android:background="#ffffff" />
+               android:background="#ffffff"
+               android:listSelector="@drawable/selector_listview"
+               android:cacheColorHint="@android:color/white"
+               android:divider="@color/gray"
+               android:dividerHeight="2px"
+               />
            <!--显示其他相关项 -->
           <ListView
               android:id="@+id/listview1_aboutbook"
@@ -46,7 +45,12 @@
               android:layout_height="wrap_content"
               android:layout_below="@id/listview_aboutbook"
               android:layout_marginTop="15dip"
-              android:background="#ffffff" />
+              android:background="#ffffff"
+              android:listSelector="@drawable/selector_listview"
+              android:cacheColorHint="@android:color/white"
+              android:divider="@color/gray"
+              android:dividerHeight="2px"
+              />
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

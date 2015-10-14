@@ -14,6 +14,7 @@ import android.widget.TextView;
 import cn.edu.dlut.tiyuguan.R;
 import cn.edu.dlut.tiyuguan.util.ToastUtil;
 import cn.edu.dlut.tiyuguan.widget.CustomProgressDialog;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by asus on 2015/10/6.
@@ -28,6 +29,7 @@ public class BaseUi extends FragmentActivity {
     protected boolean isPaused = true;
 
     private Dialog progressDlg;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,6 +134,7 @@ public class BaseUi extends FragmentActivity {
         intent.putExtras(params);
         this.startActivity(intent);
     }
+
     /************************UI跳转 END*******************************/
 
     /************************Handler回调的方法*************************/
@@ -160,5 +163,12 @@ public class BaseUi extends FragmentActivity {
         }
     }
 
+    public void registerEventBus(){
+
+    }
+
+    public void unregisterEventBus(){
+
+    }
 
 }

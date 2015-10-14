@@ -1,5 +1,7 @@
 package cn.edu.dlut.tiyuguan.model;
 
+import java.util.HashMap;
+
 import cn.edu.dlut.tiyuguan.base.BaseModel;
 
 /**
@@ -86,11 +88,29 @@ public class Venues extends BaseModel{
     private String openTime;//开放时间
     private String closeTime;//关闭时间
 
+    private String locationNum;//
     private String venuesNum;//剩余数量
     private String venuesCharge;//收费
 
     private String isOpen;
 
+    public String getLocationNum() {
+        return locationNum;
+    }
 
+    public void setLocationNum(String locationNum) {
+        this.locationNum = locationNum;
+    }
+
+
+    public HashMap<String, Location> getLocationMap() {
+        return locationMap;
+    }
+
+    public void setLocationMap(HashMap<String, Location> locationMap) {
+        this.locationMap = locationMap;
+    }
+
+    private HashMap<String,Location> locationMap;//场馆的位置集合
 
 }

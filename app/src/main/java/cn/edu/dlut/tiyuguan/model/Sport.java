@@ -32,7 +32,7 @@ public class Sport extends BaseModel {
 
     private HashMap<String,Venues> venuesHashMap;
 
-    private static  String[] venues_names = new String[]{"篮球馆","羽毛球馆","乒乓球馆","游泳馆","台球馆"};
+    private static  String[] venues_names = new String[]{"篮球馆","羽毛球馆","游泳馆","台球馆","乒乓球"};
     private static HashMap<String,Integer> venues_id_name = new HashMap<>();
     static {
         for(int i = 0; i < 5; i++){
@@ -44,6 +44,9 @@ public class Sport extends BaseModel {
         return venues_id_name.get(v_name);
     }
 
+    public static String getVenuesName(int venues_id){
+        return venues_names[venues_id - 1];
+    }
 
     public HashMap<String, Venues> getVenuesHashMap() {
         return venuesHashMap;

@@ -20,7 +20,7 @@
                  android:layout_height="wrap_content"
                  android:layout_marginBottom="10dip"
                  android:text="登录"
-                 android:textColor="#F26401"
+                 android:textColor="@color/orange"
                  android:paddingLeft="20dip"
                  android:paddingRight="20dip"
                  android:paddingTop="5dip"

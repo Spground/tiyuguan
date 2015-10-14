@@ -45,6 +45,7 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp:2.4.0'
     compile 'com.squareup.okhttp:okhttp-urlconnection:2.2.0'
     compile 'de.greenrobot:eventbus:2.4.0'
+    compile 'com.wdullaer:materialdatetimepicker:1.5.3'
     compile files('libs/achartengine-1.0.0.jar')
     compile files('libs/jsoup-1.8.1.jar')
     compile files('libs/BaiduLBS_Android.jar')

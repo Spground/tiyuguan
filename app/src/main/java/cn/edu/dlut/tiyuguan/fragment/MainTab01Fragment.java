@@ -155,7 +155,7 @@ public class MainTab01Fragment extends Fragment implements BaseSliderView.OnSlid
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			// TODO Auto-generated method stub
-			View view=getActivity().getLayoutInflater().inflate(R.layout.grid_item_view, null);
+			View view = getActivity().getLayoutInflater().inflate(R.layout.grid_item_view, null);
 			((ImageView)view.findViewById(R.id.grid_item_view_imageview)).setImageResource(resImage[position]);
 			((TextView)view.findViewById(R.id.grid_item_view_textview)).setText(resString[position]);
 			view.setTag(resString[position]);//给view加便签
@@ -170,7 +170,7 @@ public class MainTab01Fragment extends Fragment implements BaseSliderView.OnSlid
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		String tag=v.getTag().toString();
+		String tag = v.getTag().toString();
 		switch(tag){
 		case "大连天气":
 			startActivity(new Intent(getActivity(), WeatherActivity.class));			

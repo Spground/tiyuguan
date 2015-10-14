@@ -14,6 +14,7 @@ import cn.edu.dlut.tiyuguan.event.ExceptionErrorEvent;
 import cn.edu.dlut.tiyuguan.event.LoginFailedEvent;
 import cn.edu.dlut.tiyuguan.event.LoginSuccessEvent;
 import cn.edu.dlut.tiyuguan.event.NetworkErrorEvent;
+import cn.edu.dlut.tiyuguan.event.RefreshCompletedEvent;
 import cn.edu.dlut.tiyuguan.util.AppUtil;
 import cn.edu.dlut.tiyuguan.util.ToastUtil;
 import de.greenrobot.event.EventBus;
@@ -44,7 +45,10 @@ public class MainTab03Fragment extends Fragment {
 	private LayoutInflater inflater;
 	private View fragmentView;
 
+	private String titleShowNum = "预约订单";
 	private boolean eventBusRgister = false;
+
+	private MyListAdapter myListAdapter,myListAdapter1;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -110,10 +114,10 @@ public class MainTab03Fragment extends Fragment {
 		ListView listview1 = (ListView)fragmentView.findViewById(R.id.listview1_aboutbook);
 
 		//set adapter
-		MyListAdapter myListAdapter = new MyListAdapter(fragmentView.getContext(),new String[]{"预约订单","账号信息"}, new int[]{R.drawable.my_bookinfo,R.drawable.my_bookinfo1});
+		myListAdapter = new MyListAdapter(fragmentView.getContext(),new String[]{"预约订单","账号信息"}, new int[]{R.drawable.ic_action_cart,R.drawable.ic_action_user});
 		listview.setAdapter(myListAdapter);
-		MyListAdapter myListAdapter1 = new MyListAdapter(fragmentView.getContext(),new String[]{"意见反馈","咨询体育馆",
-				"检查更新","关于"},new int[]{R.drawable.user_feedback,R.drawable.tel_question,R.drawable.check_update,R.drawable.about});
+		myListAdapter1 = new MyListAdapter(fragmentView.getContext(),new String[]{"意见反馈","咨询体育馆",
+				"检查更新","关于"},new int[]{R.drawable.ic_action_monolog,R.drawable.ic_action_phone_start,R.drawable.ic_action_reload,R.drawable.ic_action_info});
 		listview1.setAdapter(myListAdapter1);
 
 		//add event listener
@@ -130,7 +134,6 @@ public class MainTab03Fragment extends Fragment {
 							}
 						}
 						else {
-							ToastUtil.showToast(getActivity(),"您已经登录成功！！");
 							Intent intentRecordeList = new Intent(getActivity(), RecordListActivity.class);
 							startActivity(intentRecordeList);
 						}
@@ -145,7 +148,6 @@ public class MainTab03Fragment extends Fragment {
 						}
 						else {
 							//TODO:
-							ToastUtil.showToast(getActivity(),"登录成功！");
 							Intent intent = new Intent(getActivity(),AccountInfoActivity.class);
 							startActivity(intent);
 						}
@@ -238,6 +240,7 @@ public class MainTab03Fragment extends Fragment {
 	/**登录成功 EventBus回调的方法**/
 	public void onEventMainThread(LoginSuccessEvent event) {
 		AppUtil.debugV("=====TAG=====", "我在UI线程中得到了登录返回的消息\n:" + event.getData());
+		rereshListView();
 		updateTopView();
 		((MainActivity)getActivity()).hideProgressDlg();
 	}
@@ -245,18 +248,39 @@ public class MainTab03Fragment extends Fragment {
 	public void onEventMainThread(LoginFailedEvent event){
 		ToastUtil.showErrorToast(getActivity(),"用户名或密码错误！");
 		((MainActivity) getActivity()).hideProgressDlg();
+		rereshListView();
+
 	}
 	/**网络错误 EventBus回调的方法**/
 	public void onEventMainThread(NetworkErrorEvent errorEvent){
 		ToastUtil.showErrorToast(getActivity(),"网络未连接或出现错误！");
 		((MainActivity) getActivity()).hideProgressDlg();
+		rereshListView();
 	}
 	/**异常发生 EventBus回调的方法**/
 	public void onEventMainThread(ExceptionErrorEvent excepttonErrorEvent){
 		ToastUtil.showErrorToast(getActivity(),excepttonErrorEvent.getEventDesc());
 		((MainActivity) getActivity()).hideProgressDlg();
+		rereshListView();
 	}
 
+	/**刷新完成 EventBus回调的方法**/
+	public void onEventMainThread(RefreshCompletedEvent refreshCompletedEvent){
+		AppUtil.debugV("=====TAG=====", "订单数据刷新完成");
+		((MainActivity) getActivity()).hideProgressDlg();
+		rereshListView();
+	}
+	/***刷新listview**/
+	private void rereshListView(){
+		if(myListAdapter != null){
+			myListAdapter.notifyDataSetChanged();
+			AppUtil.debugV("====TAG====","rereshListView() invoked");
+		}
+
+		if(myListAdapter1 != null){
+			myListAdapter1.notifyDataSetChanged();
+		}
+	}
 	/**根据用户是否登录更新TopView视图**/
 	private void updateTopView(){
 		LinearLayout topLinearLayout = (LinearLayout)getActivity().findViewById(R.id.topLinearLayout);
@@ -314,23 +338,34 @@ public class MainTab03Fragment extends Fragment {
 			  convertView = this.mInflater.inflate(R.layout.row_aboutbook, null);
 			  viewholder.imageview = (ImageView)convertView.findViewById(R.id.iv_mybookinfo);
 			  viewholder.textview1 = (TextView)convertView.findViewById(R.id.tv1_mybookinfo);
-			  viewholder.textview2 = (TextView)convertView.findViewById(R.id.tv2_mybookinfo);
+			  viewholder.numTextView = (TextView)convertView.findViewById(R.id.id_main_tab_03_istview_item_num_textview);
 			  convertView.setTag(viewholder);
 			}
 			else {
 			  viewholder = (ViewHolder)convertView.getTag();
 			}
-
-			viewholder.imageview.setBackgroundResource(img[position]);
+			viewholder.imageview.setImageResource(img[position]);
 			viewholder.textview1.setText(title[position]);
-			viewholder.textview2.setText(">");
-
+			//show num of records
+			if(title[position].equals(titleShowNum)
+					&& BaseAuth.isLogin()
+					&& BaseAuth.getUser().getRecordMap() != null
+					&& BaseAuth.getUser().getRecordMap().size() != 0){
+				AppUtil.debugV("====TAG====","refresh listView 1");
+				if(BaseAuth.getUser().getRecordMap().size() > 99){
+					viewholder.numTextView.setText("99+");
+				}
+				else{
+					viewholder.numTextView.setText(BaseAuth.getUser().getRecordMap().size() + "");
+				}
+				viewholder.numTextView.setVisibility(View.VISIBLE);
+			}
 			return convertView;
 		}
 		/**inner class**/
 		private class ViewHolder {
 			ImageView imageview;
-			TextView textview1,textview2;
+			TextView textview1,numTextView;
 		}
 	   }
 	}
