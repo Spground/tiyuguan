@@ -21,6 +21,7 @@ import org.json.JSONObject;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -157,5 +158,21 @@ public class AppUtil {
         calendar.setTime(now);
         calendar.add(calendar.MONTH,-months);
         return format.format(calendar.getTime());
+    }
+    /**计算两个日期之间的天数差值**/
+    public static int getDaysBetweenDate(Date lgdate,Date smdate) throws ParseException{
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        smdate = sdf.parse(sdf.format(smdate));
+        lgdate = sdf.parse(sdf.format(lgdate));
+        Calendar cal = Calendar.getInstance();
+
+        cal.setTime(smdate);
+        long time1 = cal.getTimeInMillis();
+
+        cal.setTime(lgdate);
+        long time2 = cal.getTimeInMillis();
+
+        long between_days = (time2-time1)/(1000*3600*24);
+        return Integer.parseInt(String.valueOf(between_days));
     }
 }

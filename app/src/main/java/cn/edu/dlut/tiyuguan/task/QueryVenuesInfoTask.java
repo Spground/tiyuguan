@@ -7,28 +7,29 @@ import java.util.HashMap;
 import cn.edu.dlut.tiyuguan.base.BaseMessage;
 import cn.edu.dlut.tiyuguan.base.BaseTask;
 import cn.edu.dlut.tiyuguan.exception.RequestException;
-import cn.edu.dlut.tiyuguan.model.News;
 import cn.edu.dlut.tiyuguan.model.Sport;
+import cn.edu.dlut.tiyuguan.model.Venues;
 import cn.edu.dlut.tiyuguan.util.AppClient;
 import cn.edu.dlut.tiyuguan.util.AppUtil;
 
 /**
- * Created by asus on 2015/10/11.
- * NOTE:dot execute this task in main thread,which may blocks main thread!
+ * Created by asus on 2015/10/14.
  */
-public class GetTop5NewsTask extends BaseTask {
+public class QueryVenuesInfoTask extends BaseTask {
+    private String url;
 
-    private  String url;
-    public GetTop5NewsTask(String url){
+    public QueryVenuesInfoTask(String url){
         this.url = url;
     }
     @Override
     public void start() {
         AppClient appClient = AppClient.getInstance();
+
         try {
             String response = appClient.get(this.url);
             onCompleted(response);
         } catch (IOException e) {
+            e.printStackTrace();
             onNetworkError(e);
         }
     }
@@ -36,28 +37,29 @@ public class GetTop5NewsTask extends BaseTask {
     @Override
     public void onCompleted(String response) {
         super.onCompleted(response);
-        AppUtil.debugV("====TAG====","GET top 5 news response:" + response);
+        AppUtil.debugV("====TAG====", "QueryVenuesInfo response:" + response);
+
         try {
             BaseMessage message = AppUtil.getMessage(response);
             if(message.isSuccessful()){
-                ArrayList<News> newsList = (ArrayList<News>) message.getDataList("News");
-                if(newsList.size() > 0){
-                    HashMap<String,News> newsMap = new HashMap();
-                    for(int i = 0;i < newsList.size();i++){
-                        String newsTitle = newsList.get(i).getTitle();
-                        newsMap.put(newsTitle,newsList.get(i));
+                ArrayList<Venues> listVenues = (ArrayList<Venues>)message.getDataList("Venues");
+                if(listVenues != null && listVenues.size() > 0){
+                    HashMap<String,Venues> venuesMap = new HashMap();
+                    for(int i = 0 ;i < listVenues.size() ; i++){
+                        AppUtil.debugV("====Venues Info====","venues_id: " + listVenues.get(i).getVenuesId() + " locationNum: " + listVenues.get(i).getLocationNum());
+                        venuesMap.put(listVenues.get(i).getVenuesId(),listVenues.get(i));
                     }
-                    //set newMap to Sport instance
-                    Sport.getInstance().setNewsMap(newsMap);
+                    Sport sport = Sport.getInstance();
+                    sport.setVenuesHashMap(venuesMap);
                 }
-                else
-                    return;
             }
             else{
                 throw new RequestException("request failed!");
             }
         } catch (Exception e) {
+            e.printStackTrace();
             onExceptionError(e);
         }
+
     }
 }

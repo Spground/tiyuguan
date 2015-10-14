@@ -15,6 +15,9 @@ public class NameConstant {
         public static String makeRecord = "http://" + Host.HOST_ADDR + ":" + Host.HTTP_PORT + "/Gym/reserve/makeReserve.action";
         public static String getTopNews = "http://" + Host.HOST_ADDR + ":" + Host.HTTP_PORT + "/Gym/news/getNews.action";
         public static String indexAction = "http://" + Host.HOST_ADDR + ":" + Host.HTTP_PORT + "/GymBook/indexinfo.action";
+
+        public static String queryVenuesInfp = "http://" + Host.HOST_ADDR + ":" + Host.HTTP_PORT + "/Gym/venues/getVenuesInfo.action";
+        public static String queryInvalidLocationInfo = "http://" + Host.HOST_ADDR + ":" + Host.HTTP_PORT + "/Gym/venues/queryInvalidLocation.action";
     }
 
     public static class task{
@@ -39,7 +42,7 @@ public class NameConstant {
     }
 
     public static class Host{
-        public static String HOST_ADDR = "192.168.15.236";
+        public static String HOST_ADDR = "192.168.0.104";
 //        public static String HOST_ADDR = "58.155.219.41";
         public static String HTTP_PORT = "8080";
     }

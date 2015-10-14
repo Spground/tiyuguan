@@ -128,7 +128,8 @@ public class GotoOrderActivity extends Activity{
 	public void doClick(View v) {
 		int tag = (Integer)v.getTag();//0代表今天 1代表明天 2代表后天
 		String date = null;//预定日期
-		Intent intent = new Intent(this,ChooseActivity.class);
+//		Intent intent = new Intent(this,ChooseActivity.class);
+		Intent intent = new Intent(this,MakeReserveActivity.class);
 		Bundle bundle = new Bundle();
 		if(tag == 0) date = VenueBasicInfo.getOrderDate().get("Today");
 	    if(tag == 1) date = VenueBasicInfo.getOrderDate().get("Tomorrow");

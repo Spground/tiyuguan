@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
+import cn.edu.dlut.tiyuguan.activity.MakeReserveActivity;
 import cn.edu.dlut.tiyuguan.adapterview.MyListView.OnRefreshListener;
 import cn.edu.dlut.tiyuguan.activity.GotoOrderActivity;
 import cn.edu.dlut.tiyuguan.activity.MainActivity;
@@ -14,6 +15,7 @@ import cn.edu.dlut.tiyuguan.internet.RefreshVenueInfo;
 
 import cn.edu.dlut.tiyuguan.adapterview.MyListView;
 import cn.edu.dlut.tiyuguan.R;
+import cn.edu.dlut.tiyuguan.util.AppUtil;
 
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -76,31 +78,32 @@ public class MainTab02Fragment extends Fragment{
             public void onItemClick(AdapterView<?> arg0, View arg1, int postion,
                                     long arg3) {
                 // TODO Auto-generated method stub
-                Intent intent = new Intent((MainActivity)getActivity(),GotoOrderActivity.class);
+                Intent intent = new Intent(getActivity(),MakeReserveActivity.class);
+                AppUtil.debugV("====TAG====","选择的ListView Index" + postion);
                 switch(postion) {
                     //篮球预约
                     case 1:
-                        intent.putExtra("index", 1);
+                        intent.putExtra("venues_id", 1);
                         startActivity(intent);
                         break;
                     //游泳
                     case 2:
-                        intent.putExtra("index", 2);
+                        intent.putExtra("venues_id", 3);
                         startActivity(intent);
                         break;
                     //台球
                     case 3:
-                        intent.putExtra("index", 3);
+                        intent.putExtra("venues_id", 4);
                         startActivity(intent);
                         break;
                     //羽毛球
                     case 4:
-                        intent.putExtra("index", 4);
+                        intent.putExtra("venues_id", 2);
                         startActivity(intent);
                         break;
                     //乒乓球
                     case 5:
-                        intent.putExtra("index", 5);
+                        intent.putExtra("venues_id", 5);
                         startActivity(intent);
                         break;
                 }

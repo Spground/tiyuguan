@@ -12,6 +12,7 @@
 	<color name="holobluelight">#cccccc</color>
 	<color name="light_green">#99cc33</color>
 	<color name="dark_green">#99aa00</color>
+
 	<!-- 以下是开源库notifyDialogeffect的颜色文件 -->
 	<color name="text_color">#FFFFFF</color>
     <color name="divider_color">#11000000</color>
@@ -27,4 +28,11 @@
     <color name="pink">#ff8e9b</color>
      <color name="darkred">#FF0000</color>
     <color name="darkgreen">#47EE5C</color>
+    <!-- over writing the date & time picker dialog color-->
+    <color name="mdtp_accent_color">#17b3ed</color>
+    <color name="mdtp_accent_color_dark">#368ADD</color>
+    <!-- over writing the date & time picker dialog color-->
+
+    <color name="orange">#F26401</color>
+    <color name="light_light_gray">#F2F2F2</color>
 </resources>

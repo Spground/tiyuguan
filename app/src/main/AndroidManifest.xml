@@ -130,30 +130,41 @@
             android:name=".activity.FitAdviceActivity"
             android:theme="@style/ActivityTheme_DefTitle_Style" >
         </activity>
-        <!-- 订单记录-->
+        <!-- 订单记录 -->
         <activity
             android:name=".activity.RecordListActivity"
             android:label="@string/title_activity_record_list"
+            android:theme="@style/ActivityTheme_DefTitle_Style" >
+        </activity>
+        <activity
+            android:name=".activity.MakeReserveActivity"
+            android:label="@string/title_activity_make_reserve"
+            android:theme="@style/ActivityTheme_DefTitle_Style" >
+        </activity>
+        <activity
+            android:name=".activity.ConfirmOrderActivity"
+            android:label="@string/title_activity_confirm_order"
             android:theme="@style/ActivityTheme_DefTitle_Style"
             >
         </activity>
-
-        <!--*************************************************************************************-->
-        <!-- Service Service Service Service Service Service Service　Service-->
+        <!-- ************************************************************************************* -->
+        <!-- Service Service Service Service Service Service Service　Service -->
         <service
             android:name=".service.AutoLoginService"
             android:enabled="true" >
         </service>
         <!-- Service -->
-        <service android:name=".service.QueryRecordService"
-            android:enabled="true">
+        <service
+            android:name=".service.QueryRecordService"
+            android:enabled="true" >
         </service>
-        <service android:name=".service.QueryVenuesInfoService"
-            android:enabled="true"
-            >
+        <service
+            android:name=".service.QueryVenuesInfoService"
+            android:enabled="true" >
         </service>
-        <!-- Service Service Service Service Service Service Service　Service-->
-        <!--*************************************************************************************-->
+        <!-- Service Service Service Service Service Service Service　Service -->
+        <!-- ************************************************************************************* -->
+
     </application>
 
 </manifest>
