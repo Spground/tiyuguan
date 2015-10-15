@@ -43,7 +43,9 @@ public class QueryLocationInfoTask extends BaseTask {
         super.onCompleted(response);
         AppUtil.debugV("====TAG====", "QueryLocationInfo response:" + response);
         //置空
-        Sport.getInstance().getVenuesHashMap().get(venues_id).setLocationMap(null);
+        if(Sport.getInstance().getVenuesHashMap() != null)
+            Sport.getInstance().getVenuesHashMap().get(venues_id).setLocationMap(null);
+
         EventBus.getDefault().post(new RefreshCompletedEvent());
 
         try {

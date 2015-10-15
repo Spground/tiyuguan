@@ -7,7 +7,7 @@
         android:id="@+id/id_grid_item_makereserve_locationname_text_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/main_color"
+        android:background="@drawable/location_grid_view_item_selector"
         android:text="location"
         android:textColor="@color/white"
         android:gravity="center"

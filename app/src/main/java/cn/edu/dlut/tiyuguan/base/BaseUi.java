@@ -75,6 +75,7 @@ public class BaseUi extends FragmentActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        hideProgressDlg();
     }
 
     @Override

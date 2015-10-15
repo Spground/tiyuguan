@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="duration">
+        <item>1小时</item>
+        <item>2小时</item>
+        <item>3小时</item>
+        <item>4小时</item>
+        <item>5小时</item>
+        <item>6小时</item>
+        <item>7小时</item>
+    </string-array>
+</resources>
