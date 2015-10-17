@@ -9,18 +9,17 @@
     android:background="@color/light_light_gray"
     tools:context="cn.edu.dlut.tiyuguan.activity.ConfirmOrderActivity">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="请确认您的订单"
-        android:gravity="center"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:textSize="18sp"
-        android:textColor="@color/main_color"
-        />
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    >
     <!-- divider-->
     <View
+        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="2px"
         android:background="@color/gray"
@@ -31,12 +30,15 @@
         android:layout_height="40dp"
         android:orientation="horizontal"
         android:gravity="center"
+        android:paddingLeft="20dp"
         >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="场馆名"
             android:gravity="center"
+            android:textColor="@color/black"
+
             />
         <TextView
             android:id="@+id/id_confirmorder_venues_name_textview"
@@ -44,6 +46,8 @@
             android:layout_height="match_parent"
             android:text="篮球馆"
             android:gravity="center"
+            android:textColor="@color/black"
+
             />
     </LinearLayout>
     <!-- divider-->
@@ -58,12 +62,15 @@
         android:layout_height="40dp"
         android:orientation="horizontal"
         android:gravity="center"
+        android:paddingLeft="20dp"
         >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="位置号"
             android:gravity="center"
+            android:textColor="@color/black"
+
             />
         <TextView
             android:id="@+id/id_confirmorder_location_id_textview"
@@ -71,6 +78,8 @@
             android:layout_height="match_parent"
             android:text="19"
             android:gravity="center"
+            android:textColor="@color/black"
+
             />
     </LinearLayout>
     <!-- divider-->
@@ -78,6 +87,7 @@
         android:layout_width="match_parent"
         android:layout_height="2px"
         android:background="@color/gray"
+
         />
 
     <LinearLayout
@@ -85,12 +95,15 @@
         android:layout_height="40dp"
         android:orientation="horizontal"
         android:gravity="center"
+        android:paddingLeft="20dp"
         >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="日期"
             android:gravity="center"
+            android:textColor="@color/black"
+
             />
         <TextView
             android:id="@+id/id_confirmorder_date_textview"
@@ -98,6 +111,8 @@
             android:layout_height="match_parent"
             android:text="2015-10-14"
             android:gravity="center"
+            android:textColor="@color/black"
+
             />
     </LinearLayout>
     <!-- divider-->
@@ -112,19 +127,24 @@
         android:layout_height="40dp"
         android:orientation="horizontal"
         android:gravity="center"
+        android:paddingLeft="20dp"
         >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="时间段"
             android:gravity="center"
+            android:textColor="@color/black"
+
             />
         <TextView
-            android:id="@+id/id_confirmorder_time_duration_textview"
+            android:id="@+id/id_confirmorder_time_period_textview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="19:00 - 20:00"
             android:gravity="center"
+            android:textColor="@color/black"
+
             />
     </LinearLayout>
     <!-- divider-->
@@ -139,27 +159,68 @@
         android:layout_height="40dp"
         android:orientation="horizontal"
         android:gravity="center"
+        android:paddingLeft="20dp"
         >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="单价"
+            android:text="时长"
             android:gravity="center"
+            android:textColor="@color/black"
+
             />
         <TextView
+            android:id="@+id/id_confirmorder_time_duration_textview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="38/小时"
+            android:text="2小时"
             android:gravity="center"
+            android:textColor="@color/black"
+
             />
     </LinearLayout>
+
     <!-- divider-->
     <View
         android:layout_width="match_parent"
         android:layout_height="2px"
         android:background="@color/gray"
         />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingLeft="20dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="金额"
+            android:gravity="center"
+            android:textColor="@color/black"
+
+            />
+        <TextView
+            android:id="@+id/id_confirmorder_total_amount_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="2 * 5元/小时 = 10元"
+            android:gravity="center"
+            android:textColor="@color/black"
+
+            />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="@color/gray"
+        />
+    </LinearLayout>
+    <!-- divider-->
     <Button
+        android:id="@+id/id_confirmorder_cancel_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -175,6 +236,7 @@
         android:background="@color/gray"
         />
     <Button
+        android:id="@+id/id_confirmorder_submit_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"

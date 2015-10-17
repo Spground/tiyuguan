@@ -30,4 +30,5 @@
     <string name="title_activity_make_reserve">MakeReserveActivity</string>
     <string name="title_activity_time_picker">TimePickerActivity</string>
     <string name="title_activity_confirm_order">ConfirmOrderActivity</string>
+    <string name="timeduration_spinner_prompt">选择时长</string>
 </resources>
