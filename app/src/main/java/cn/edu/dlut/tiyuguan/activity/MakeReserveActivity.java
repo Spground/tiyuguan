@@ -58,7 +58,7 @@ public class MakeReserveActivity extends BaseUi {
     private int venues_id;
     private boolean register = false;
 
-    private int duration;//时长
+    private int duration = 1;//时长
 
     private Date startTime;//订单的开始时间
     private Date endTime;
@@ -67,6 +67,7 @@ public class MakeReserveActivity extends BaseUi {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppUtil.debugV("MakeReserveActivity onCreate");
         AppUtil.debugV("====TAG====","选择下订单的跳转Index" + venues_id);
         HHmmDateFormat = new SimpleDateFormat("HH:mm");
         registerEventBus();
@@ -80,18 +81,22 @@ public class MakeReserveActivity extends BaseUi {
     protected void onResume() {
         super.onResume();
         registerEventBus();
+        queryBtn.performClick();
+        AppUtil.debugV("MakeReserveActivity onResume");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         unregisterEventBus();
+        AppUtil.debugV("MakeReserveActivity onPause");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         unregisterEventBus();
+        AppUtil.debugV("MakeReserveActivity onDestroy");
     }
 
     /**初始化各种控件**/
@@ -403,8 +408,8 @@ public class MakeReserveActivity extends BaseUi {
     /**刷新完成 EventBus回调的方法**/
     public void onEventMainThread(RefreshCompletedEvent refreshCompletedEvent){
         AppUtil.debugV("=====TAG=====", "Location数据刷新完成");
-        hideProgressDlg();
         updateDataSet();
+        hideProgressDlg();
     }
     /**网络错误 EventBus回调的方法**/
     public void onEventMainThread(NetworkErrorEvent networkErrorEvent){

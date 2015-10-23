@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -142,7 +143,12 @@ public class ConfirmOrderActivity extends BaseUi {
     public void onEventMainThread(OrderSuccessEvent orderSuccessEvent){
         AppUtil.debugV("=====TAG=====", "订单完成 订单号" + orderSuccessEvent.getOrderId());
         hideProgressDlg();
-        ToastUtil.showInfoToast(ConfirmOrderActivity.this,"预定成功！订单号为：" + orderSuccessEvent.getOrderId());
+        Toast.makeText(getApplicationContext(),"预定成功！订单号为：" + orderSuccessEvent.getOrderId(),Toast.LENGTH_LONG).show();
+
+        Intent intent = new Intent(this,MakeReserveSuccessActivity.class);
+        intent.putExtra("OrderId",orderSuccessEvent.getOrderId());
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
     /**网络错误 EventBus回调的方法**/
     public void onEventMainThread(NetworkErrorEvent networkErrorEvent){

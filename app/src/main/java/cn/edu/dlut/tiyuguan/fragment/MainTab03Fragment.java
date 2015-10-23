@@ -134,8 +134,8 @@ public class MainTab03Fragment extends Fragment {
 							}
 						}
 						else {
-							Intent intentRecordeList = new Intent(getActivity(), RecordListActivity.class);
-							startActivity(intentRecordeList);
+							Intent intentRecordList = new Intent(getActivity(), RecordListActivity.class);
+							startActivity(intentRecordList);
 						}
 						break;
 					//查看账号信息

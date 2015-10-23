@@ -25,8 +25,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.SimpleFormatter;
 
+import cn.edu.dlut.tiyuguan.R;
 import cn.edu.dlut.tiyuguan.base.BaseMessage;
 import cn.edu.dlut.tiyuguan.global.NameConstant;
 
@@ -34,6 +37,16 @@ import cn.edu.dlut.tiyuguan.global.NameConstant;
  * Created by asus on 2015/10/6.
  */
 public class AppUtil {
+    private static Map<String,Integer> drawableResourceMap;
+    private static int[] drawableIds = {R.drawable.bask,R.drawable.yumao,
+            R.drawable.ping,R.drawable.swim,R.drawable.taiqiu};
+    private static  String[] venuesNames = new String[]{"篮球馆","羽毛球馆","乒乓球馆","游泳馆","台球馆"};
+    static {
+        drawableResourceMap = new HashMap<>();
+        for(int i = 0 ; i < 5 ; i++){
+            drawableResourceMap.put(venuesNames[i],drawableIds[i]);
+        }
+    }
     /**得到SharedPreferences的名字**/
     public static SharedPreferences getSharedPreferences(Context ctx){
         return ctx.getSharedPreferences(NameConstant.SHARED_PREFERENCES_NAME,Context.MODE_PRIVATE);
@@ -151,6 +164,11 @@ public class AppUtil {
         if(NameConstant.debug.Debug_Mode)
             Log.v(tag,content);
     }
+    /**Debug Util**/
+    public static void debugV(String content){
+        if(NameConstant.debug.Debug_Mode)
+            Log.v("===TAG===",content);
+    }
 
     /**得到指定前几个月的格式的毫秒数的时间格式**/
     public static String getBeforeTime(int months,SimpleDateFormat format,Date now){
@@ -176,4 +194,17 @@ public class AppUtil {
         return Integer.parseInt(String.valueOf(between_days));
     }
 
+    /**返回场馆名对应的图标资源id**/
+    public static int getDrawableResId(String venuesName){
+        int v_id = -1;
+        if (venuesName == null)
+            return v_id;
+        try {
+            v_id = drawableResourceMap.get(venuesName);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return v_id;
+        }
+        return v_id;
+    }
 }

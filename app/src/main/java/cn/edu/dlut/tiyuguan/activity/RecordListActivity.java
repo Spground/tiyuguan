@@ -1,6 +1,5 @@
 package cn.edu.dlut.tiyuguan.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,14 +15,13 @@ import java.util.LinkedHashMap;
 import cn.edu.dlut.tiyuguan.R;
 import cn.edu.dlut.tiyuguan.adapterview.MyListView;
 import cn.edu.dlut.tiyuguan.base.BaseAuth;
-import cn.edu.dlut.tiyuguan.base.BaseService;
+import cn.edu.dlut.tiyuguan.base.BaseTaskPool;
 import cn.edu.dlut.tiyuguan.base.BaseUi;
 import cn.edu.dlut.tiyuguan.event.NetworkErrorEvent;
 import cn.edu.dlut.tiyuguan.event.RefreshCompletedEvent;
 import cn.edu.dlut.tiyuguan.global.NameConstant;
 import cn.edu.dlut.tiyuguan.model.Record;
-import cn.edu.dlut.tiyuguan.model.Sport;
-import cn.edu.dlut.tiyuguan.service.QueryRecordService;
+import cn.edu.dlut.tiyuguan.task.QueryUserOrderRecordTask;
 import cn.edu.dlut.tiyuguan.util.AppUtil;
 import cn.edu.dlut.tiyuguan.util.ToastUtil;
 import de.greenrobot.event.EventBus;
@@ -39,8 +37,7 @@ public class RecordListActivity extends BaseUi {
     private LinkedHashMap<String,Record> recordList;
     private ArrayList<Record> dataSet;
 
-    int[] drawableIds = {R.drawable.bask,R.drawable.yumao,
-            R.drawable.ping,R.drawable.swim,R.drawable.taiqiu};
+
     private boolean isRegister = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,15 +89,14 @@ public class RecordListActivity extends BaseUi {
             @Override
             public void onRefresh() {
                 /**刷新用户的预约订单**/
-                Intent intentQueryRecord = new Intent(RecordListActivity.this,QueryRecordService.class);
-                intentQueryRecord.setAction(QueryRecordService.NAME + BaseService.ACTION_START );
+                //TODO:待改进
                 Date now = new Date(System.currentTimeMillis());
                 SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
                 String endTime = format.format(now) + "240000";
                 String startTime = AppUtil.getBeforeTime(3,format,now) + "000000";
-                AppUtil.debugV("====TAG====","startTime:" + startTime + "endTime:" + endTime);
-                intentQueryRecord.putExtra("queryUrl", NameConstant.api.queryUserRecord + "?userId=" + BaseAuth.getUser().getUserId()+"&startTime=" + startTime + "&endTime=" + endTime);
-                startService(intentQueryRecord);
+                String queryUrl =  NameConstant.api.queryUserRecord + "?userId=" + BaseAuth.getUser().getUserId()+"&startTime=" + startTime + "&endTime=" + endTime;
+                AppUtil.debugV("====TAG====","queryUrl:" + queryUrl);
+                BaseTaskPool.getInstance().addTask(new QueryUserOrderRecordTask(queryUrl));
             }
         });
     }
@@ -144,14 +140,18 @@ public class RecordListActivity extends BaseUi {
                 viewHolder = (ViewHolder)view.getTag();
             }
 
+            if(dataSet == null)
+                return view;
             /**fulfill data**/
+            AppUtil.debugV("====TAG====","dataSet " + dataSet);
             AppUtil.debugV("====TAG====","venues id " + dataSet.get(i).getVenuesId());
-            viewHolder.venuesImageView.setImageResource(drawableIds[Sport.getVenuesId(dataSet.get(i).getVenuesName()) - 1]);
+            AppUtil.debugV("====TAG====","venues name " + dataSet.get(i).getVenuesName());
+
+            viewHolder.venuesImageView.setImageResource(AppUtil.getDrawableResId(dataSet.get(i).getVenuesName()));
             viewHolder.recordNumberTextView.setText(dataSet.get(i).getRecordId());
             viewHolder.venuesNameTextView.setText(dataSet.get(i).getVenuesName());
             viewHolder.venuesLocationTextView.setText(dataSet.get(i).getLocation());
             viewHolder.recordTimePeriodTextView.setText(dataSet.get(i).getStartTime() + "至" + dataSet.get(i).getEndTime());
-
             return view;
         }
     }
@@ -193,4 +193,8 @@ public class RecordListActivity extends BaseUi {
         myListView.onRefreshComplete();
     }
 
+    private boolean timeInvalid(){
+
+        return true;
+    }
 }

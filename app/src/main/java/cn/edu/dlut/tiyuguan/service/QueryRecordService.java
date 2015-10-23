@@ -32,7 +32,6 @@ public class QueryRecordService extends BaseService {
     @Override
     public void onCreate() {
         super.onCreate();
-        execService = Executors.newSingleThreadExecutor();
     }
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -52,6 +51,7 @@ public class QueryRecordService extends BaseService {
     }
 
     private void startService(){
+        execService = Executors.newSingleThreadExecutor();
         execService.execute(new Runnable() {
             @Override
             public void run() {
@@ -60,16 +60,19 @@ public class QueryRecordService extends BaseService {
                 //block until post() method  return;
                 try {
                     String httpResult = client.get(queryUrl);
+                    AppUtil.debugV("====TAG====","QueryRecordService查询到的JSON数据" + httpResult);
                     BaseMessage message = AppUtil.getMessage(httpResult);
                     ArrayList<Record> arrayList = (ArrayList<Record>) message.getDataList("Record");
                     /**没有查找到记录**/
                     LinkedHashMap<String,Record> map = new LinkedHashMap<>();
+                    AppUtil.debugV("===TAG===","Record arrayList.size()" + arrayList.size());
                     for(int i = 0;i < arrayList.size();i++){
                         Record record = arrayList.get(i);
                         map.put(record.getRecordId(),record);
                     }
                     if(BaseAuth.isLogin()){
                         AppUtil.debugV("====TAG====","QueryRecordService里面，User已经setRecordMap()成功");
+                        AppUtil.debugV("====TAG====","record map" + map.toString());
                         BaseAuth.getUser().setRecordMap(map);
                     }
                     RefreshCompletedEvent refreshCompletedEvent = new RefreshCompletedEvent();
@@ -78,17 +81,11 @@ public class QueryRecordService extends BaseService {
                 } catch (IOException e) {
                     e.printStackTrace();
                     AppUtil.debugV("====TAG====","QueryRecordService里面出现IO异常" + e);
-//                    NetworkErrorEvent errorEvent = new NetworkErrorEvent();
-//                    EventBus.getDefault().post(errorEvent);
-//                    stopSelf();
                     onNetworkError(e);
                 }
                 catch (Exception e){
                     e.printStackTrace();
                     AppUtil.debugV("====TAG====","QueryRecordService里面出现异常" + e);
-//                    ExceptionErrorEvent exceptionErrorEvent = new ExceptionErrorEvent();
-//                    EventBus.getDefault().post(exceptionErrorEvent);
-//                    stopSelf();
                     onExceptionError(e);
                 }
             }
