@@ -9,12 +9,16 @@ import cn.edu.dlut.tiyuguan.activity.MakeReserveActivity;
 import cn.edu.dlut.tiyuguan.adapterview.MyListView.OnRefreshListener;
 import cn.edu.dlut.tiyuguan.activity.GotoOrderActivity;
 import cn.edu.dlut.tiyuguan.activity.MainActivity;
+import cn.edu.dlut.tiyuguan.base.BaseTaskPool;
+import cn.edu.dlut.tiyuguan.global.NameConstant;
 import cn.edu.dlut.tiyuguan.global.UserInfo;
 import cn.edu.dlut.tiyuguan.global.VenueInfo;
 import cn.edu.dlut.tiyuguan.internet.RefreshVenueInfo;
 
 import cn.edu.dlut.tiyuguan.adapterview.MyListView;
 import cn.edu.dlut.tiyuguan.R;
+import cn.edu.dlut.tiyuguan.model.Sport;
+import cn.edu.dlut.tiyuguan.task.QueryVenuesInfoTask;
 import cn.edu.dlut.tiyuguan.util.AppUtil;
 
 import android.support.v4.app.Fragment;
@@ -40,24 +44,8 @@ public class MainTab02Fragment extends Fragment{
      MyListView mListView;
      MyAdapter myAdapter;
 
-	public  Handler parentHandler = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			// TODO Auto-generated method stub
-			super.handleMessage(msg);
-			if(msg.what==0x1234) {
-				//交给全局类去处理这个字符串
-				String str=msg.obj.toString();
-				if(str.equals("false")) {
-					
-				}
-				else {
-				   VenueInfo.setVenueInfo(str);
-				}
-			}
-		}
-		
-	};
+    AsyncTask<String,Void,String> refreshTask;
+
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         messageLayout = inflater.inflate(R.layout.main_tab_02, container, false);
@@ -66,6 +54,7 @@ public class MainTab02Fragment extends Fragment{
 		 return messageLayout;
 	}
 
+    /****/
     private void initView() {
 
         mListView = (MyListView)messageLayout.findViewById(R.id.ListView01);
@@ -114,29 +103,39 @@ public class MainTab02Fragment extends Fragment{
 
             @Override
             public void onRefresh() {
-                new AsyncTask<Void, Void, Void>() {
-                    protected Void doInBackground(Void... params) {
+                if(Sport.getInstance().getVenuesHashMap() == null
+                        ||
+                        Sport.getInstance().getVenuesHashMap().size() == 0
+                        )
+                    BaseTaskPool
+                            .getInstance()
+                            .addTask(new QueryVenuesInfoTask(NameConstant.api.queryVenuesInfp));
+
+                if(refreshTask != null && refreshTask.getStatus() == AsyncTask.Status.RUNNING)
+                    refreshTask.cancel(true);
+                String queryUrl = "";
+                refreshTask =  new AsyncTask<String, Void, String>() {
+                    protected String doInBackground(String... params) {
                         try {
                             Thread.sleep(1000);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        //      list.add("刷新后添加的内容");
-                        RefreshVenueInfo.doRefreshVenueInfo(UserInfo.httpClient, parentHandler);
                         return null;
                     }
 
                     @Override
-                    protected void onPostExecute(Void result) {
+                    protected void onPostExecute(String result) {
                         myAdapter.notifyDataSetChanged();
                         mListView.onRefreshComplete();
                     }
-                }.execute(null, null, null);
+                };
+                refreshTask.execute(queryUrl, null, null);
             }
         });
     }
 
-    /*自定义适配器*/
+    /**自定义适配器**/
     class MyAdapter extends  BaseAdapter{
 
 
@@ -157,7 +156,7 @@ public class MainTab02Fragment extends Fragment{
 
         @Override
         public View getView(int position, View convertView, ViewGroup viewGroup) {
-            ViewHolder viewHolder = null;
+            ViewHolder viewHolder;
             if(convertView == null){
                 viewHolder = new ViewHolder();
                 convertView = LayoutInflater.from(getActivity()).inflate(R.layout.main_tab_02_listview_item,null);
@@ -165,14 +164,15 @@ public class MainTab02Fragment extends Fragment{
                 viewHolder.textView = (TextView)convertView.findViewById(R.id.id_main_tab_02_listview_item_text_view);
                 viewHolder.numTextView = (TextView)convertView.findViewById(R.id.id_main_tab_02_istview_item_num_textview);
                 convertView.setTag(viewHolder);
-
             }
             else{
                 viewHolder = (ViewHolder)convertView.getTag();
             }
+            //fulfill view with data
             viewHolder.imageView.setImageResource(drawableIds[position]);
             viewHolder.textView.setText(nameIds[position]);
             viewHolder.numTextView.setText((int)(50 * Math.random()) + "");
+
             return convertView;
         }
     }

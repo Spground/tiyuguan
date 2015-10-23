@@ -144,6 +144,12 @@
         <activity
             android:name=".activity.ConfirmOrderActivity"
             android:label="@string/title_activity_confirm_order"
+            android:theme="@style/ActivityTheme_DefTitle_Style" >
+        </activity>
+
+        <activity
+            android:name=".activity.MakeReserveSuccessActivity"
+            android:label="@string/title_activity_make_reserve_success"
             android:theme="@style/ActivityTheme_DefTitle_Style"
             >
         </activity>

@@ -41,7 +41,16 @@ public class Sport extends BaseModel {
     }
 
     public static int getVenuesId(String v_name){
-        return venues_id_name.get(v_name);
+        int v_id = -1;
+        if(v_name == null)
+            return v_id;
+        try {
+            v_id = venues_id_name.get(v_name);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return v_id;
+        }
+        return v_id;
     }
 
     public static String getVenuesName(int venues_id){
