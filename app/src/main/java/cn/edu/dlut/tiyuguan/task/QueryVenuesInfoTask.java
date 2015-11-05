@@ -26,6 +26,7 @@ public class QueryVenuesInfoTask extends BaseTask {
         AppClient appClient = AppClient.getInstance();
 
         try {
+            AppUtil.debugV("====TAG====", "QueryVenuesInfo url:" + this.url);
             String response = appClient.get(this.url);
             onCompleted(response);
         } catch (IOException e) {

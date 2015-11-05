@@ -74,7 +74,7 @@ public class WelcomeActivity extends Activity{
 //			RefreshVenueInfo.doRefreshVenueInfo(UserInfo.httpClient, parentHandler);
 			//get top 5 news
 			BaseTaskPool.getInstance().addTask(new GetTop5NewsTask(NameConstant.api.getTopNews));
-			BaseTaskPool.getInstance().addTask(new QueryVenuesInfoTask(NameConstant.api.queryVenuesInfp));
+			BaseTaskPool.getInstance().addTask(new QueryVenuesInfoTask(NameConstant.api.queryVenuesInfo));
 			//读取用户的设置，是否为记住密码
 			SharedPreferences sp = AppUtil.getSharedPreferences(this);
 			boolean rememberme = sp.getBoolean("rememberme",false);

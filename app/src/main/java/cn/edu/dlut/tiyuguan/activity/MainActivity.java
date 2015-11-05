@@ -101,6 +101,13 @@ public class MainActivity extends BaseUi {
 		}
 	}
 
+	/**切换Fragment**/
+	public void switchFragment(String index){
+		mTabHost.onTabChanged(index);
+		mTabHost.setCurrentTab(2);
+		updateTabStyle(mTabHost);
+	}
+
 	/**响应MainTab03的登陆按钮**/
 	public void loginBtnClick(View view) {
 		//采用开源的对话框

@@ -15,6 +15,7 @@
 
         android:text="恭喜你已经预定成功"
         android:textSize="18sp"
+        android:textColor="@android:color/holo_red_dark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableTop="@drawable/make_reserve_success_hint"
@@ -28,6 +29,7 @@
         android:id="@+id/id_make_reserve_success_orderid_text_view"
         android:text="订单号:155555"
         android:textSize="14sp"
+        android:textColor="@android:color/holo_red_dark"
         android:typeface="monospace"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

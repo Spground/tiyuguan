@@ -169,7 +169,7 @@ public class MakeReserveActivity extends BaseUi {
                 queryStartTime += "00";
                 queryEndTime = HHmmDateFormat.format(endTime).replace(":","").trim() + "00";
 
-                AppUtil.debugV("====TAG====","day" + day + "queryStartTime" + queryStartTime + "queryEndTime" + queryEndTime);
+                AppUtil.debugV("====TAG====","queryDay" + day + "queryStartTime" + queryStartTime + "queryEndTime" + queryEndTime);
                 showProgressDlg();
                 queryInvalidLocation(day, queryStartTime,queryEndTime);
             }
