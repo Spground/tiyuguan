@@ -9,6 +9,7 @@ import cn.edu.dlut.tiyuguan.activity.MakeReserveActivity;
 import cn.edu.dlut.tiyuguan.adapterview.MyListView.OnRefreshListener;
 import cn.edu.dlut.tiyuguan.activity.GotoOrderActivity;
 import cn.edu.dlut.tiyuguan.activity.MainActivity;
+import cn.edu.dlut.tiyuguan.base.BaseAuth;
 import cn.edu.dlut.tiyuguan.base.BaseTaskPool;
 import cn.edu.dlut.tiyuguan.global.NameConstant;
 import cn.edu.dlut.tiyuguan.global.UserInfo;
@@ -20,8 +21,10 @@ import cn.edu.dlut.tiyuguan.R;
 import cn.edu.dlut.tiyuguan.model.Sport;
 import cn.edu.dlut.tiyuguan.task.QueryVenuesInfoTask;
 import cn.edu.dlut.tiyuguan.util.AppUtil;
+import cn.edu.dlut.tiyuguan.util.ToastUtil;
 
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,6 +70,12 @@ public class MainTab02Fragment extends Fragment{
             public void onItemClick(AdapterView<?> arg0, View arg1, int postion,
                                     long arg3) {
                 // TODO Auto-generated method stub
+                //if user is not login
+                if(!BaseAuth.isLogin()){
+                    ToastUtil.showInfoToast(getActivity(),"未登录，请您登陆再操作！");
+                    ((MainActivity)getActivity()).switchFragment("我的");
+                    return;
+                }
                 Intent intent = new Intent(getActivity(),MakeReserveActivity.class);
                 AppUtil.debugV("====TAG====","选择的ListView Index" + postion);
                 switch(postion) {
@@ -109,7 +118,7 @@ public class MainTab02Fragment extends Fragment{
                         )
                     BaseTaskPool
                             .getInstance()
-                            .addTask(new QueryVenuesInfoTask(NameConstant.api.queryVenuesInfp));
+                            .addTask(new QueryVenuesInfoTask(NameConstant.api.queryVenuesInfo));
 
                 if(refreshTask != null && refreshTask.getStatus() == AsyncTask.Status.RUNNING)
                     refreshTask.cancel(true);
