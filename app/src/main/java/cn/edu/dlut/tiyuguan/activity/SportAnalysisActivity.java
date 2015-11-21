@@ -28,7 +28,7 @@ public class SportAnalysisActivity extends BaseUi {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sportanalysis);
 		initActionBar("运动分析");
-		//actionbar设置结束
+		//actionbar设置结
 		//设置图表数据
 		 CombinedChart chart = (CombinedChart) findViewById(R.id.chart);
 	        chart.setLogEnabled(true);
