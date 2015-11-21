@@ -65,7 +65,7 @@ public class MainActivity extends BaseUi {
 				updateTabStyle(mTabHost);
 			}
 		});
-
+		setSwipeBackEnable(false);
 	}
 	/**动态更新tab的样式**/
 	private void updateTabStyle(FragmentTabHost mTabHost) {

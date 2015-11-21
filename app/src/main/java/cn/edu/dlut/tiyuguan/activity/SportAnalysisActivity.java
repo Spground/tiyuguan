@@ -10,6 +10,8 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import cn.edu.dlut.tiyuguan.R;
+import cn.edu.dlut.tiyuguan.base.BaseUi;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
@@ -19,23 +21,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-public class SportAnalysisActivity extends Activity {
+public class SportAnalysisActivity extends BaseUi {
 
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sportanalysis);
-		//这是actionbar
-		ActionBar actionBar = this.getActionBar();    
-  	    actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
-  	    actionBar.setDisplayShowHomeEnabled(false);
-  	    actionBar.setTitle(" ");
-  	    View actionbarLayout = LayoutInflater.from(this).inflate(R.layout.tv, null);
-  	    ((TextView)actionbarLayout).setText("我的运动分析");
-  	     actionBar.setDisplayShowCustomEnabled(true);
-  	     ActionBar.LayoutParams layout = new  ActionBar.LayoutParams(Gravity.CENTER);
-  	     actionBar.setCustomView(actionbarLayout,layout);
-		//actionbar设置结束
+		initActionBar("运动分析");
+		//actionbar设置结
 		//设置图表数据
 		 CombinedChart chart = (CombinedChart) findViewById(R.id.chart);
 	        chart.setLogEnabled(true);
