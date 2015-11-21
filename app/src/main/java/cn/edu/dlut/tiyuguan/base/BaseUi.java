@@ -4,7 +4,6 @@ import android.app.ActionBar;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -14,12 +13,13 @@ import android.widget.TextView;
 import cn.edu.dlut.tiyuguan.R;
 import cn.edu.dlut.tiyuguan.util.ToastUtil;
 import cn.edu.dlut.tiyuguan.widget.CustomProgressDialog;
-import de.greenrobot.event.EventBus;
+import me.imid.swipebacklayout.lib.SwipeBackLayout;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
 /**
  * Created by asus on 2015/10/6.
  */
-public class BaseUi extends FragmentActivity {
+public class BaseUi extends SwipeBackActivity {
 
     protected BaseHandler handler;
     protected BaseTaskPool taskPool;
@@ -30,10 +30,13 @@ public class BaseUi extends FragmentActivity {
 
     private Dialog progressDlg;
 
+    private SwipeBackLayout mSwipeBackLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        progressDlg = CustomProgressDialog.createDialog(this,"正在处理请稍后...",true);
+        progressDlg = CustomProgressDialog.createDialog(this, "正在处理请稍后...", true);
+        mSwipeBackLayout = this.getSwipeBackLayout();
+        mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
     }
 
     /**显示的ProgressDlg的内容**/
@@ -172,4 +175,7 @@ public class BaseUi extends FragmentActivity {
 
     }
 
+    public SwipeBackLayout getmSwipeBackLayout(){
+        return mSwipeBackLayout;
+    }
 }
