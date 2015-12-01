@@ -47,12 +47,12 @@ public class MainTab03Fragment extends Fragment {
 
 	private String titleShowNum = "预约订单";
 	private boolean eventBusRgister = false;
-
+	private Button loginBtn;
 	private MyListAdapter myListAdapter,myListAdapter1;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		AppUtil.debugV("=====TAG=====","TAG Main03 onCreate");
+		AppUtil.debugV("=====TAG=====", "TAG Main03 onCreate");
 		inflater = LayoutInflater.from(getActivity());
 	}
 
@@ -73,8 +73,6 @@ public class MainTab03Fragment extends Fragment {
 	public void onStart() {
 		super.onStart();
 		AppUtil.debugV("=====TAG=====", "TAG Main03 onStart");
-		updateTopView();
-		init();
 	}
 
 	@Override
@@ -85,11 +83,13 @@ public class MainTab03Fragment extends Fragment {
 			EventBus.getDefault().register(this);
 			eventBusRgister = true;
 		}
+		updateTopView();
+		init();
 	}
 
 	@Override
-	public void onStop() {
-		super.onStop();
+	public void onPause() {
+		super.onPause();
 		AppUtil.debugV("=====TAG=====", "TAG Main03 onStop");
 		if(eventBusRgister){
 			EventBus.getDefault().unregister(this);
@@ -97,18 +97,9 @@ public class MainTab03Fragment extends Fragment {
 		}
 	}
 
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		AppUtil.debugV("=====TAG=====", "TAG Main03 onDestroy");
-		if(eventBusRgister){
-			EventBus.getDefault().unregister(this);
-			eventBusRgister = false;
-		}
-	}
 	/**初始化视图**/
 	private void init(){
-		final Button loginBtn = (Button)fragmentView.findViewById(R.id.login_btn);
+		loginBtn = (Button)fragmentView.findViewById(R.id.login_btn);
 		//other info items
 		ListView listview = (ListView)fragmentView.findViewById(R.id.listview_aboutbook);
 		ListView listview1 = (ListView)fragmentView.findViewById(R.id.listview1_aboutbook);
@@ -121,49 +112,48 @@ public class MainTab03Fragment extends Fragment {
 		listview1.setAdapter(myListAdapter1);
 
 		//add event listener
-		listview.setOnItemClickListener(new OnItemClickListener(){
+		listview.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				switch(arg2) {
+				switch (arg2) {
 					//查看预约信息
 					case 0:
-						if(!BaseAuth.isLogin()){
-							ToastUtil.showToast(getActivity(),"请登录！");
-							if(loginBtn != null){
+						if (!BaseAuth.isLogin()) {
+							ToastUtil.showToast(getActivity(), "请登录！");
+							if (loginBtn != null) {
 								loginBtn.performClick();
 							}
-						}
-						else {
+						} else {
 							Intent intentRecordList = new Intent(getActivity(), RecordListActivity.class);
 							startActivity(intentRecordList);
 						}
 						break;
 					//查看账号信息
 					case 1:
-						if(!BaseAuth.isLogin()) {
+						if (!BaseAuth.isLogin()) {
 							ToastUtil.showToast(getActivity(), "请登录！");
-							if(loginBtn != null){
+							if (loginBtn != null) {
 								loginBtn.performClick();
 							}
-						}
-						else {
+						} else {
 							//TODO:
-							Intent intent = new Intent(getActivity(),AccountInfoActivity.class);
+							Intent intent = new Intent(getActivity(), AccountInfoActivity.class);
 							startActivity(intent);
 						}
 						break;
 				}
-			}});
+			}
+		});
 
 		//add event listener
 		listview1.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 									long arg3) {
-				switch(arg2) {
+				switch (arg2) {
 					//user feedback
 					case 0:
-						Intent intentFeedBackActivity = new Intent(getActivity(),FeedBackActivity.class);
+						Intent intentFeedBackActivity = new Intent(getActivity(), FeedBackActivity.class);
 						startActivity(intentFeedBackActivity);
 						break;
 					//call the service phone
@@ -184,7 +174,7 @@ public class MainTab03Fragment extends Fragment {
 								.withButton1Text("继续")//def gone
 								.withButton2Text("取消")//def gone
 								.isCancelableOnTouchOutside(false)//def  | isCancelable(true)
-								.setCustomView(R.layout.question_dialog_layout,arg1.getContext())//.setCustomView(View or ResId,context)
+								.setCustomView(R.layout.question_dialog_layout, arg1.getContext())//.setCustomView(View or ResId,context)
 								.setButton1Click(new View.OnClickListener() {
 									@Override
 									public void onClick(View v) {
@@ -209,7 +199,7 @@ public class MainTab03Fragment extends Fragment {
 						break;
 					//about
 					case 3:
-						final NiftyDialogBuilder dialogBuilder1 = NiftyDialogBuilder.getInstance((MainActivity)getActivity());
+						final NiftyDialogBuilder dialogBuilder1 = NiftyDialogBuilder.getInstance((MainActivity) getActivity());
 						dialogBuilder1
 								.withTitle("关于我们")//.withTitle(null)  no title
 								.withTitleColor("#FFFFFF")
@@ -224,7 +214,7 @@ public class MainTab03Fragment extends Fragment {
 								.withButton1Text("知道了")//def gone
 										//.withButton2Text("Cancel")//def gone
 								.isCancelableOnTouchOutside(false)//def    | isCancelable(true)
-								.setCustomView(R.layout.custome_dialog_layout,arg1.getContext())//.setCustomView(View or ResId,context)
+								.setCustomView(R.layout.custome_dialog_layout, arg1.getContext())//.setCustomView(View or ResId,context)
 								.setButton1Click(new View.OnClickListener() {
 									@Override
 									public void onClick(View v) {
@@ -237,6 +227,21 @@ public class MainTab03Fragment extends Fragment {
 		});
 	}
 
+	/**根据用户是否登录更新TopView视图**/
+	private void updateTopView(){
+		LinearLayout topLinearLayout = (LinearLayout)getActivity().findViewById(R.id.topLinearLayout);
+		View topView = null;
+		/**移除所有子view**/
+		topLinearLayout.removeAllViews();
+		if(BaseAuth.isLogin()){
+			topView = inflater.inflate(R.layout.toplinearlayout1, null);
+			((TextView)topView.findViewById(R.id.show_userid_textview)).setText(BaseAuth.getUser().getUserName()+",欢迎你！");
+		}
+		else{
+			topView = inflater.inflate(R.layout.toplinearlayout0, null);
+		}
+		topLinearLayout.addView(topView);
+	}
 	/**登录成功 EventBus回调的方法**/
 	public void onEventMainThread(LoginSuccessEvent event) {
 		AppUtil.debugV("=====TAG=====", "我在UI线程中得到了登录返回的消息\n:" + event.getData());
@@ -259,7 +264,7 @@ public class MainTab03Fragment extends Fragment {
 	}
 	/**异常发生 EventBus回调的方法**/
 	public void onEventMainThread(ExceptionErrorEvent excepttonErrorEvent){
-		ToastUtil.showErrorToast(getActivity(),excepttonErrorEvent.getEventDesc());
+		ToastUtil.showErrorToast(getActivity(), excepttonErrorEvent.getEventDesc());
 		((MainActivity) getActivity()).hideProgressDlg();
 		rereshListView();
 	}
@@ -281,21 +286,7 @@ public class MainTab03Fragment extends Fragment {
 			myListAdapter1.notifyDataSetChanged();
 		}
 	}
-	/**根据用户是否登录更新TopView视图**/
-	private void updateTopView(){
-		LinearLayout topLinearLayout = (LinearLayout)getActivity().findViewById(R.id.topLinearLayout);
-		View topView = null;
-		/**移除所有子view**/
-		topLinearLayout.removeAllViews();
-		if(BaseAuth.isLogin()){
-			topView = inflater.inflate(R.layout.toplinearlayout1, null);
-			((TextView)topView.findViewById(R.id.show_userid_textview)).setText(BaseAuth.getUser().getUserName()+",欢迎你！");
-		}
-		else{
-			topView = inflater.inflate(R.layout.toplinearlayout0, null);
-		}
-		topLinearLayout.addView(topView);
-	}
+
 	/**custom ListViewAdapter**/
 	 class  MyListAdapter extends BaseAdapter {
 	    private String[] title;

@@ -45,7 +45,7 @@
             />
         <TextView
             android:id="@+id/id_main_tab_02_istview_item_num_textview"
-            android:background="@drawable/main_tab_02_listview_item_num_shape"
+            android:background="@drawable/shape_main_tab_02_listview_item_num"
             android:layout_marginRight="10dp"
             android:layout_alignParentRight="true"
             android:layout_width="40dp"

@@ -1,14 +1,7 @@
 package cn.edu.dlut.tiyuguan.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.style.StyleSpan;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -375,7 +368,7 @@ public class MakeReserveActivity extends BaseUi {
             viewHolder.locationNameTextView.setText((position + 1) + "");
             viewHolder.locationNameTextView.setBackgroundColor(getResources().getColor(R.color.main_color));
             convertView.setClickable(false);
-            viewHolder.locationNameTextView.setBackgroundResource(R.drawable.location_grid_view_item_selector);
+            viewHolder.locationNameTextView.setBackgroundResource(R.drawable.selector_location_grid_view_item);
             //判断是否可以用
             if(dataSet != null){
                 String valid = dataSet.get((position + 1) + "") == null ? "true":(dataSet.get((position + 1) + "").getValid());

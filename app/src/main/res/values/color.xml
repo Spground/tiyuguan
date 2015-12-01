@@ -38,5 +38,7 @@
     <color name="main_color">#17b3ed</color>
     <color name="deep_main_color">#17b3ad</color>
 
+    <color name="btn_blue_normal">#17b3ed</color>
+    <color name="btn_blue_pressed">#17a3ed</color>
 
 </resources>

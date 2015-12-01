@@ -48,7 +48,7 @@
                android:id="@+id/bookclient_linearlayout_1_1"
                android:orientation="vertical"
                android:layout_gravity="center_horizontal"
-               android:background="@drawable/book_area_layout_shape"
+               android:background="@drawable/shape_book_area_layout"
                android:layout_weight="1.0"
             
                >
@@ -87,7 +87,7 @@
                    android:paddingRight="10dip"
                    android:textColor="#1379CB"
                    android:textSize="15sp" 
-                   android:background="@drawable/select"
+                   android:background="@drawable/selector_btn"
                    android:layout_marginBottom="10dip"
                    android:onClick="doClick"/>
                
@@ -99,7 +99,7 @@
                android:id="@+id/bookclient_linearlayout_1_2"
                android:orientation="vertical"
                android:layout_gravity="center_horizontal"
-               android:background="@drawable/book_area_layout_shape"
+               android:background="@drawable/shape_book_area_layout"
                android:layout_weight="1.0"
                android:layout_marginLeft="2dip"
             
@@ -132,7 +132,7 @@
                    android:layout_width="wrap_content"
                    android:layout_height="30dp"
                    android:layout_gravity="center_horizontal"
-                   android:background="@drawable/select"
+                   android:background="@drawable/selector_btn"
                    android:paddingLeft="10dip"
                    android:paddingRight="10dip"
                    android:text="预定"
@@ -150,7 +150,7 @@
                android:id="@+id/bookclient_linearlayout_1_3"
                android:orientation="vertical"
                android:layout_gravity="center_horizontal"
-               android:background="@drawable/book_area_layout_shape"
+               android:background="@drawable/shape_book_area_layout"
                android:layout_weight="1.0"
                android:layout_marginLeft="2dip"
             
@@ -184,7 +184,7 @@
                    android:layout_width="wrap_content"
                    android:layout_height="30dp"
                    android:layout_gravity="center_horizontal"
-                    android:background="@drawable/select"
+                    android:background="@drawable/selector_btn"
                    android:text="预定"
                    android:paddingLeft="10dip"
                    android:paddingRight="10dip"
@@ -218,7 +218,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@drawable/info_textview"
+                android:background="@drawable/shape_info_textview"
                 android:layout_marginTop="5dip"
                 android:layout_weight="2.0"
               
@@ -252,7 +252,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@drawable/info_textview"
+                android:background="@drawable/shape_info_textview"
                 android:layout_weight="2.0"
                 android:layout_marginTop="5dip"
                >

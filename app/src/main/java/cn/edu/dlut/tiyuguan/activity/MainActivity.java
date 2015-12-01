@@ -67,6 +67,31 @@ public class MainActivity extends BaseUi {
 		});
 		setSwipeBackEnable(false);
 	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		AppUtil.debugV("====TAG===", "MainActivity onResume()");
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		AppUtil.debugV("====TAG===", "MainActivity onPause()");
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		AppUtil.debugV("====TAG===", "MainActivity onStart()");
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		AppUtil.debugV("====TAG===", "MainActivity onStop()");
+	}
+
 	/**动态更新tab的样式**/
 	private void updateTabStyle(FragmentTabHost mTabHost) {
 		//reset the tab style
