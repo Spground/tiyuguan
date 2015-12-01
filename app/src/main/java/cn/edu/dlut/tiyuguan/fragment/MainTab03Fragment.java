@@ -1,5 +1,6 @@
 package cn.edu.dlut.tiyuguan.fragment;
 
+import cn.edu.dlut.tiyuguan.activity.AboutActivity;
 import cn.edu.dlut.tiyuguan.activity.AccountInfoActivity;
 import cn.edu.dlut.tiyuguan.activity.FeedBackActivity;
 import cn.edu.dlut.tiyuguan.activity.MainActivity;
@@ -199,28 +200,7 @@ public class MainTab03Fragment extends Fragment {
 						break;
 					//about
 					case 3:
-						final NiftyDialogBuilder dialogBuilder1 = NiftyDialogBuilder.getInstance((MainActivity) getActivity());
-						dialogBuilder1
-								.withTitle("关于我们")//.withTitle(null)  no title
-								.withTitleColor("#FFFFFF")
-								.withDividerColor("#11000000")
-								.withMessage(null)
-										//.withMessage(null)  no Msg
-								.withMessageColor("#FFFFFFFF")//def  | withMessageColor(int resid)
-								.withDialogColor("#17b3ed")//def  | withDialogColor(int resid)
-								.withIcon(getResources().getDrawable(R.drawable.about_icon))
-								.withDuration(700)
-								.withEffect(Effectstype.RotateBottom)                                         //def Effectstype.Slidetop
-								.withButton1Text("知道了")//def gone
-										//.withButton2Text("Cancel")//def gone
-								.isCancelableOnTouchOutside(false)//def    | isCancelable(true)
-								.setCustomView(R.layout.custome_dialog_layout, arg1.getContext())//.setCustomView(View or ResId,context)
-								.setButton1Click(new View.OnClickListener() {
-									@Override
-									public void onClick(View v) {
-										dialogBuilder1.dismiss();
-									}
-								}).show();
+						startActivity(new Intent(getActivity(), AboutActivity.class));
 						break;
 				}//switch end
 			}

@@ -100,7 +100,7 @@ public class AutoLoginService extends BaseService {
             BaseMessage message = AppUtil.getMessage(data);
             if(message.isSuccessful()){
                 User user = (User)message.getData("User");
-                Log.v("TAG", "user对象\n:" + ((User) user).getUserName());
+                Log.v("TAG", "user对象\n:" + user.getUserName());
                 //login success
                 if((user).getUserName() != null){
                     BaseAuth.setUser(user);

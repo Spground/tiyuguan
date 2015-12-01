@@ -8,10 +8,7 @@ import cn.edu.dlut.tiyuguan.model.User;
 public class BaseAuth {
     static public boolean isLogin () {
         User user = User.getInstance();
-        if (user.isLogin() == true) {
-            return true;
-        }
-        return false;
+        return user.isLogin() == true;
     }
 
     static public void setLogin (Boolean status) {

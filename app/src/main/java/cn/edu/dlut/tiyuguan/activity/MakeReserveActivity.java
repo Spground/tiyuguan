@@ -291,9 +291,7 @@ public class MakeReserveActivity extends BaseUi {
         if(openTime == null || closeTime == null)
             throw new Exception("无法解析场馆的开闭馆时间");
         //比较时间大小
-        if(openTime.before(startDate) && openTime.before(endDate) && closeTime.after(endDate) && closeTime.after(startDate))
-            return true;
-        return false;
+        return openTime.before(startDate) && openTime.before(endDate) && closeTime.after(endDate) && closeTime.after(startDate);
     }
     /**验证选择的日期是否可用**/
     private boolean verifySelectedDate(int year,int month,int day ){
@@ -309,10 +307,7 @@ public class MakeReserveActivity extends BaseUi {
             e.printStackTrace();
         }
 
-        if(differDays <= 2 && differDays >= 0){
-            return true;
-        }
-        return false;
+        return differDays <= 2 && differDays >= 0;
     }
 
     /***得到指定日期的下一个整点时刻的HH:mm格式字符串**/
