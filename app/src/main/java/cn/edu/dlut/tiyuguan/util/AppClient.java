@@ -7,7 +7,7 @@ import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 
@@ -35,7 +35,7 @@ public class AppClient extends OkHttpClient{
     }
 
     /**post request to remote server**/
-    public String post(String url,HashMap<String,String> taskArgs) throws IOException {
+    public String post(String url,Map<String,String> taskArgs) throws IOException {
         if(taskArgs == null) return null;
         AppUtil.debugV("======TAG========","post invoked");
         FormEncodingBuilder fEBuilder = new FormEncodingBuilder();

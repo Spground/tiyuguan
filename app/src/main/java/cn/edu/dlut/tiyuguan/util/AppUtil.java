@@ -174,7 +174,7 @@ public class AppUtil {
     public static String getBeforeTime(int months,SimpleDateFormat format,Date now){
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(now);
-        calendar.add(calendar.MONTH,-months);
+        calendar.add(Calendar.MONTH,-months);
         return format.format(calendar.getTime());
     }
     /**计算两个日期之间的天数差值**/

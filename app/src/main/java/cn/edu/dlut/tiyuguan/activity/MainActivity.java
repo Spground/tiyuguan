@@ -67,6 +67,31 @@ public class MainActivity extends BaseUi {
 		});
 		setSwipeBackEnable(false);
 	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		AppUtil.debugV("====TAG===", "MainActivity onResume()");
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		AppUtil.debugV("====TAG===", "MainActivity onPause()");
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		AppUtil.debugV("====TAG===", "MainActivity onStart()");
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		AppUtil.debugV("====TAG===", "MainActivity onStop()");
+	}
+
 	/**动态更新tab的样式**/
 	private void updateTabStyle(FragmentTabHost mTabHost) {
 		//reset the tab style
@@ -130,7 +155,7 @@ public class MainActivity extends BaseUi {
 			  public void onClick(View v) {
 				  //all codes for login are here
 				  View parent = (View) v.getParent().getParent();//获取当前dialog的根视图
-				  View customPanel = (FrameLayout) parent.findViewById(R.id.customPanel);//获取Dialog_Layout布局中的FramLayout的视图
+				  View customPanel = parent.findViewById(R.id.customPanel);//获取Dialog_Layout布局中的FramLayout的视图
 				  if (customPanel == null) return;
 
 				  //将FrameLayout视图装换位ViewGroup
@@ -189,10 +214,7 @@ public class MainActivity extends BaseUi {
 	}
 	/**下面是验证用户的输入是否合法**/
 	private Boolean verifyInput(String userName,String passWord) {
-		if((userName.trim()).length() == 0||passWord.trim().length() == 0)
-			return false;
-		else
-			return true;
+		return !((userName.trim()).length() == 0 || passWord.trim().length() == 0);
 	}
 	/**按两次按钮退出**/
 	@Override

@@ -25,7 +25,7 @@
                  android:paddingRight="20dip"
                  android:paddingTop="5dip"
                  android:paddingBottom="5dip"
-                 android:background="@drawable/login_btn_selector"
+                 android:background="@drawable/selector_login_btn"
                  android:clickable="true"
                  android:onClick="loginBtnClick"
                 />

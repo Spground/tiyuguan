@@ -119,12 +119,8 @@ import android.widget.TextView;
       
         @Override  
         public void onScroll(AbsListView view, int firstVisibleItem,  
-                int visibleItemCount, int totalItemCount) {  
-                    if (firstVisibleItem == 0) {  
-                        isRefreshable = true;  
-                     } else {  
-                        isRefreshable = false;  
-                     }     
+                int visibleItemCount, int totalItemCount) {
+            isRefreshable = firstVisibleItem == 0;
             }  
       
         @Override  
@@ -301,7 +297,7 @@ import android.widget.TextView;
         }  
       
         public interface OnRefreshListener {  
-            public void onRefresh();  
+            void onRefresh();
         }  
       
         @SuppressWarnings("deprecation")

@@ -1,7 +1,5 @@
 package cn.edu.dlut.tiyuguan.global;
 
-import android.os.Handler;
-
 /**
  * Created by asus on 2015/10/6.
  * all constants are here
@@ -21,6 +19,7 @@ public class NameConstant {
         public static String queryVenuesInfo = "http://" + Host.HOST_ADDR + ":" + Host.HTTP_PORT + "/" + dir.root + "/venues/getVenuesInfo.action";
         public static String queryInvalidLocationInfo = "http://" + Host.HOST_ADDR + ":" + Host.HTTP_PORT + "/" + dir.root + "/venues/queryInvalidLocation.action";
 
+        public static String submitFbkContent = "http://" + Host.HOST_ADDR + ":" + Host.HTTP_PORT + "/" + dir.root + "/user/feedback.action";
     }
 
     public static class task{

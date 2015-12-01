@@ -2,7 +2,6 @@ package cn.edu.dlut.tiyuguan.base;
 
 import android.app.ActionBar;
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -95,13 +94,13 @@ public class BaseUi extends SwipeBackActivity {
 
     /********************各种弹出消息 BEGIN************************/
     public void toast(String msg){
-        ToastUtil.showToast(this,msg);
+        ToastUtil.showToast(this, msg);
     }
     public void toastError(String msg){
-        ToastUtil.showErrorToast(this,msg);
+        ToastUtil.showErrorToast(this, msg);
     }
     public void toastInfo(String msg){
-        ToastUtil.showInfoToast(this,msg);
+        ToastUtil.showInfoToast(this, msg);
     }
     public void toastWarning(String msg){
         ToastUtil.showWarningToast(this,msg);
@@ -123,21 +122,6 @@ public class BaseUi extends SwipeBackActivity {
         return;
     }
     /********************各种弹出消息 END***************************/
-
-    /***********************UI跳转 BEGIN********************************/
-    public void forward(Class<?> classobj){
-        Intent intent = new Intent(this,classobj);
-        intent.setClass(this,classobj);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        this.startActivity(intent);
-    }
-    public void forward(Class<?> classObj, Bundle params) {
-        Intent intent = new Intent();
-        intent.setClass(this, classObj);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtras(params);
-        this.startActivity(intent);
-    }
 
     /************************UI跳转 END*******************************/
 

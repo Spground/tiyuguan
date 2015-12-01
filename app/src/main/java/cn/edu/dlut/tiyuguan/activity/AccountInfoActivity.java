@@ -35,7 +35,7 @@ public class AccountInfoActivity extends BaseUi {
 
 	/**init everything**/
 	private void init(){
-		/**logout btn event init**/
+		/**logout button event init**/
 		logout_btn = (Button)findViewById(R.id.logout_btn);
 		logout_btn.setOnClickListener(new View.OnClickListener() {
 			@Override

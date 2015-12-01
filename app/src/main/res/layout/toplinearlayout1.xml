@@ -6,7 +6,7 @@
            android:id="@+id/topLinearLayout1"
            android:paddingTop="8dip"
            android:paddingBottom="8dip"
-           android:background="@drawable/aboutme_top_background"
+           android:background="@drawable/shape_about_me_top"
            android:layout_gravity="center_horizontal"
     >
     <ImageView
@@ -15,7 +15,7 @@
         android:layout_marginLeft="5dip"
         android:src="@drawable/avatar" 
         android:padding="5dip"
-        android:background="@drawable/aboutme_avatar_background"
+        android:background="@drawable/shape_about_me_avatar"
         />
            <TextView
                 android:id="@+id/show_userid_textview"

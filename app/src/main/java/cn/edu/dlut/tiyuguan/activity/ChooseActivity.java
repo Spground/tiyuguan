@@ -282,7 +282,7 @@ public class ChooseActivity extends Activity{
 			//家监听设置按钮的tag
 			btn.setTag(position);
 			timeTV.setText(str);
-			int s=(Integer)info_.get(time[position]);
+			int s= info_.get(time[position]);
 			System.out.println(s);
 			String tt="剩余"+String.valueOf(s)+"个";
 			quantityTV.setText(tt);
