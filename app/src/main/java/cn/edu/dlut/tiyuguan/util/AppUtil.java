@@ -23,15 +23,18 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.SimpleFormatter;
 
 import cn.edu.dlut.tiyuguan.R;
 import cn.edu.dlut.tiyuguan.base.BaseMessage;
 import cn.edu.dlut.tiyuguan.global.NameConstant;
+import cn.edu.dlut.tiyuguan.model.Record;
 
 /**
  * Created by asus on 2015/10/6.
@@ -206,5 +209,23 @@ public class AppUtil {
             return v_id;
         }
         return v_id;
+    }
+
+    /**
+     * 将Map转为List
+     * @param list
+     * @param map
+     * @param isClear
+     * @return
+     */
+    public static ArrayList<Record> map2List(ArrayList<Record> list, Map<String,Record> map, boolean isClear) {
+        if(map == null || list == null)
+            return null;
+        if(isClear)
+            list.clear();
+        for(String key : map.keySet()){
+            list.add(map.get(key));
+        }
+        return list;
     }
 }

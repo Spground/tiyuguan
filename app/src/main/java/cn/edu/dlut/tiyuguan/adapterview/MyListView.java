@@ -317,6 +317,9 @@ import android.widget.TextView;
 		public void setAdapter(LvAdapter adapter) {  
             lvHeaderLastUpdatedTv.setText("最近更新:" + new Date().toLocaleString());  
             super.setAdapter(adapter);  
-        }  
-      
+        }
+
+          public LinearLayout getHeaderView(){
+              return this.headerView;
+          }
     }  
