@@ -1,56 +1,53 @@
 package cn.edu.dlut.tiyuguan.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedHashMap;
+import java.util.List;
 
 import cn.edu.dlut.tiyuguan.R;
-import cn.edu.dlut.tiyuguan.adapterview.MyListView;
 import cn.edu.dlut.tiyuguan.base.BaseAuth;
 import cn.edu.dlut.tiyuguan.base.BaseTaskPool;
 import cn.edu.dlut.tiyuguan.base.BaseUi;
 import cn.edu.dlut.tiyuguan.event.NetworkErrorEvent;
 import cn.edu.dlut.tiyuguan.event.RefreshCompletedEvent;
+import cn.edu.dlut.tiyuguan.event.RefreshRecordListViewEvent;
+import cn.edu.dlut.tiyuguan.fragment.RecordPageFragment;
 import cn.edu.dlut.tiyuguan.global.NameConstant;
 import cn.edu.dlut.tiyuguan.model.Record;
 import cn.edu.dlut.tiyuguan.task.QueryUserOrderRecordTask;
 import cn.edu.dlut.tiyuguan.util.AppUtil;
 import cn.edu.dlut.tiyuguan.util.ToastUtil;
+import cn.edu.dlut.tiyuguan.widget.VPagerTitle;
 import de.greenrobot.event.EventBus;
 
 /**
  * 用户查看预约记录
  */
-public class RecordListActivity extends BaseUi {
-
-    private MyListView myListView;
-    private MyAdapter myAdapter;
-
-    private LinkedHashMap<String,Record> recordList;
+public class RecordListActivity extends BaseUi implements RecordPageFragment.RefreshRecordCallBack, View.OnClickListener{
+    private static final int NUM_PAGES = 2;
     private ArrayList<Record> dataSet;
 
-
     private boolean isRegister = false;
+
+    private ViewPager viewPager;
+    private List<VPagerTitle> titles;
+    private int[] ids = {R.id.cur_record_title, R.id.his_record_title};
+    private int currentIndex;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /**得到用户的预定列表**/
-        if(BaseAuth.isLogin()){
-            recordList = BaseAuth.getUser().getRecordMap();
-            dataSet = convertDataSet(recordList);
-        }
         setContentView(R.layout.activity_record_list);
         /**初始化actionBar**/
-        initActionBar("预约订单");
-        init();
+        initActionBar("订单记录");
+        initView();
     }
 
     @Override
@@ -80,121 +77,96 @@ public class RecordListActivity extends BaseUi {
         }
     }
 
-    /**init view**/
-    private void init(){
-        myListView = (MyListView)findViewById(R.id.id_activity_record_list_listview);
-        myAdapter = new MyAdapter();
-        myListView.setAdapter(myAdapter);
-        myListView.setonRefreshListener(new MyListView.OnRefreshListener() {
+    private void initView() {
+        this.viewPager = (ViewPager)findViewById(R.id.id_record_list_viewpager);
+        this.viewPager.setAdapter(new RecordPageAdapter(getSupportFragmentManager()));
+        this.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onRefresh() {
-                /**刷新用户的预约订单**/
-                //TODO:待改进
-                Date now = new Date(System.currentTimeMillis());
-                SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-                String endTime = format.format(now) + "240000";
-                String startTime = AppUtil.getBeforeTime(3,format,now) + "000000";
-                String queryUrl =  NameConstant.api.queryUserRecord + "?userId=" + BaseAuth.getUser().getUserId()+"&startTime=" + startTime + "&endTime=" + endTime;
-                AppUtil.debugV("====TAG====","queryUrl:" + queryUrl);
-                BaseTaskPool.getInstance().addTask(new QueryUserOrderRecordTask(queryUrl));
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position != currentIndex) {
+                    titles.get(currentIndex).setSelected(false);
+                    titles.get(position).setSelected(true);
+                    currentIndex = position;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
             }
         });
-    }
-
-    /**自定义ListView适配器内部类**/
-    class MyAdapter extends BaseAdapter{
-        @Override
-        public int getCount() {
-            if(dataSet != null){
-                return dataSet.size();
-            }
-            return 0;
-        }
-
-        @Override
-        public Object getItem(int i) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return i;
-        }
-
-        @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-            ViewHolder viewHolder = null;
-            if(view == null){
-                view = RecordListActivity.this.getLayoutInflater().inflate(R.layout.activity_record_list_listview_item,null);
-                viewHolder = new ViewHolder();
-
-                viewHolder.venuesImageView = (ImageView)view.findViewById(R.id.id_activity_record_list_listview_item_veues_image_view);
-                viewHolder.recordNumberTextView = (TextView)view.findViewById(R.id.id_activity_record_list_listview_item_recordnumber);
-                viewHolder.venuesNameTextView = (TextView)view.findViewById(R.id.id_activity_record_list_listview_item_text_view_venues_name);
-                viewHolder.venuesLocationTextView = (TextView)view.findViewById(R.id.id_activity_record_list_listview_item_text_view_venues_location);
-                viewHolder.recordTimePeriodTextView = (TextView)view.findViewById(R.id.id_activity_record_list_listview_item_record_time_period);
-
-                view.setTag(viewHolder);
-            }
-            else{
-                viewHolder = (ViewHolder)view.getTag();
-            }
-
-            if(dataSet == null)
-                return view;
-            /**fulfill data**/
-            AppUtil.debugV("====TAG====","dataSet " + dataSet);
-            AppUtil.debugV("====TAG====","venues id " + dataSet.get(i).getVenuesId());
-            AppUtil.debugV("====TAG====","venues name " + dataSet.get(i).getVenuesName());
-
-            viewHolder.venuesImageView.setImageResource(AppUtil.getDrawableResId(dataSet.get(i).getVenuesName()));
-            viewHolder.recordNumberTextView.setText(dataSet.get(i).getRecordId());
-            viewHolder.venuesNameTextView.setText(dataSet.get(i).getVenuesName());
-            viewHolder.venuesLocationTextView.setText(dataSet.get(i).getLocation());
-            viewHolder.recordTimePeriodTextView.setText(dataSet.get(i).getStartTime() + "至" + dataSet.get(i).getEndTime());
-            return view;
+        titles = new ArrayList<>(2);
+        for (int i = 0; i < 2; i++) {
+            VPagerTitle title = (VPagerTitle)this.findViewById(ids[i]);
+            title.setIndex(i);
+            title.setSelected(i == currentIndex);
+            title.setOnClickListener(this);
+            titles.add(title);
         }
     }
-
-    static class ViewHolder{
-        ImageView venuesImageView;
-
-        TextView recordNumberTextView;
-        TextView venuesNameTextView;
-        TextView venuesLocationTextView;
-        TextView recordTimePeriodTextView;
-
-    }
-
-    /**将LinkedList转为ArrayList**/
-    private ArrayList<Record> convertDataSet(LinkedHashMap<String,Record> recordList){
-        ArrayList<Record> dataSet = new ArrayList<Record>();
-        if(recordList == null)
-            return null;
-        for(String key : recordList.keySet()){
-            dataSet.add(recordList.get(key));
-        }
-        return dataSet;
-    }
-
     /**刷新完成 EventBus回调的方法**/
-    public void onEventMainThread(RefreshCompletedEvent refreshCompletedEvent){
-        AppUtil.debugV("====TAG====", "RecordlistActivity的刷新完成回调" );
-        dataSet = convertDataSet(BaseAuth.getUser().getRecordMap());
-        myAdapter.notifyDataSetChanged();
+    public void onEventMainThread(RefreshCompletedEvent refreshCompletedEvent) {
+        AppUtil.debugV("====TAG====", "RecordlistActivity的刷新完成回调");
+        AppUtil.map2List(this.dataSet, BaseAuth.getUser().getRecordMap(), true);
+        //notify fragment update data
+        EventBus.getDefault().post(new RefreshRecordListViewEvent());
         this.hideProgressDlg();
-        myListView.onRefreshComplete();
     }
     /**网络错误 EventBus回调的方法**/
-    public void onEventMainThread(NetworkErrorEvent errorEvent){
+    public void onEventMainThread(NetworkErrorEvent errorEvent) {
         AppUtil.debugV("====TAG====", "RecordlistActivity的网络错误回调" );
         ToastUtil.showErrorToast(this, "网络未连接或出现错误！");
         this.hideProgressDlg();
-        myListView.onRefreshComplete();
     }
 
-    private boolean timeInvalid(){
+    @Override
+    public void onClick(View v) {
+        int index = ((VPagerTitle)v).getIndex();
+        if (index != currentIndex) {
+            titles.get(currentIndex).setSelected(false);
+            titles.get(index).setSelected(true);
+            currentIndex = index;
+            viewPager.setCurrentItem(index);
+        }
+    }
 
-        return true;
+    @Override
+    public void onRefreshRecord(RecordPageFragment.RECORD_TYPE recordType,
+                                ArrayList<Record> dataSet) {
+        //real refresh operation goes here
+        this.dataSet = dataSet;
+        this.showProgressDlg();
+        Date now = new Date(System.currentTimeMillis());
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+        String endTime = format.format(now) + "240000";
+        String startTime = AppUtil.getBeforeTime(3, format, now) + "000000";
+        String queryUrl = NameConstant.api.queryUserRecord + "?userId=" + BaseAuth.getUser().getUserId() + "&startTime=" + startTime + "&endTime=" + endTime;
+        AppUtil.debugV("====TAG====", "queryUrl:" + queryUrl);
+        BaseTaskPool.getInstance().addTask(new QueryUserOrderRecordTask(queryUrl));
+    }
+
+
+    /**
+     * Fragment适配器
+     */
+    class RecordPageAdapter extends FragmentStatePagerAdapter {
+        public RecordPageAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return new RecordPageFragment();
+        }
+
+        @Override
+        public int getCount() {
+            return NUM_PAGES;
+        }
     }
 }

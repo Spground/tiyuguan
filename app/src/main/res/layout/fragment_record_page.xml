@@ -1,0 +1,31 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_gray"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:orientation="vertical"
+    >
+    <!--ListView-->
+    <cn.edu.dlut.tiyuguan.adapterview.MyListView
+        android:id="@+id/id_record_listview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="14"
+        android:choiceMode="singleChoice"
+        android:divider="@null"
+        android:backgroundTint="#EFEFEF"
+        >
+    </cn.edu.dlut.tiyuguan.adapterview.MyListView>
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:gravity="center|center"-->
+        <!--android:drawableLeft="@drawable/ic_action_info"-->
+        <!--android:text="仅能查询近三个月订单,更多订单查询请访问网站！"-->
+        <!--android:textSize="13sp"-->
+        <!--android:textColor="@color/black"-->
+        <!--/>-->
+</LinearLayout>
