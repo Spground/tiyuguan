@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingBottom="1dp"
-    android:paddingTop="1dp"
-    android:background="#efefef"
-    >
     <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/id_main_tab_02_istview_item_cardview"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:elevation="100dp"
         android:layout_margin="8dp"
         card_view:cardCornerRadius="10dp"
+        android:foreground="@drawable/selector_foreground"
+        android:background="@color/white"
         >
     <RelativeLayout
         android:layout_width="match_parent"
@@ -39,8 +33,8 @@
             android:layout_toRightOf="@id/id_main_tab_02_listview_item_image_view"
             android:gravity="center|left"
             android:text="hh"
-            android:textColor="@android:color/black"
-            android:textSize="24sp"
+            android:textColor="@color/font_grey_700"
+            android:textSize="22sp"
             android:layout_marginLeft="10dp"
             />
         <TextView
@@ -59,4 +53,3 @@
             />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
-</LinearLayout>

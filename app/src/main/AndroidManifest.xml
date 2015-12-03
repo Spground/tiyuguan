@@ -50,7 +50,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/ActivityTheme_DefTitle_Style">
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="HIrV0knMDwLtjqrgMsC9SNMW" />
@@ -69,7 +69,6 @@
             android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -88,12 +87,7 @@
         <activity
             android:name=".activity.FeedBackActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/ActivityTheme_DefTitle_Style"></activity>
-        <!-- 选择预约界面 -->
-        <activity
-            android:name=".activity.ChooseActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/ActivityTheme_DefTitle_Style"></activity>
+           ></activity>
         <!-- 账号信息界面. -->
         <activity
             android:name=".activity.AccountInfoActivity"

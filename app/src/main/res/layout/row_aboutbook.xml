@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="我的预约信息"
-        android:textColor="#000000"
+        android:textColor="@color/font_grey_700"
         android:textSize="18sp"
         />
     <TextView

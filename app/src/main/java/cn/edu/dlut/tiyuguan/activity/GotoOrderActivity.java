@@ -35,7 +35,7 @@ public class GotoOrderActivity extends Activity{
 		actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP,ActionBar.DISPLAY_HOME_AS_UP);
 		actionBar.setDisplayShowHomeEnabled(false);
 		actionBar.setTitle(" ");
-		View actionbarLayout = LayoutInflater.from(this).inflate(R.layout.tv, null);
+		View actionbarLayout = LayoutInflater.from(this).inflate(R.layout.action_bar_title_view, null);
 		actionBar.setDisplayShowCustomEnabled(true);
 		ActionBar.LayoutParams layout = new  ActionBar.LayoutParams(Gravity.CENTER);
 		actionBar.setCustomView(actionbarLayout,layout);
@@ -110,7 +110,7 @@ public class GotoOrderActivity extends Activity{
 			//填充信息到视图
 			String str = detailInfo.get("title");
 			ActionBar actionBar = this.getActionBar(); 
-			View actionbarLayout = LayoutInflater.from(this).inflate(R.layout.tv, null);
+			View actionbarLayout = LayoutInflater.from(this).inflate(R.layout.action_bar_title_view, null);
 			((TextView)actionbarLayout).setText(str);
 		    actionBar.setDisplayShowCustomEnabled(true);
 		    ActionBar.LayoutParams layout = new  ActionBar.LayoutParams(Gravity.CENTER);

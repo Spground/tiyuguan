@@ -31,7 +31,7 @@ protected void onCreate(Bundle savedInstanceState) {
 	actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
 	actionBar.setDisplayShowHomeEnabled(false);
 	actionBar.setTitle(" ");
-	View actionbarLayout = LayoutInflater.from(this).inflate(R.layout.tv, null);
+	View actionbarLayout = LayoutInflater.from(this).inflate(R.layout.action_bar_title_view, null);
 	((TextView)actionbarLayout).setText("附近的人");
 	actionBar.setDisplayShowCustomEnabled(true);
 	ActionBar.LayoutParams layout = new  ActionBar.LayoutParams(Gravity.CENTER);

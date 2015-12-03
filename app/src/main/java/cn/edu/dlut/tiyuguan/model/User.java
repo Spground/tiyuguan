@@ -61,7 +61,7 @@ public class User extends BaseModel {
     }
 
 
-    public LinkedHashMap<String,Record>getRecordMap() {
+    public synchronized LinkedHashMap<String,Record>  getRecordMap() {
         return recordMap;
     }
 

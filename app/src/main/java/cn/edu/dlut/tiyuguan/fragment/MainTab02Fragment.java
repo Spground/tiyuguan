@@ -1,39 +1,30 @@
 package cn.edu.dlut.tiyuguan.fragment;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-
-import cn.edu.dlut.tiyuguan.activity.MakeReserveActivity;
-import cn.edu.dlut.tiyuguan.adapterview.MyListView.OnRefreshListener;
-import cn.edu.dlut.tiyuguan.activity.GotoOrderActivity;
-import cn.edu.dlut.tiyuguan.activity.MainActivity;
-import cn.edu.dlut.tiyuguan.base.BaseAuth;
-import cn.edu.dlut.tiyuguan.base.BaseTaskPool;
-import cn.edu.dlut.tiyuguan.global.NameConstant;
-import cn.edu.dlut.tiyuguan.global.UserInfo;
-import cn.edu.dlut.tiyuguan.global.VenueInfo;
-import cn.edu.dlut.tiyuguan.internet.RefreshVenueInfo;
-
-import cn.edu.dlut.tiyuguan.adapterview.MyListView;
-import cn.edu.dlut.tiyuguan.R;
-import cn.edu.dlut.tiyuguan.model.Sport;
-import cn.edu.dlut.tiyuguan.task.QueryVenuesInfoTask;
-import cn.edu.dlut.tiyuguan.util.AppUtil;
-import cn.edu.dlut.tiyuguan.util.ToastUtil;
-
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.AsyncTask;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import cn.edu.dlut.tiyuguan.R;
+import cn.edu.dlut.tiyuguan.activity.MainActivity;
+import cn.edu.dlut.tiyuguan.activity.MakeReserveActivity;
+import cn.edu.dlut.tiyuguan.adapterview.MyListView;
+import cn.edu.dlut.tiyuguan.adapterview.MyListView.OnRefreshListener;
+import cn.edu.dlut.tiyuguan.base.BaseAuth;
+import cn.edu.dlut.tiyuguan.base.BaseTaskPool;
+import cn.edu.dlut.tiyuguan.global.NameConstant;
+import cn.edu.dlut.tiyuguan.model.Sport;
+import cn.edu.dlut.tiyuguan.task.QueryVenuesInfoTask;
+import cn.edu.dlut.tiyuguan.util.AppUtil;
+import cn.edu.dlut.tiyuguan.util.ToastUtil;
 
 
 @SuppressWarnings("deprecation")

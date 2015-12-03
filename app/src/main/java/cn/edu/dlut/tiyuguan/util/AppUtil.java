@@ -7,12 +7,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Bundle;
 import android.text.format.Time;
 import android.util.Log;
 
@@ -27,12 +23,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.logging.SimpleFormatter;
 
 import cn.edu.dlut.tiyuguan.R;
 import cn.edu.dlut.tiyuguan.base.BaseMessage;
+import cn.edu.dlut.tiyuguan.fragment.RecordPageFragment;
 import cn.edu.dlut.tiyuguan.global.NameConstant;
 import cn.edu.dlut.tiyuguan.model.Record;
 
@@ -46,22 +41,22 @@ public class AppUtil {
     private static  String[] venuesNames = new String[]{"篮球馆","羽毛球馆","乒乓球馆","游泳馆","台球馆"};
     static {
         drawableResourceMap = new HashMap<>();
-        for(int i = 0 ; i < 5 ; i++){
+        for(int i = 0 ; i < 5 ; i++) {
             drawableResourceMap.put(venuesNames[i],drawableIds[i]);
         }
     }
     /**得到SharedPreferences的名字**/
-    public static SharedPreferences getSharedPreferences(Context ctx){
+    public static SharedPreferences getSharedPreferences(Context ctx) {
         return ctx.getSharedPreferences(NameConstant.SHARED_PREFERENCES_NAME,Context.MODE_PRIVATE);
     }
 
     /**得到SharedPreferences的名字**/
-    public static SharedPreferences getSharedPreferences(Service service){
+    public static SharedPreferences getSharedPreferences(Service service) {
         return service.getSharedPreferences(NameConstant.SHARED_PREFERENCES_NAME,Context.MODE_PRIVATE);
     }
 
     /**SHA加密方法**/
-    public static String getSHA256(String strSrc){
+    public static String getSHA256(String strSrc) {
         MessageDigest md = null;
         StringBuilder sb = new StringBuilder();
 
@@ -82,19 +77,19 @@ public class AppUtil {
         return sb.toString();
     }
     /** 检查网络连接**/
-    public static boolean isConnected(Context context){
+    public static boolean isConnected(Context context) {
         boolean bisConnFlag = false;
         ConnectivityManager conManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo network = conManager.getActiveNetworkInfo();
         //检查网络是否可用
-        if(network != null){
+        if(network != null) {
             bisConnFlag = conManager.getActiveNetworkInfo().isAvailable();
         }
         return bisConnFlag;
     }
 
     /**打开网络设置界面**/
-    public static void setNetworkMethod(final Context context){
+    public static void setNetworkMethod(final Context context) {
         //提示对话框
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("网络设置提示").setMessage("网络连接不可用,是否进行设置?").setPositiveButton("设置", new DialogInterface.OnClickListener() {
@@ -105,9 +100,9 @@ public class AppUtil {
                 Intent intent = null;
                 //判断手机系统的版本  即API大于10 就是3.0或以上版本
                 //用户选择设置网络，跳转到系统设置网络的界面
-                if(android.os.Build.VERSION.SDK_INT > 10){
+                if(android.os.Build.VERSION.SDK_INT > 10) {
                     intent = new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS);
-                }else{
+                }else {
                     intent = new Intent();
                     ComponentName component = new ComponentName("com.android.settings","com.android.settings.WirelessSettings");
                     intent.setComponent(component);
@@ -126,7 +121,7 @@ public class AppUtil {
     }
 
     /**根据json原始字符串提取合成一个message对象**/
-    public static BaseMessage getMessage(String jsonStr) throws Exception{
+    public static BaseMessage getMessage(String jsonStr) throws Exception {
         BaseMessage message = new BaseMessage();
         JSONObject jsonObject = null;
         try {
@@ -143,7 +138,7 @@ public class AppUtil {
     }
 
     /**得到当前时间戳**/
-    public static String getTimeTag(){
+    public static String getTimeTag() {
         //取系统当前时间
         String nowtime;
         Time time = new Time();
@@ -163,25 +158,26 @@ public class AppUtil {
     }
 
     /**Debug Util**/
-    public static void debugV(String tag,String content){
+    public static void debugV(String tag,String content) {
         if(NameConstant.debug.Debug_Mode)
             Log.v(tag,content);
     }
     /**Debug Util**/
-    public static void debugV(String content){
+    public static void debugV(String content) {
         if(NameConstant.debug.Debug_Mode)
             Log.v("===TAG===",content);
     }
 
     /**得到指定前几个月的格式的毫秒数的时间格式**/
-    public static String getBeforeTime(int months,SimpleDateFormat format,Date now){
+    public static String getBeforeTime(int months,SimpleDateFormat format,Date now) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(now);
         calendar.add(Calendar.MONTH,-months);
         return format.format(calendar.getTime());
     }
+
     /**计算两个日期之间的天数差值**/
-    public static int getDaysBetweenDate(Date lgdate,Date smdate) throws ParseException{
+    public static int getDaysBetweenDate(Date lgdate,Date smdate) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         smdate = sdf.parse(sdf.format(smdate));
         lgdate = sdf.parse(sdf.format(lgdate));
@@ -198,7 +194,7 @@ public class AppUtil {
     }
 
     /**返回场馆名对应的图标资源id**/
-    public static int getDrawableResId(String venuesName){
+    public static int getDrawableResId(String venuesName) {
         int v_id = -1;
         if (venuesName == null)
             return v_id;
@@ -218,7 +214,7 @@ public class AppUtil {
      * @param isClear
      * @return
      */
-    public static ArrayList<Record> map2List(ArrayList<Record> list, Map<String,Record> map, boolean isClear) {
+    public static ArrayList<Record> map2List(ArrayList<Record> list, Map<String,Record> map, boolean isClear, int record_type) {
         if(map == null || list == null)
             return null;
         if(isClear)
@@ -227,5 +223,37 @@ public class AppUtil {
             list.add(map.get(key));
         }
         return list;
+    }
+
+    private synchronized static void filter(ArrayList<Record> dataSet, int record_type) {
+        //TODO:修改服务器返回的时间字符串
+        AppUtil.debugV("===TAG===", "filterDataSet is invoked");
+        AppUtil.debugV("===TAG===", "this.dataSet.size() is" + dataSet.size());
+        Date now = new Date();
+        for(int i = 0; i < dataSet.size(); i++) {
+            Record record = dataSet.get(i);
+            if(record == null)
+                return;
+            Date endDate;
+            String endDateStr = record.getEndTime();
+            AppUtil.debugV("===TAG===", "endDateStr is " + endDateStr);
+            endDateStr = endDateStr.substring(0, endDateStr.length() - 2);
+            AppUtil.debugV("===TAG===", "endDateStr is " + endDateStr);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
+            try {
+                endDate = simpleDateFormat.parse(endDateStr);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                AppUtil.debugV("===TAG===", "data convert exception is " + e.toString());
+                return;
+            }
+            if((endDate.after(now) && RecordPageFragment.current_record == record_type)
+                    ||
+                    (endDate.before(now) && RecordPageFragment.history_record == record_type)
+                    ) {
+                AppUtil.debugV("===TAG===", "");
+                dataSet.remove(i);
+            }
+        }
     }
 }

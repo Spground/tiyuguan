@@ -102,18 +102,18 @@ public class MainTab03Fragment extends Fragment {
 	private void init(){
 		loginBtn = (Button)fragmentView.findViewById(R.id.login_btn);
 		//other info items
-		ListView listview = (ListView)fragmentView.findViewById(R.id.listview_aboutbook);
-		ListView listview1 = (ListView)fragmentView.findViewById(R.id.listview1_aboutbook);
+		ListView listViewTop = (ListView)fragmentView.findViewById(R.id.listview_top_about);
+		ListView listViewBottom = (ListView)fragmentView.findViewById(R.id.listview_bottom_about);
 
 		//set adapter
 		myListAdapter = new MyListAdapter(fragmentView.getContext(),new String[]{"预约订单","账号信息"}, new int[]{R.drawable.ic_action_cart,R.drawable.ic_action_user});
-		listview.setAdapter(myListAdapter);
+		listViewTop.setAdapter(myListAdapter);
 		myListAdapter1 = new MyListAdapter(fragmentView.getContext(),new String[]{"意见反馈","咨询体育馆",
 				"检查更新","关于"},new int[]{R.drawable.ic_action_monolog,R.drawable.ic_action_phone_start,R.drawable.ic_action_reload,R.drawable.ic_action_info});
-		listview1.setAdapter(myListAdapter1);
+		listViewBottom.setAdapter(myListAdapter1);
 
 		//add event listener
-		listview.setOnItemClickListener(new OnItemClickListener() {
+		listViewTop.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				switch (arg2) {
@@ -147,7 +147,7 @@ public class MainTab03Fragment extends Fragment {
 		});
 
 		//add event listener
-		listview1.setOnItemClickListener(new OnItemClickListener() {
+		listViewBottom.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 									long arg3) {

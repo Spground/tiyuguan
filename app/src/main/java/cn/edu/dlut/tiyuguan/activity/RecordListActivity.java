@@ -32,6 +32,8 @@ import de.greenrobot.event.EventBus;
  * 用户查看预约记录
  */
 public class RecordListActivity extends BaseUi implements RecordPageFragment.RefreshRecordCallBack, View.OnClickListener{
+    private static final String TAG = "RecordListActivity";
+
     private static final int NUM_PAGES = 2;
     private ArrayList<Record> dataSet;
 
@@ -112,7 +114,7 @@ public class RecordListActivity extends BaseUi implements RecordPageFragment.Ref
     /**刷新完成 EventBus回调的方法**/
     public void onEventMainThread(RefreshCompletedEvent refreshCompletedEvent) {
         AppUtil.debugV("====TAG====", "RecordlistActivity的刷新完成回调");
-        AppUtil.map2List(this.dataSet, BaseAuth.getUser().getRecordMap(), true);
+        AppUtil.map2List(this.dataSet, BaseAuth.getUser().getRecordMap(), true, 0);
         //notify fragment update data
         EventBus.getDefault().post(new RefreshRecordListViewEvent());
         this.hideProgressDlg();
@@ -150,7 +152,6 @@ public class RecordListActivity extends BaseUi implements RecordPageFragment.Ref
         BaseTaskPool.getInstance().addTask(new QueryUserOrderRecordTask(queryUrl));
     }
 
-
     /**
      * Fragment适配器
      */
@@ -161,7 +162,15 @@ public class RecordListActivity extends BaseUi implements RecordPageFragment.Ref
 
         @Override
         public Fragment getItem(int position) {
-            return new RecordPageFragment();
+            AppUtil.debugV(TAG, "ViewPager position is " + position);
+            Bundle bundle = new Bundle();
+            if(position == 0)
+                bundle.putInt("record_type", RecordPageFragment.current_record);
+            else if(position == 1)
+                bundle.putInt("record_type", RecordPageFragment.history_record);
+            RecordPageFragment instance = new RecordPageFragment();
+            instance.setArguments(bundle);
+            return instance;
         }
 
         @Override

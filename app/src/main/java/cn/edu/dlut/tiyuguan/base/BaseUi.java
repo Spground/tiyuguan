@@ -47,18 +47,17 @@ public class BaseUi extends SwipeBackActivity {
     protected boolean getProgressDlgCanceable(){
         return false;
     }
-    protected void initActionBar(String title){
+    protected void initActionBar(String title) {
         //初始化actionbar
         ActionBar actionBar = this.getActionBar();
         actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setTitle(" ");
-
-        View actionbarView = LayoutInflater.from(this).inflate(R.layout.tv, null);
+        View actionbarView = LayoutInflater.from(this).inflate(R.layout.action_bar_title_view, null);
         ((TextView)actionbarView).setText(title);
         actionBar.setDisplayShowCustomEnabled(true);
         ActionBar.LayoutParams layout = new  ActionBar.LayoutParams(Gravity.CENTER);
-        actionBar.setCustomView(actionbarView,layout);
+        actionBar.setCustomView(actionbarView, layout);
     }
 
 

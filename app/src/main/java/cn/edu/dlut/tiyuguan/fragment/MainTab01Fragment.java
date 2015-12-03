@@ -1,22 +1,8 @@
 package cn.edu.dlut.tiyuguan.fragment;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import cn.edu.dlut.tiyuguan.activity.TiyuguanGuideActivity;
-import cn.edu.dlut.tiyuguan.activity.FitAdviceActivity;
-import cn.edu.dlut.tiyuguan.activity.SportAnalysisActivity;
-import cn.edu.dlut.tiyuguan.activity.WeatherActivity;
-import cn.edu.dlut.tiyuguan.adapterview.MyGridView;
-import cn.edu.dlut.tiyuguan.activity.MapActivity;
-
-import cn.edu.dlut.tiyuguan.ChildAnimationExample;
-import cn.edu.dlut.tiyuguan.R;
-import cn.edu.dlut.tiyuguan.model.News;
-import cn.edu.dlut.tiyuguan.model.Sport;
-
-import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,10 +10,25 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.daimajia.slider.library.SliderLayout;
-import com.daimajia.slider.library.SliderTypes.*;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
+
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+
+import cn.edu.dlut.tiyuguan.ChildAnimationExample;
+import cn.edu.dlut.tiyuguan.R;
+import cn.edu.dlut.tiyuguan.activity.FitAdviceActivity;
+import cn.edu.dlut.tiyuguan.activity.MapActivity;
+import cn.edu.dlut.tiyuguan.activity.SportAnalysisActivity;
+import cn.edu.dlut.tiyuguan.activity.TiyuguanGuideActivity;
+import cn.edu.dlut.tiyuguan.activity.WeatherActivity;
+import cn.edu.dlut.tiyuguan.adapterview.MyGridView;
+import cn.edu.dlut.tiyuguan.model.News;
+import cn.edu.dlut.tiyuguan.model.Sport;
+import cn.edu.dlut.tiyuguan.util.ToastUtil;
 
 public class MainTab01Fragment extends Fragment implements BaseSliderView.OnSliderClickListener {
 	 private SliderLayout mDemoSlider;
@@ -55,8 +56,8 @@ public class MainTab01Fragment extends Fragment implements BaseSliderView.OnSlid
         initView();
 		return this.view;
 	}
-/*初始化视图*/
-    private  void initView(){
+
+    private  void initView() {
         this.view = (getLayoutInflater(savedInstanceState)).inflate(R.layout.main_tab_01, null, false);
         initSliderView();
         MyGridView gridView = (MyGridView)view.findViewById(R.id.homegridview);
@@ -127,10 +128,10 @@ public class MainTab01Fragment extends Fragment implements BaseSliderView.OnSlid
 	@Override
 	public void onSliderClick(BaseSliderView slider) {
 		// TODO Auto-generated method stub
-		Toast.makeText(getActivity(),slider.getBundle().get("extra") + "",Toast.LENGTH_SHORT).show();
+		ToastUtil.showToast(getActivity(), slider.getBundle().get("extra") + "");
 	}
 
-	//gridview的适配器
+	//GridView的适配器
 	 class MyGridViewAdapter extends BaseAdapter{
 		
 
@@ -164,7 +165,7 @@ public class MainTab01Fragment extends Fragment implements BaseSliderView.OnSlid
 		}
 		
 	}
-   //监听gridview的点击事件
+   //监听GridView的点击事件
 	class GridViewOnClickListener implements View.OnClickListener{
 
 	@Override
@@ -180,7 +181,6 @@ public class MainTab01Fragment extends Fragment implements BaseSliderView.OnSlid
 			break;
 		case "运动指南":
 			startActivity(new Intent(getActivity(), FitAdviceActivity.class));
-
 			break;
 		case "我的运动分析":
 			startActivity(new Intent(getActivity(), SportAnalysisActivity.class));
@@ -188,12 +188,9 @@ public class MainTab01Fragment extends Fragment implements BaseSliderView.OnSlid
 		case "附近的人":
 			startActivity(new Intent(getActivity(), MapActivity.class));
 			break;
-		
 		}
 	}
-		
 	}
-	
 }
 
 
