@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 import cn.edu.dlut.tiyuguan.R;
 import cn.edu.dlut.tiyuguan.adapterview.MyGridView;
@@ -28,6 +29,7 @@ import cn.edu.dlut.tiyuguan.event.NetworkErrorEvent;
 import cn.edu.dlut.tiyuguan.event.RefreshCompletedEvent;
 import cn.edu.dlut.tiyuguan.global.NameConstant;
 import cn.edu.dlut.tiyuguan.model.Location;
+import cn.edu.dlut.tiyuguan.model.Record;
 import cn.edu.dlut.tiyuguan.model.Sport;
 import cn.edu.dlut.tiyuguan.task.QueryLocationInfoTask;
 import cn.edu.dlut.tiyuguan.util.AppUtil;
@@ -428,4 +430,7 @@ public class MakeReserveActivity extends BaseUi {
         }
     }
 
+    abstract class RecordFilter{
+        public abstract void filter(Map<String, Record> recordMap);
+    }
 }

@@ -13,9 +13,9 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:elevation="100dp"
         android:layout_margin="8dp"
-        card_view:cardCornerRadius="5dp"
+        android:foreground="@drawable/selector_foreground"
+        card_view:cardCornerRadius="2dp"
         >
         <LinearLayout
             android:id="@+id/id_activity_record_list_item_bgc"
@@ -27,30 +27,34 @@
             android:paddingRight="10dp"
             android:paddingBottom="5dp"
             >
-            <!-- 订单号-->
+            <!-- 时间段-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 >
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="订单号:"
+                    android:layout_height="match_parent"
+                    android:text="时间段:"
                     android:textColor="@color/material_deep_teal_500"
-                    android:textSize="16sp"
-                    android:textStyle="italic"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:gravity="center|center"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
                     />
                 <TextView
-                    android:id="@+id/id_activity_record_list_listview_item_recordnumber"
+                    android:id="@+id/id_activity_record_list_listview_item_record_time_period"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="20150202036"
-                    android:paddingLeft="5dp"
-                    android:textColor="@color/material_deep_teal_500"
-                    android:textSize="16sp"
-                    android:textStyle="italic"
+                    android:layout_height="match_parent"
+                    android:text="2014-12-26 09:00:00 至 2014-12-26 10:00:00"
+                    android:textColor="@color/font_grey_700"
+                    android:textSize="14sp"
+                    android:gravity="center|center"
                     />
+
 
             </LinearLayout>
 
@@ -105,8 +109,8 @@
                                android:layout_height="wrap_content"
                                android:gravity="center|center"
                                android:text="篮球馆"
-                               android:textColor="@android:color/black"
-                               android:textSize="8sp"
+                               android:textColor="@color/font_grey_700"
+                               android:textSize="12sp"
                                />
                        </LinearLayout>
 
@@ -139,9 +143,9 @@
                            android:layout_width="wrap_content"
                            android:layout_height="match_parent"
                            android:gravity="center|center"
-                           android:textSize="8sp"
                            android:text="10"
-                           android:textColor="@color/black"
+                           android:textColor="@color/font_grey_700"
+                           android:textSize="12sp"
                            />
                    </LinearLayout>
 
@@ -157,28 +161,27 @@
                    android:layout_width="match_parent"
                    android:layout_height="0dp"
                    android:layout_weight="1"
-                   android:gravity="center_horizontal"
+                   android:gravity="left|center"
                    android:orientation="horizontal"
+                   android:paddingLeft="2dp"
                    >
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="时间段:"
-                        android:textColor="@color/material_deep_teal_500"
-                        android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:gravity="center|center"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        />
                    <TextView
-                       android:id="@+id/id_activity_record_list_listview_item_record_time_period"
                        android:layout_width="wrap_content"
-                       android:layout_height="match_parent"
-                       android:text="2014-12-26 09:00:00 至 2014-12-26 10:00:00"
-                       android:textColor="@color/black"
-                       android:textSize="8sp"
-                       android:gravity="center|center"
+                       android:layout_height="wrap_content"
+                       android:text="订单号:"
+                       android:textColor="@color/material_deep_teal_500"
+                       android:textSize="10sp"
+                       android:textStyle="italic"
+                       />
+                   <TextView
+                       android:id="@+id/id_activity_record_list_listview_item_recordnumber"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="20150202036"
+                       android:paddingLeft="5dp"
+                       android:textColor="@color/font_grey_700"
+                       android:textSize="12sp"
+                       android:textStyle="italic"
                        />
                </LinearLayout>
            </LinearLayout>

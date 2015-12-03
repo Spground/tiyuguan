@@ -31,7 +31,6 @@ public class FeedBackActivity extends BaseUi implements View.OnClickListener, Di
 	private EditText fbkEdit;
 	private Button submitBtn;
 	private AlertDialog alertDialog;
-
 	private String fbkContent;
 	private Map<String, String> params = new HashMap<>();
 

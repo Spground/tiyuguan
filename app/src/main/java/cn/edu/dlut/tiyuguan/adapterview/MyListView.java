@@ -18,7 +18,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;  
 import android.widget.TextView;  
 
- /**custome listview**/
+ /**customer ListView**/
     public class MyListView extends ListView implements OnScrollListener {  
       
         private final static int RELEASE_To_REFRESH = 0;// 下拉过程的状态值  
@@ -69,7 +69,7 @@ import android.widget.TextView;
         private void init(Context context) {  
             setCacheColorHint(context.getResources().getColor(R.color.transparent));  
             inflater = LayoutInflater.from(context);  
-            headerView = (LinearLayout) inflater.inflate(R.layout.lv_header, null);  
+            headerView = (LinearLayout) inflater.inflate(R.layout.listview_refresh_header, null);
             lvHeaderTipsTv = (TextView) headerView  
                     .findViewById(R.id.lvHeaderTipsTv);  
             lvHeaderLastUpdatedTv = (TextView) headerView  
