@@ -89,7 +89,7 @@ public class FeedBackActivity extends BaseUi implements View.OnClickListener, Di
 						@Override
 						public void run() {
 							hideProgressDlg();
-							toast("Error");
+							toastError("Error");
 						}
 					});
 				}
@@ -102,7 +102,7 @@ public class FeedBackActivity extends BaseUi implements View.OnClickListener, Di
 						@Override
 						public void run() {
 							hideProgressDlg();
-							toast("Exception");
+							toastError("Exception");
 						}
 					});
 				}
@@ -127,7 +127,7 @@ public class FeedBackActivity extends BaseUi implements View.OnClickListener, Di
 								@Override
 								public void run() {
 									hideProgressDlg();
-									toast("提交失败，请你稍后再试！");
+									toastError("提交失败，请你稍后再试!");
 								}
 							});
 						}
@@ -141,7 +141,7 @@ public class FeedBackActivity extends BaseUi implements View.OnClickListener, Di
 			});
 		}
 		else
-			toast("字数要求在140字以内，你的字数没有达到要求！");
+			toastWarning("字数要求在140字以内");
 		closeSoftInputWindow();
 	}
 

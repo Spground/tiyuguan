@@ -1,9 +1,8 @@
 package cn.edu.dlut.tiyuguan.internet;
 
-import org.apache.http.client.HttpClient;
-
-import android.app.Application;
 import android.os.Handler;
+
+import org.apache.http.client.HttpClient;
 
 import cn.edu.dlut.tiyuguan.global.NameConstant;
 

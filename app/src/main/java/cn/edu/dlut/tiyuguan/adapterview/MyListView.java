@@ -1,7 +1,7 @@
  package cn.edu.dlut.tiyuguan.adapterview;
 import java.util.Date;
 import cn.edu.dlut.tiyuguan.R;
-import cn.edu.dlut.tiyuguan.adapter.LvAdapter;
+import cn.edu.dlut.tiyuguan.adapter.ListViewAdapter;
 import android.content.Context;
 import android.util.AttributeSet;  
 import android.view.LayoutInflater;  
@@ -314,7 +314,7 @@ import android.widget.TextView;
         }  
       
         @SuppressWarnings("deprecation")
-		public void setAdapter(LvAdapter adapter) {  
+		public void setAdapter(ListViewAdapter adapter) {
             lvHeaderLastUpdatedTv.setText("最近更新:" + new Date().toLocaleString());  
             super.setAdapter(adapter);  
         }

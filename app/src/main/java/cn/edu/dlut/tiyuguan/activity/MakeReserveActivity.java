@@ -242,7 +242,7 @@ public class MakeReserveActivity extends BaseUi {
                 AppUtil.debugV("====TAG===","StartTime:" + startTime.getHours() + ":" + startTime.getMinutes());
                 AppUtil.debugV("====TAG===","EndTime:" + endTime.getHours() + ":" + endTime.getMinutes());
 
-                boolean ok = false;
+                boolean ok;
                 try {
                     ok = verifySelectedTime(startTime,endTime);
                 } catch (Exception e) {
@@ -250,7 +250,7 @@ public class MakeReserveActivity extends BaseUi {
                     ok = false;
                 }
                 if(!ok){
-                    ToastUtil.showInfoToast(MakeReserveActivity.this,"你选择的时间段不满足场馆的开闭馆要求，请重新选择！");
+                    toastWarning("你选择的时间段不满足场馆的开闭馆要求，请重新选择");
                     return;
                 }
 
@@ -275,11 +275,13 @@ public class MakeReserveActivity extends BaseUi {
             return false;
 
         String openTimeStr = "" ,closeTimeStr = "";
-        Date openTime = null,closeTime = null;
+        Date openTime, closeTime;
 
         if(Sport.getInstance().getVenuesHashMap() != null){
-            openTimeStr = Sport.getInstance().getVenuesHashMap().get(venues_id + "").getOpenTime();
-            closeTimeStr = Sport.getInstance().getVenuesHashMap().get(venues_id + "").getCloseTime();
+            openTimeStr = Sport.getInstance().getVenuesHashMap().get(venues_id + "")
+                    .getOpenTime();
+            closeTimeStr = Sport.getInstance().getVenuesHashMap().get(venues_id + "")
+                    .getCloseTime();
         }
 
         try {
@@ -293,10 +295,12 @@ public class MakeReserveActivity extends BaseUi {
         if(openTime == null || closeTime == null)
             throw new Exception("无法解析场馆的开闭馆时间");
         //比较时间大小
-        return openTime.before(startDate) && openTime.before(endDate) && closeTime.after(endDate) && closeTime.after(startDate);
+        return openTime.before(startDate) && openTime.before(endDate)
+                && closeTime.after(endDate) && closeTime.after(startDate);
     }
+
     /**验证选择的日期是否可用**/
-    private boolean verifySelectedDate(int year,int month,int day ){
+    private boolean verifySelectedDate(int year,int month,int day )  {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year,month,day);
         Date now = new Date();
@@ -313,7 +317,7 @@ public class MakeReserveActivity extends BaseUi {
     }
 
     /***得到指定日期的下一个整点时刻的HH:mm格式字符串**/
-    private String getNextIntegralHour(Date date){
+    private String getNextIntegralHour(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
@@ -329,7 +333,8 @@ public class MakeReserveActivity extends BaseUi {
             // TODO Auto-generated method stub
             String locationNum = "0";
             if(Sport.getInstance().getVenuesHashMap() != null){
-                locationNum = Sport.getInstance().getVenuesHashMap().get(venues_id + "").getLocationNum();
+                locationNum = Sport.getInstance().getVenuesHashMap()
+                        .get(venues_id + "").getLocationNum();
             }
             return Integer.valueOf(locationNum.trim());
         }
@@ -386,7 +391,7 @@ public class MakeReserveActivity extends BaseUi {
     }
 
     /**update dataSet & refresh view**/
-    private void updateDataSet(){
+    private void updateDataSet() {
         if(Sport.getInstance().getVenuesHashMap() != null){
             dataSet = Sport.getInstance().getVenuesHashMap().get(venues_id + "").getLocationMap();
             myGridViewAdapter.notifyDataSetChanged();

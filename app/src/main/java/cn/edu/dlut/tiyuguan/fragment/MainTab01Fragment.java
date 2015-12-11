@@ -128,7 +128,7 @@ public class MainTab01Fragment extends Fragment implements BaseSliderView.OnSlid
 	@Override
 	public void onSliderClick(BaseSliderView slider) {
 		// TODO Auto-generated method stub
-		ToastUtil.showToast(getActivity(), slider.getBundle().get("extra") + "");
+		ToastUtil.showInfoToast(getActivity(), slider.getBundle().get("extra") + "");
 	}
 
 	//GridView的适配器

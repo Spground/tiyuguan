@@ -1,5 +1,7 @@
 package cn.edu.dlut.tiyuguan.activity;
-import java.util.ArrayList;
+
+import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.data.BarData;
@@ -9,17 +11,11 @@ import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+
+import java.util.ArrayList;
+
 import cn.edu.dlut.tiyuguan.R;
 import cn.edu.dlut.tiyuguan.base.BaseUi;
-
-import android.app.ActionBar;
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 
 public class SportAnalysisActivity extends BaseUi {
 

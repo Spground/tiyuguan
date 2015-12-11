@@ -113,7 +113,7 @@ public class RecordListActivity extends BaseUi implements RecordPageFragment.Ref
     }
     /**刷新完成 EventBus回调的方法**/
     public void onEventMainThread(RefreshCompletedEvent refreshCompletedEvent) {
-        AppUtil.debugV("====TAG====", "RecordlistActivity的刷新完成回调");
+        AppUtil.debugV("====TAG====", "RecordListActivity的刷新完成回调");
         AppUtil.map2List(this.dataSet, BaseAuth.getUser().getRecordMap(), true, 0);
         //notify fragment update data
         EventBus.getDefault().post(new RefreshRecordListViewEvent());
@@ -121,7 +121,7 @@ public class RecordListActivity extends BaseUi implements RecordPageFragment.Ref
     }
     /**网络错误 EventBus回调的方法**/
     public void onEventMainThread(NetworkErrorEvent errorEvent) {
-        AppUtil.debugV("====TAG====", "RecordlistActivity的网络错误回调" );
+        AppUtil.debugV("====TAG====", "RecordListActivity的网络错误回调" );
         ToastUtil.showErrorToast(this, "网络未连接或出现错误！");
         this.hideProgressDlg();
     }

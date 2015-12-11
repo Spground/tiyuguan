@@ -13,7 +13,7 @@
         android:id="@+id/accountinfo_row_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:textColor="@color/font_grey_700"
         android:textSize="@dimen/text_basic_size"
         android:text="用户名ID"
         />

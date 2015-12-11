@@ -127,6 +127,7 @@ public class MainTab02Fragment extends Fragment{
                     @Override
                     protected void onPostExecute(String result) {
                         myAdapter.notifyDataSetChanged();
+                        ToastUtil.showSuccessToast(getActivity(), "刷新成功");
                         mListView.onRefreshComplete();
                     }
                 };

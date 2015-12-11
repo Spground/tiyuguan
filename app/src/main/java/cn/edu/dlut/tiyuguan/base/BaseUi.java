@@ -92,17 +92,24 @@ public class BaseUi extends SwipeBackActivity {
     }
 
     /********************各种弹出消息 BEGIN************************/
-    public void toast(String msg){
-        ToastUtil.showToast(this, msg);
+    public void toastNormal(String msg) {
+        ToastUtil.showNormalToast(this, msg);
     }
-    public void toastError(String msg){
+
+    public void toastError(String msg) {
         ToastUtil.showErrorToast(this, msg);
     }
-    public void toastInfo(String msg){
+
+    public void toastInfo(String msg) {
         ToastUtil.showInfoToast(this, msg);
     }
-    public void toastWarning(String msg){
-        ToastUtil.showWarningToast(this,msg);
+
+    public void toastSuccess(String msg) {
+        ToastUtil.showSuccessToast(this, msg);
+    }
+
+    public void toastWarning(String msg) {
+        ToastUtil.showWarningToast(this, msg);
     }
 
     /**显示加载进度dlg**/

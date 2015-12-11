@@ -13,8 +13,6 @@ import java.util.concurrent.Executors;
 import cn.edu.dlut.tiyuguan.base.BaseAuth;
 import cn.edu.dlut.tiyuguan.base.BaseMessage;
 import cn.edu.dlut.tiyuguan.base.BaseService;
-import cn.edu.dlut.tiyuguan.event.ExceptionErrorEvent;
-import cn.edu.dlut.tiyuguan.event.NetworkErrorEvent;
 import cn.edu.dlut.tiyuguan.event.LoginFailedEvent;
 import cn.edu.dlut.tiyuguan.event.LoginSuccessEvent;
 import cn.edu.dlut.tiyuguan.global.NameConstant;

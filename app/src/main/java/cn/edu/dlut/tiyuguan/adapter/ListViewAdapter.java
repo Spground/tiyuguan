@@ -8,11 +8,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;  
 import android.widget.TextView;  
   
-public class LvAdapter extends BaseAdapter {  
+public class ListViewAdapter extends BaseAdapter {
     private List<String> list;  
     private Context context;  
   
-    public LvAdapter(List<String> list, Context context) {  
+    public ListViewAdapter(List<String> list, Context context) {
         this.list = list;  
         this.context = context;  
     }  

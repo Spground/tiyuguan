@@ -1,31 +1,10 @@
 package cn.edu.dlut.tiyuguan.fragment;
 
-import cn.edu.dlut.tiyuguan.activity.AboutActivity;
-import cn.edu.dlut.tiyuguan.activity.AccountInfoActivity;
-import cn.edu.dlut.tiyuguan.activity.FeedBackActivity;
-import cn.edu.dlut.tiyuguan.activity.MainActivity;
-import cn.edu.dlut.tiyuguan.activity.RecordListActivity;
-import cn.edu.dlut.tiyuguan.base.BaseAuth;
-
-import com.devspark.appmsg.AppMsg;
-import cn.edu.dlut.tiyuguan.R;
-import cn.edu.dlut.tiyuguan.animation.lib.Effectstype;
-import cn.edu.dlut.tiyuguan.animation.lib.NiftyDialogBuilder;
-import cn.edu.dlut.tiyuguan.event.ExceptionErrorEvent;
-import cn.edu.dlut.tiyuguan.event.LoginFailedEvent;
-import cn.edu.dlut.tiyuguan.event.LoginSuccessEvent;
-import cn.edu.dlut.tiyuguan.event.NetworkErrorEvent;
-import cn.edu.dlut.tiyuguan.event.RefreshCompletedEvent;
-import cn.edu.dlut.tiyuguan.util.AppUtil;
-import cn.edu.dlut.tiyuguan.util.ToastUtil;
-import de.greenrobot.event.EventBus;
-
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +17,24 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import cn.edu.dlut.tiyuguan.R;
+import cn.edu.dlut.tiyuguan.activity.AboutActivity;
+import cn.edu.dlut.tiyuguan.activity.AccountInfoActivity;
+import cn.edu.dlut.tiyuguan.activity.FeedBackActivity;
+import cn.edu.dlut.tiyuguan.activity.MainActivity;
+import cn.edu.dlut.tiyuguan.activity.RecordListActivity;
+import cn.edu.dlut.tiyuguan.animation.lib.Effectstype;
+import cn.edu.dlut.tiyuguan.animation.lib.NiftyDialogBuilder;
+import cn.edu.dlut.tiyuguan.base.BaseAuth;
+import cn.edu.dlut.tiyuguan.event.ExceptionErrorEvent;
+import cn.edu.dlut.tiyuguan.event.LoginFailedEvent;
+import cn.edu.dlut.tiyuguan.event.LoginSuccessEvent;
+import cn.edu.dlut.tiyuguan.event.NetworkErrorEvent;
+import cn.edu.dlut.tiyuguan.event.RefreshCompletedEvent;
+import cn.edu.dlut.tiyuguan.util.AppUtil;
+import cn.edu.dlut.tiyuguan.util.ToastUtil;
+import de.greenrobot.event.EventBus;
+
 /**
  * third fragment UI
  */
@@ -47,7 +44,7 @@ public class MainTab03Fragment extends Fragment {
 	private View fragmentView;
 
 	private String titleShowNum = "预约订单";
-	private boolean eventBusRgister = false;
+	private boolean eventBusRegister = false;
 	private Button loginBtn;
 	private MyListAdapter myListAdapter,myListAdapter1;
 	@Override
@@ -80,9 +77,9 @@ public class MainTab03Fragment extends Fragment {
 	public void onResume() {
 		super.onResume();
 		AppUtil.debugV("=====TAG=====", "TAG Main03 onResume");
-		if(!eventBusRgister){
+		if(!eventBusRegister){
 			EventBus.getDefault().register(this);
-			eventBusRgister = true;
+			eventBusRegister = true;
 		}
 		updateTopView();
 		init();
@@ -92,9 +89,9 @@ public class MainTab03Fragment extends Fragment {
 	public void onPause() {
 		super.onPause();
 		AppUtil.debugV("=====TAG=====", "TAG Main03 onStop");
-		if(eventBusRgister){
+		if(eventBusRegister){
 			EventBus.getDefault().unregister(this);
-			eventBusRgister = false;
+			eventBusRegister = false;
 		}
 	}
 
@@ -120,7 +117,7 @@ public class MainTab03Fragment extends Fragment {
 					//查看预约信息
 					case 0:
 						if (!BaseAuth.isLogin()) {
-							ToastUtil.showToast(getActivity(), "请登录！");
+							ToastUtil.showInfoToast(getActivity(), "请登录！");
 							if (loginBtn != null) {
 								loginBtn.performClick();
 							}
@@ -132,7 +129,7 @@ public class MainTab03Fragment extends Fragment {
 					//查看账号信息
 					case 1:
 						if (!BaseAuth.isLogin()) {
-							ToastUtil.showToast(getActivity(), "请登录！");
+							ToastUtil.showInfoToast(getActivity(), "请登录！");
 							if (loginBtn != null) {
 								loginBtn.performClick();
 							}
@@ -195,8 +192,7 @@ public class MainTab03Fragment extends Fragment {
 						break;
 					//check for update
 					case 2:
-						AppMsg.cancelAll(getActivity());
-						AppMsg.makeText(getActivity(), "已经是最新版本了", AppMsg.STYLE_INFO).setLayoutGravity(Gravity.BOTTOM).setAnimation(android.R.anim.slide_in_left, android.R.anim.slide_out_right).show();
+						ToastUtil.showInfoToast(getActivity(), "当前已经是最新版本");
 						break;
 					//about
 					case 3:
@@ -208,9 +204,9 @@ public class MainTab03Fragment extends Fragment {
 	}
 
 	/**根据用户是否登录更新TopView视图**/
-	private void updateTopView(){
+	private void updateTopView() {
 		LinearLayout topLinearLayout = (LinearLayout)getActivity().findViewById(R.id.topLinearLayout);
-		View topView = null;
+		View topView;
 		/**移除所有子view**/
 		topLinearLayout.removeAllViews();
 		if(BaseAuth.isLogin()){
@@ -222,22 +218,26 @@ public class MainTab03Fragment extends Fragment {
 		}
 		topLinearLayout.addView(topView);
 	}
+
 	/**登录成功 EventBus回调的方法**/
 	public void onEventMainThread(LoginSuccessEvent event) {
 		AppUtil.debugV("=====TAG=====", "我在UI线程中得到了登录返回的消息\n:" + event.getData());
+		ToastUtil.showSuccessToast(getActivity(), "登录成功");
 		rereshListView();
 		updateTopView();
 		((MainActivity)getActivity()).hideProgressDlg();
 	}
+
 	/**登录失败 EventBus回调的方法**/
-	public void onEventMainThread(LoginFailedEvent event){
+	public void onEventMainThread(LoginFailedEvent event) {
 		ToastUtil.showErrorToast(getActivity(),"用户名或密码错误！");
 		((MainActivity) getActivity()).hideProgressDlg();
 		rereshListView();
 
 	}
+
 	/**网络错误 EventBus回调的方法**/
-	public void onEventMainThread(NetworkErrorEvent errorEvent){
+	public void onEventMainThread(NetworkErrorEvent errorEvent) {
 		ToastUtil.showErrorToast(getActivity(),"网络未连接或出现错误！");
 		((MainActivity) getActivity()).hideProgressDlg();
 		rereshListView();
@@ -308,7 +308,7 @@ public class MainTab03Fragment extends Fragment {
 			  this.mInflater = LayoutInflater.from(context);
 			  convertView = this.mInflater.inflate(R.layout.row_aboutbook, null);
 			  viewholder.imageview = (ImageView)convertView.findViewById(R.id.iv_mybookinfo);
-			  viewholder.textview1 = (TextView)convertView.findViewById(R.id.tv1_mybookinfo);
+			  viewholder.textView = (TextView)convertView.findViewById(R.id.tv1_mybookinfo);
 			  viewholder.numTextView = (TextView)convertView.findViewById(R.id.id_main_tab_03_istview_item_num_textview);
 			  convertView.setTag(viewholder);
 			}
@@ -316,7 +316,7 @@ public class MainTab03Fragment extends Fragment {
 			  viewholder = (ViewHolder)convertView.getTag();
 			}
 			viewholder.imageview.setImageResource(img[position]);
-			viewholder.textview1.setText(title[position]);
+			viewholder.textView.setText(title[position]);
 			//show num of records
 			if(title[position].equals(titleShowNum)
 					&& BaseAuth.isLogin()
@@ -336,7 +336,7 @@ public class MainTab03Fragment extends Fragment {
 		/**inner class**/
 		private class ViewHolder {
 			ImageView imageview;
-			TextView textview1,numTextView;
+			TextView textView,numTextView;
 		}
 	   }
 	}

@@ -25,8 +25,8 @@
         android:cacheColorHint="@android:color/transparent"
         android:listSelector="@drawable/selector_listview_item"
         android:divider="#efefef"
-        android:dividerHeight="1.5dip"
-        android:focusable="true"     
+        android:dividerHeight="1.0dp"
+        android:focusable="true"
         />
     </RelativeLayout>
     <RelativeLayout
