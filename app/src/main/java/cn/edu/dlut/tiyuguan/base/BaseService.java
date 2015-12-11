@@ -9,8 +9,6 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.squareup.okhttp.Headers;
-
 import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -19,7 +17,6 @@ import cn.edu.dlut.tiyuguan.event.ExceptionErrorEvent;
 import cn.edu.dlut.tiyuguan.event.NetworkErrorEvent;
 import cn.edu.dlut.tiyuguan.util.AppClient;
 import cn.edu.dlut.tiyuguan.util.AppUtil;
-import cn.edu.dlut.tiyuguan.util.ToastUtil;
 import de.greenrobot.event.EventBus;
 
 /**

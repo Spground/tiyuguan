@@ -11,8 +11,6 @@ import java.util.concurrent.Executors;
 import cn.edu.dlut.tiyuguan.base.BaseAuth;
 import cn.edu.dlut.tiyuguan.base.BaseMessage;
 import cn.edu.dlut.tiyuguan.base.BaseService;
-import cn.edu.dlut.tiyuguan.event.ExceptionErrorEvent;
-import cn.edu.dlut.tiyuguan.event.NetworkErrorEvent;
 import cn.edu.dlut.tiyuguan.event.RefreshCompletedEvent;
 import cn.edu.dlut.tiyuguan.model.Record;
 import cn.edu.dlut.tiyuguan.util.AppClient;

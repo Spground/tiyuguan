@@ -1,6 +1,5 @@
 package cn.edu.dlut.tiyuguan.util;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 
@@ -20,7 +19,6 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
-import com.devspark.appmsg.AppMsg;
 
 import cn.edu.dlut.tiyuguan.R;
 import cn.edu.dlut.tiyuguan.widget.CustomProgressDialog;
@@ -134,19 +132,17 @@ public class LocateUtil {
 			sb.append(location.getAddrStr());
 		} 
         //显示marker
-		if(location.getAddrStr()!=null){
+		if(location.getAddrStr() != null) {
 			toastInfo=location.getAddrStr();
 		}
-		else{
+		else {
 			toastInfo="定位失败，请检查你的网络连接或者重新尝试！";
 		}
 
 		show(location);
 		progressDialog.dismiss();
-		AppMsg.makeText((Activity) context, toastInfo, AppMsg.STYLE_INFO).show();
+		ToastUtil.showInfoToast(context, toastInfo);
 		System.out.println(sb.toString());
-
 		}
-		
 	}
 }

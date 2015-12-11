@@ -17,7 +17,6 @@ import cn.edu.dlut.tiyuguan.base.BaseUi;
 import cn.edu.dlut.tiyuguan.event.ExceptionErrorEvent;
 import cn.edu.dlut.tiyuguan.event.NetworkErrorEvent;
 import cn.edu.dlut.tiyuguan.event.OrderSuccessEvent;
-import cn.edu.dlut.tiyuguan.event.RefreshCompletedEvent;
 import cn.edu.dlut.tiyuguan.global.NameConstant;
 import cn.edu.dlut.tiyuguan.model.Sport;
 import cn.edu.dlut.tiyuguan.task.SubmitOrderTask;

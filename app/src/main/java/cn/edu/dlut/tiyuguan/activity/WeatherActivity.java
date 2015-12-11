@@ -1,20 +1,5 @@
 package cn.edu.dlut.tiyuguan.activity;
 
-import org.achartengine.ChartFactory;
-import org.achartengine.GraphicalView;
-import org.achartengine.model.XYMultipleSeriesDataset;
-import org.achartengine.model.XYSeries;
-import org.achartengine.renderer.XYMultipleSeriesRenderer;
-import org.achartengine.renderer.XYSeriesRenderer;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import cn.edu.dlut.tiyuguan.R;
-import cn.edu.dlut.tiyuguan.service.WeatherService;
-import cn.edu.dlut.tiyuguan.util.AppUtil;
-import cn.edu.dlut.tiyuguan.util.ToastUtil;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -32,7 +17,20 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import org.achartengine.ChartFactory;
+import org.achartengine.GraphicalView;
+import org.achartengine.model.XYMultipleSeriesDataset;
+import org.achartengine.model.XYSeries;
+import org.achartengine.renderer.XYMultipleSeriesRenderer;
+import org.achartengine.renderer.XYSeriesRenderer;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cn.edu.dlut.tiyuguan.R;
+import cn.edu.dlut.tiyuguan.service.WeatherService;
+import cn.edu.dlut.tiyuguan.util.ToastUtil;
 
 public class WeatherActivity extends Activity {
 

@@ -7,7 +7,7 @@ import cn.edu.dlut.tiyuguan.base.BaseModel;
 /**
  * Created by asus on 2015/10/7.
  */
-public class Venues extends BaseModel{
+public class Venue extends BaseModel{
     public String getVenuesId() {
         return venuesId;
     }

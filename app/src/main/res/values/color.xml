@@ -55,4 +55,16 @@
 
     <color name="fore_normal">#00000000</color>
     <color name="fore_pressed">#44cccccc</color>
+
+    <!-- toast font color-->
+    <color name="toast_font_success">#ff367236</color>
+    <color name="toast_font_info">#ff296A8A</color>
+    <color name="toast_font_warning">#ff8A6C3A</color>
+    <color name="toast_font_error">#ffB0504F</color>
+
+    <!-- toast layout  bg color -->
+    <color name="toast_bg_success">#ffDEF0DB</color>
+    <color name="toast_bg_info">#ffD9EDF6</color>
+    <color name="toast_bg_warning">#ffFDF8E4</color>
+    <color name="toast_bg_error">#ffF2DEDF</color>
 </resources>

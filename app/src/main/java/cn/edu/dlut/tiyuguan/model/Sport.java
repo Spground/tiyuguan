@@ -1,7 +1,6 @@
 package cn.edu.dlut.tiyuguan.model;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 import cn.edu.dlut.tiyuguan.base.BaseModel;
 
@@ -30,7 +29,7 @@ public class Sport extends BaseModel {
         this.sportName = sportName;
     }
 
-    private HashMap<String,Venues> venuesHashMap;
+    private HashMap<String,Venue> venuesHashMap;
 
     private static  String[] venues_names = new String[]{"篮球馆","羽毛球馆","游泳馆","台球馆","乒乓球"};
     private static HashMap<String,Integer> venues_id_name = new HashMap<>();
@@ -57,11 +56,11 @@ public class Sport extends BaseModel {
         return venues_names[venues_id - 1];
     }
 
-    public HashMap<String, Venues> getVenuesHashMap() {
+    public HashMap<String, Venue> getVenuesHashMap() {
         return venuesHashMap;
     }
 
-    public void setVenuesHashMap(HashMap<String, Venues> venuesHashMap) {
+    public void setVenuesHashMap(HashMap<String, Venue> venuesHashMap) {
         this.venuesHashMap = venuesHashMap;
     }
 
