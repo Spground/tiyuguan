@@ -14,7 +14,7 @@ public class VPagerTitle extends TextView {
     private int index;
     private boolean selected = false;
     private int normalDrawable, selectedDrawable;
-    private int normalTextColor = Color.rgb(0, 0, 0);
+    private int normalTextColor = Color.rgb(97, 97, 97);
     private int selectedTextColor = Color.rgb(160, 160, 160);
 
     public VPagerTitle(Context context) {
