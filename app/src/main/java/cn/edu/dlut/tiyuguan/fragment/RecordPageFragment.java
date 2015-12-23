@@ -2,6 +2,7 @@ package cn.edu.dlut.tiyuguan.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -23,17 +24,16 @@ import cn.edu.dlut.tiyuguan.util.AppUtil;
 import de.greenrobot.event.EventBus;
 
 /**
- * Created by asus on 2015/12/2.
+ * Created by wujie on 2015/12/2.
  */
-public class RecordPageFragment extends Fragment {
+public class RecordPageFragment extends Fragment implements MyListView.OnLoadMoreListener{
     private ViewGroup rootView;
 
     private MyListView myListView;
     private MyAdapter myAdapter;
 
-
     private ArrayList<Record> dataSet = new ArrayList<>();
-
+    private ArrayList<Record> tempDatset = new ArrayList<>();
     private RefreshRecordCallBack refreshCallBack;
     private boolean isRegister = false;
 
@@ -43,7 +43,7 @@ public class RecordPageFragment extends Fragment {
     private int record_type = 0;
 
     /**
-     * callback to refresh dataset
+     * callback to refresh data set
      */
     public interface RefreshRecordCallBack {
         void onRefreshRecord(RECORD_TYPE recordType, ArrayList<Record> dataSet);
@@ -90,8 +90,14 @@ public class RecordPageFragment extends Fragment {
         /**得到用户的预定列表**/
         if(BaseAuth.isLogin()){
             Map<String,Record> recordMap = BaseAuth.getUser().getRecordMap();
-            AppUtil.map2List(this.dataSet, recordMap, true, record_type);
+            AppUtil.map2List(this.tempDatset, recordMap, true, record_type);
         }
+
+        /**默认显示pageSize**/
+        for(int i = 0; i < 10; i++) {
+            this.dataSet.add(tempDatset.get(i));
+        }
+
         init();
     }
 
@@ -125,6 +131,8 @@ public class RecordPageFragment extends Fragment {
     /**init view**/
     private void init(){
         myListView = (MyListView)this.rootView.findViewById(R.id.id_record_listview);
+        myListView.setEnablePullUpLoadMore(true);
+        myListView.setOnLoadMoreCallback(this);
         myAdapter = new MyAdapter();
         myListView.setAdapter(myAdapter);
         myListView.getHeaderView().setBackgroundColor(getResources().getColor(R.color.light_gray));
@@ -223,5 +231,44 @@ public class RecordPageFragment extends Fragment {
     public void refreshListView() {
         myAdapter.notifyDataSetChanged();
         myListView.onRefreshComplete();
+    }
+
+    @Override
+    public void onLoadMore() {
+        final Handler mHandler = new Handler();
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.currentThread().sleep(2 * 1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                final ArrayList<Record> result = new ArrayList<>();
+                if (dataSet.size() + 15 <= tempDatset.size()) {
+                    result.addAll(dataSet);
+                    int i = 0;
+                    while (i <= 15) {
+                        result.add(tempDatset.get(i + dataSet.size() - 1));
+                        i++;
+                    }
+                }
+
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (result.size() == 0) {
+                            myListView.noMoreData();
+                        } else {
+                            dataSet.clear();
+                            dataSet.addAll(result);
+                            myAdapter.notifyDataSetChanged();
+                            myListView.loadMoreComplete();
+                        }
+                    }
+                });
+            }
+        });
+        thread.start();
     }
 }
