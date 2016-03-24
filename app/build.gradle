@@ -17,6 +17,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    signingConfigs {
+        debug {
+            storeFile file("C:\\Users\\WuJie\\.android\\debug.store")
+            storePassword "123456"
+            keyPassword "123456"
+            keyAlias "android_debugkeystore"
+        }
+    }
 }
 
 task nativeLibsToJar(type: Zip, description: "create a jar archive of the native libs") {

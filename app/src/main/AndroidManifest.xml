@@ -46,15 +46,17 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".global.UserInfo"
+        android:name=".global.MApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/ActivityTheme_DefTitle_Style">
+        <!--<meta-data-->
+            <!--android:name="com.baidu.lbsapi.API_KEY"-->
+            <!--android:value="HIrV0knMDwLtjqrgMsC9SNMW" />-->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="HIrV0knMDwLtjqrgMsC9SNMW" />
-
+            android:value="7IDupG8z9Od66Sx16Eh7lWFwKh5QcOSM" />
         <!-- 定位服务 -->
         <service
             android:name="com.baidu.location.f"

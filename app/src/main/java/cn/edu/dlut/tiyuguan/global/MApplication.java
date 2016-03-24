@@ -6,7 +6,9 @@ import android.app.Application;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-public class UserInfo extends Application{
+import com.baidu.mapapi.SDKInitializer;
+
+public class MApplication extends Application{
 
 	public static HttpClient httpClient;//用户打开程序用到的全局httpclient实例
 	private static String sessionName = "JSESSIONID";
@@ -24,34 +26,21 @@ public class UserInfo extends Application{
 		//只新建一次
 		cookieFile = this.getSharedPreferences("cookieFile", 0);
 		editor = cookieFile.edit();
-		cookieValue = cookieFile.getString("cookieValue","");
+		cookieValue = cookieFile.getString("cookieValue", "");
 		rememberme = cookieFile.getBoolean("rememberme", false);
 		httpClient = new DefaultHttpClient();
+		SDKInitializer.initialize(getApplicationContext());//在调用任何百度地图组件的时候都得初始化
 	}
-	public String getcookieName()
-	{
+	public String getcookieName() {
 		return cookieName;
 	}
 	//
-	public  String getcookieValue()
-	{
+	public  String getcookieValue() {
 		cookieValue=cookieFile.getString("cookieValue", "");
 		return cookieValue;
 	}
-	public static String getseesionName()
-	{
-		return sessionName;
-	}
-	//
-	public  Boolean getIfRememberMe()
-	{
-		rememberme=cookieFile.getBoolean("rememberme", false);
-		return rememberme;
-			
-	}
 	
-	public  void  setcookieValue(String cookieValue0)
-	{
+	public  void  setcookieValue(String cookieValue0) {
 		if(cookieValue0 != "")
 		{
 		editor.putString("cookieValue", cookieValue0);
@@ -59,33 +48,4 @@ public class UserInfo extends Application{
 		}
 		cookieValue = cookieValue0;
 	}
-	//
-	public  void  setcookieName(String cookieName)
-	{
-		if(cookieName != "")
-		{
-		editor.putString("cookieValue", cookieValue);
-		editor.commit();
-		}
-		UserInfo.cookieName=cookieName;
-	}
-	public void setseesionName(String sessionName)
-	{
-		if(sessionName != "")
-		{
-		editor.putString("sessionName", sessionName);
-		editor.commit();
-		}
-		UserInfo.sessionName=sessionName;
-	}
-	//写入用户是否记住密码
-	public void setIfRememberMe(Boolean rememberme)
-	{
-		if(editor == null) System.out.println("null");
-		 editor.putBoolean("rememberme", rememberme);
-		 editor.commit();
-			
-	}
-	
-	
 }

@@ -67,7 +67,7 @@ public class WelcomeActivity extends Activity{
 		/**internet connect is ok**/
 		else {
 			//从服务器接受数据初始化场馆信息
-//			RefreshVenueInfo.doRefreshVenueInfo(UserInfo.httpClient, parentHandler);
+//			RefreshVenueInfo.doRefreshVenueInfo(MApplication.httpClient, parentHandler);
 			//get top 5 news
 			BaseTaskPool.getInstance().addTask(new GetTop5NewsTask(NameConstant.api.getTopNews));
 			BaseTaskPool.getInstance().addTask(new QueryVenuesInfoTask(NameConstant.api.queryVenuesInfo));

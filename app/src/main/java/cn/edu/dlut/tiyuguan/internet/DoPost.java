@@ -19,7 +19,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 
 import cn.edu.dlut.tiyuguan.global.LoginInfo;
-import cn.edu.dlut.tiyuguan.global.UserInfo;
+import cn.edu.dlut.tiyuguan.global.MApplication;
 import cn.edu.dlut.tiyuguan.util.AppUtil;
 
 import android.os.Handler;
@@ -96,7 +96,7 @@ public class DoPost implements Runnable {
 					//取出cookie的全部值
 					List<Cookie> cookies = ((AbstractHttpClient)postClient).getCookieStore().getCookies();
 					//为cookieValue和sessionID赋值
-					UserInfo userInfo = new UserInfo();
+					MApplication MApplication = new MApplication();
 					for(int i = 0;i < cookies.size();i++) {
 						if(cookies.get(i).getName().equals("SESSION_LOGIN_USERNAME")) {
 							   cookieValue = cookies.get(i).getValue();
@@ -113,7 +113,7 @@ public class DoPost implements Runnable {
 					else//首次登陆成功
 					{
 						if( rememberme )//选择记住我才将cookie值塞入文件
-						     userInfo.setcookieValue(cookieValue);//赋值
+						     MApplication.setcookieValue(cookieValue);//赋值
 						LoginInfo.sessionID = sessionID;//会话值
 						str = "cookie:"+cookieValue+"\n"+"SessionID"+sessionID;
 					}
@@ -330,8 +330,8 @@ public class DoPost implements Runnable {
 	}
 	//增加cookie首部行字段
 	private void addCookieHeader(HttpPost post){
-		UserInfo userInfo = new UserInfo();
-		post.setHeader("Cookie", userInfo.getcookieName()+"="+userInfo.getcookieValue()+";");
+		MApplication MApplication = new MApplication();
+		post.setHeader("Cookie", MApplication.getcookieName()+"="+ MApplication.getcookieValue()+";");
 		
 	}
 }
