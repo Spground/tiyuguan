@@ -1,19 +1,5 @@
 package cn.edu.dlut.tiyuguan.activity;
 
-import cn.edu.dlut.tiyuguan.base.BaseService;
-import cn.edu.dlut.tiyuguan.base.BaseTask;
-import cn.edu.dlut.tiyuguan.base.BaseTaskPool;
-import cn.edu.dlut.tiyuguan.global.NameConstant;
-import cn.edu.dlut.tiyuguan.global.UserInfo;
-import cn.edu.dlut.tiyuguan.global.VenueInfo;
-import cn.edu.dlut.tiyuguan.internet.RefreshVenueInfo;
-
-import cn.edu.dlut.tiyuguan.R;
-import cn.edu.dlut.tiyuguan.service.AutoLoginService;
-import cn.edu.dlut.tiyuguan.task.GetTop5NewsTask;
-import cn.edu.dlut.tiyuguan.task.QueryVenuesInfoTask;
-import cn.edu.dlut.tiyuguan.util.AppUtil;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,6 +8,16 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.WindowManager;
 import android.widget.Toast;
+
+import cn.edu.dlut.tiyuguan.R;
+import cn.edu.dlut.tiyuguan.base.BaseService;
+import cn.edu.dlut.tiyuguan.base.BaseTaskPool;
+import cn.edu.dlut.tiyuguan.global.NameConstant;
+import cn.edu.dlut.tiyuguan.global.VenueInfo;
+import cn.edu.dlut.tiyuguan.service.AutoLoginService;
+import cn.edu.dlut.tiyuguan.task.GetTop5NewsTask;
+import cn.edu.dlut.tiyuguan.task.QueryVenuesInfoTask;
+import cn.edu.dlut.tiyuguan.util.AppUtil;
 
 public class WelcomeActivity extends Activity{
 
@@ -71,7 +67,7 @@ public class WelcomeActivity extends Activity{
 		/**internet connect is ok**/
 		else {
 			//从服务器接受数据初始化场馆信息
-//			RefreshVenueInfo.doRefreshVenueInfo(UserInfo.httpClient, parentHandler);
+//			RefreshVenueInfo.doRefreshVenueInfo(MApplication.httpClient, parentHandler);
 			//get top 5 news
 			BaseTaskPool.getInstance().addTask(new GetTop5NewsTask(NameConstant.api.getTopNews));
 			BaseTaskPool.getInstance().addTask(new QueryVenuesInfoTask(NameConstant.api.queryVenuesInfo));

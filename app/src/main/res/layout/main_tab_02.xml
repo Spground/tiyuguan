@@ -4,8 +4,8 @@
     android:layout_height="match_parent"
     android:background="@color/light_gray"
     android:paddingBottom="10dp"
-    android:paddingLeft="8dp"
-    android:paddingRight="8dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
     android:paddingTop="10dp" >
 
     <cn.edu.dlut.tiyuguan.adapterview.MyListView
@@ -13,8 +13,10 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:choiceMode="singleChoice"
-        android:divider="@null"
-        android:backgroundTint="#EFEFEF"
+        android:listSelector="@android:color/transparent"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="14dp"
+        android:background="#efefef"
         >
     </cn.edu.dlut.tiyuguan.adapterview.MyListView>
 

@@ -2,9 +2,7 @@ package cn.edu.dlut.tiyuguan.base;
 
 import android.app.ActionBar;
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -14,12 +12,13 @@ import android.widget.TextView;
 import cn.edu.dlut.tiyuguan.R;
 import cn.edu.dlut.tiyuguan.util.ToastUtil;
 import cn.edu.dlut.tiyuguan.widget.CustomProgressDialog;
-import de.greenrobot.event.EventBus;
+import me.imid.swipebacklayout.lib.SwipeBackLayout;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
 /**
  * Created by asus on 2015/10/6.
  */
-public class BaseUi extends FragmentActivity {
+public class BaseUi extends SwipeBackActivity {
 
     protected BaseHandler handler;
     protected BaseTaskPool taskPool;
@@ -30,10 +29,13 @@ public class BaseUi extends FragmentActivity {
 
     private Dialog progressDlg;
 
+    private SwipeBackLayout mSwipeBackLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        progressDlg = CustomProgressDialog.createDialog(this,"正在处理请稍后...",true);
+        progressDlg = CustomProgressDialog.createDialog(this, "正在处理请稍后...", true);
+        mSwipeBackLayout = this.getSwipeBackLayout();
+        mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
     }
 
     /**显示的ProgressDlg的内容**/
@@ -45,18 +47,17 @@ public class BaseUi extends FragmentActivity {
     protected boolean getProgressDlgCanceable(){
         return false;
     }
-    protected void initActionBar(String title){
+    protected void initActionBar(String title) {
         //初始化actionbar
         ActionBar actionBar = this.getActionBar();
         actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setTitle(" ");
-
-        View actionbarView = LayoutInflater.from(this).inflate(R.layout.tv, null);
+        View actionbarView = LayoutInflater.from(this).inflate(R.layout.action_bar_title_view, null);
         ((TextView)actionbarView).setText(title);
         actionBar.setDisplayShowCustomEnabled(true);
         ActionBar.LayoutParams layout = new  ActionBar.LayoutParams(Gravity.CENTER);
-        actionBar.setCustomView(actionbarView,layout);
+        actionBar.setCustomView(actionbarView, layout);
     }
 
 
@@ -91,17 +92,24 @@ public class BaseUi extends FragmentActivity {
     }
 
     /********************各种弹出消息 BEGIN************************/
-    public void toast(String msg){
-        ToastUtil.showToast(this,msg);
+    public void toastNormal(String msg) {
+        ToastUtil.showNormalToast(this, msg);
     }
-    public void toastError(String msg){
-        ToastUtil.showErrorToast(this,msg);
+
+    public void toastError(String msg) {
+        ToastUtil.showErrorToast(this, msg);
     }
-    public void toastInfo(String msg){
-        ToastUtil.showInfoToast(this,msg);
+
+    public void toastInfo(String msg) {
+        ToastUtil.showInfoToast(this, msg);
     }
-    public void toastWarning(String msg){
-        ToastUtil.showWarningToast(this,msg);
+
+    public void toastSuccess(String msg) {
+        ToastUtil.showSuccessToast(this, msg);
+    }
+
+    public void toastWarning(String msg) {
+        ToastUtil.showWarningToast(this, msg);
     }
 
     /**显示加载进度dlg**/
@@ -120,21 +128,6 @@ public class BaseUi extends FragmentActivity {
         return;
     }
     /********************各种弹出消息 END***************************/
-
-    /***********************UI跳转 BEGIN********************************/
-    public void forward(Class<?> classobj){
-        Intent intent = new Intent(this,classobj);
-        intent.setClass(this,classobj);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        this.startActivity(intent);
-    }
-    public void forward(Class<?> classObj, Bundle params) {
-        Intent intent = new Intent();
-        intent.setClass(this, classObj);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtras(params);
-        this.startActivity(intent);
-    }
 
     /************************UI跳转 END*******************************/
 
@@ -172,4 +165,7 @@ public class BaseUi extends FragmentActivity {
 
     }
 
+    public SwipeBackLayout getmSwipeBackLayout(){
+        return mSwipeBackLayout;
+    }
 }

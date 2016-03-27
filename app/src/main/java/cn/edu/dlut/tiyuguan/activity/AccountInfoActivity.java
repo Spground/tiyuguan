@@ -35,7 +35,7 @@ public class AccountInfoActivity extends BaseUi {
 
 	/**init everything**/
 	private void init(){
-		/**logout btn event init**/
+		/**logout button event init**/
 		logout_btn = (Button)findViewById(R.id.logout_btn);
 		logout_btn.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -48,7 +48,7 @@ public class AccountInfoActivity extends BaseUi {
 				editor.putBoolean("rememberme",false);
 				editor.commit();
 
-				ToastUtil.showInfoToast(AccountInfoActivity.this,"注销成功！");
+				ToastUtil.showSuccessToast(AccountInfoActivity.this,"注销成功！");
 				AccountInfoActivity.this.finish();
 			}
 		});
@@ -107,15 +107,15 @@ public class AccountInfoActivity extends BaseUi {
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			// TODO Auto-generated method stub
-			ViewHolder viewHolder = null;
-			if(convertView == null){
+			ViewHolder viewHolder;
+			if(convertView == null) {
 				convertView = mInflater.inflate(R.layout.accountinfo_row, null);
 				viewHolder = new ViewHolder();
 				viewHolder.nameTextView = (TextView)convertView.findViewById(R.id.accountinfo_row_name);
 				viewHolder.contentTextView = (TextView)convertView.findViewById(R.id.accountinfo_row_content);
 				convertView.setTag(viewHolder);
 			}
-			else{
+			else {
 				viewHolder = (ViewHolder)convertView.getTag();
 			}
 
@@ -139,6 +139,7 @@ public class AccountInfoActivity extends BaseUi {
 			return convertView;
 		}
 	}
+
 	static class ViewHolder{
 		TextView nameTextView,contentTextView;
 	}

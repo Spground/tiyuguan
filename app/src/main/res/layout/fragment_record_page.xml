@@ -1,0 +1,33 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_gray"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:orientation="vertical"
+    >
+    <!--ListView-->
+    <cn.edu.dlut.tiyuguan.adapterview.MyListView
+        android:id="@+id/id_record_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="14"
+        android:choiceMode="singleChoice"
+        android:divider="@null"
+        android:backgroundTint="#EFEFEF"
+        >
+    </cn.edu.dlut.tiyuguan.adapterview.MyListView>
+   <Button
+       android:id="@+id/btn_go_top"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentRight="true"
+       android:layout_alignParentBottom="true"
+       android:background="#55123456"
+       android:layout_marginBottom="15dp"
+       android:text="回到顶部"
+       android:visibility="invisible"
+       android:textColor="@color/font_grey_700"
+       />
+</RelativeLayout>

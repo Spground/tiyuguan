@@ -1,14 +1,7 @@
 package cn.edu.dlut.tiyuguan.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.style.StyleSpan;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -26,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 import cn.edu.dlut.tiyuguan.R;
 import cn.edu.dlut.tiyuguan.adapterview.MyGridView;
@@ -35,6 +29,7 @@ import cn.edu.dlut.tiyuguan.event.NetworkErrorEvent;
 import cn.edu.dlut.tiyuguan.event.RefreshCompletedEvent;
 import cn.edu.dlut.tiyuguan.global.NameConstant;
 import cn.edu.dlut.tiyuguan.model.Location;
+import cn.edu.dlut.tiyuguan.model.Record;
 import cn.edu.dlut.tiyuguan.model.Sport;
 import cn.edu.dlut.tiyuguan.task.QueryLocationInfoTask;
 import cn.edu.dlut.tiyuguan.util.AppUtil;
@@ -247,7 +242,7 @@ public class MakeReserveActivity extends BaseUi {
                 AppUtil.debugV("====TAG===","StartTime:" + startTime.getHours() + ":" + startTime.getMinutes());
                 AppUtil.debugV("====TAG===","EndTime:" + endTime.getHours() + ":" + endTime.getMinutes());
 
-                boolean ok = false;
+                boolean ok;
                 try {
                     ok = verifySelectedTime(startTime,endTime);
                 } catch (Exception e) {
@@ -255,7 +250,7 @@ public class MakeReserveActivity extends BaseUi {
                     ok = false;
                 }
                 if(!ok){
-                    ToastUtil.showInfoToast(MakeReserveActivity.this,"你选择的时间段不满足场馆的开闭馆要求，请重新选择！");
+                    toastWarning("你选择的时间段不满足场馆的开闭馆要求，请重新选择");
                     return;
                 }
 
@@ -280,11 +275,13 @@ public class MakeReserveActivity extends BaseUi {
             return false;
 
         String openTimeStr = "" ,closeTimeStr = "";
-        Date openTime = null,closeTime = null;
+        Date openTime, closeTime;
 
         if(Sport.getInstance().getVenuesHashMap() != null){
-            openTimeStr = Sport.getInstance().getVenuesHashMap().get(venues_id + "").getOpenTime();
-            closeTimeStr = Sport.getInstance().getVenuesHashMap().get(venues_id + "").getCloseTime();
+            openTimeStr = Sport.getInstance().getVenuesHashMap().get(venues_id + "")
+                    .getOpenTime();
+            closeTimeStr = Sport.getInstance().getVenuesHashMap().get(venues_id + "")
+                    .getCloseTime();
         }
 
         try {
@@ -298,12 +295,12 @@ public class MakeReserveActivity extends BaseUi {
         if(openTime == null || closeTime == null)
             throw new Exception("无法解析场馆的开闭馆时间");
         //比较时间大小
-        if(openTime.before(startDate) && openTime.before(endDate) && closeTime.after(endDate) && closeTime.after(startDate))
-            return true;
-        return false;
+        return openTime.before(startDate) && openTime.before(endDate)
+                && closeTime.after(endDate) && closeTime.after(startDate);
     }
+
     /**验证选择的日期是否可用**/
-    private boolean verifySelectedDate(int year,int month,int day ){
+    private boolean verifySelectedDate(int year,int month,int day )  {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year,month,day);
         Date now = new Date();
@@ -316,14 +313,11 @@ public class MakeReserveActivity extends BaseUi {
             e.printStackTrace();
         }
 
-        if(differDays <= 2 && differDays >= 0){
-            return true;
-        }
-        return false;
+        return differDays <= 2 && differDays >= 0;
     }
 
     /***得到指定日期的下一个整点时刻的HH:mm格式字符串**/
-    private String getNextIntegralHour(Date date){
+    private String getNextIntegralHour(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
@@ -339,7 +333,8 @@ public class MakeReserveActivity extends BaseUi {
             // TODO Auto-generated method stub
             String locationNum = "0";
             if(Sport.getInstance().getVenuesHashMap() != null){
-                locationNum = Sport.getInstance().getVenuesHashMap().get(venues_id + "").getLocationNum();
+                locationNum = Sport.getInstance().getVenuesHashMap()
+                        .get(venues_id + "").getLocationNum();
             }
             return Integer.valueOf(locationNum.trim());
         }
@@ -375,7 +370,7 @@ public class MakeReserveActivity extends BaseUi {
             viewHolder.locationNameTextView.setText((position + 1) + "");
             viewHolder.locationNameTextView.setBackgroundColor(getResources().getColor(R.color.main_color));
             convertView.setClickable(false);
-            viewHolder.locationNameTextView.setBackgroundResource(R.drawable.location_grid_view_item_selector);
+            viewHolder.locationNameTextView.setBackgroundResource(R.drawable.selector_location_grid_view_item);
             //判断是否可以用
             if(dataSet != null){
                 String valid = dataSet.get((position + 1) + "") == null ? "true":(dataSet.get((position + 1) + "").getValid());
@@ -396,7 +391,7 @@ public class MakeReserveActivity extends BaseUi {
     }
 
     /**update dataSet & refresh view**/
-    private void updateDataSet(){
+    private void updateDataSet() {
         if(Sport.getInstance().getVenuesHashMap() != null){
             dataSet = Sport.getInstance().getVenuesHashMap().get(venues_id + "").getLocationMap();
             myGridViewAdapter.notifyDataSetChanged();
@@ -440,4 +435,7 @@ public class MakeReserveActivity extends BaseUi {
         }
     }
 
+    abstract class RecordFilter{
+        public abstract void filter(Map<String, Record> recordMap);
+    }
 }

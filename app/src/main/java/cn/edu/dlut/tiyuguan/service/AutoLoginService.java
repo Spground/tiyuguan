@@ -13,8 +13,6 @@ import java.util.concurrent.Executors;
 import cn.edu.dlut.tiyuguan.base.BaseAuth;
 import cn.edu.dlut.tiyuguan.base.BaseMessage;
 import cn.edu.dlut.tiyuguan.base.BaseService;
-import cn.edu.dlut.tiyuguan.event.ExceptionErrorEvent;
-import cn.edu.dlut.tiyuguan.event.NetworkErrorEvent;
 import cn.edu.dlut.tiyuguan.event.LoginFailedEvent;
 import cn.edu.dlut.tiyuguan.event.LoginSuccessEvent;
 import cn.edu.dlut.tiyuguan.global.NameConstant;
@@ -100,7 +98,7 @@ public class AutoLoginService extends BaseService {
             BaseMessage message = AppUtil.getMessage(data);
             if(message.isSuccessful()){
                 User user = (User)message.getData("User");
-                Log.v("TAG", "user对象\n:" + ((User) user).getUserName());
+                Log.v("TAG", "user对象\n:" + user.getUserName());
                 //login success
                 if((user).getUserName() != null){
                     BaseAuth.setUser(user);

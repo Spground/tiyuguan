@@ -8,7 +8,7 @@ import cn.edu.dlut.tiyuguan.base.BaseMessage;
 import cn.edu.dlut.tiyuguan.base.BaseTask;
 import cn.edu.dlut.tiyuguan.exception.RequestException;
 import cn.edu.dlut.tiyuguan.model.Sport;
-import cn.edu.dlut.tiyuguan.model.Venues;
+import cn.edu.dlut.tiyuguan.model.Venue;
 import cn.edu.dlut.tiyuguan.util.AppClient;
 import cn.edu.dlut.tiyuguan.util.AppUtil;
 
@@ -43,9 +43,9 @@ public class QueryVenuesInfoTask extends BaseTask {
         try {
             BaseMessage message = AppUtil.getMessage(response);
             if(message.isSuccessful()){
-                ArrayList<Venues> listVenues = (ArrayList<Venues>)message.getDataList("Venues");
+                ArrayList<Venue> listVenues = (ArrayList<Venue>)message.getDataList("Venues");
                 if(listVenues != null && listVenues.size() > 0){
-                    HashMap<String,Venues> venuesMap = new HashMap();
+                    HashMap<String,Venue> venuesMap = new HashMap();
                     for(int i = 0 ;i < listVenues.size() ; i++){
                         AppUtil.debugV("====Venues Info====","venues_id: " + listVenues.get(i).getVenuesId() + " locationNum: " + listVenues.get(i).getLocationNum());
                         venuesMap.put(listVenues.get(i).getVenuesId(),listVenues.get(i));

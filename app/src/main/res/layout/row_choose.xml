@@ -38,7 +38,7 @@
         android:id="@+id/orderbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/submit_order_btn_selector"
+        android:background="@drawable/selector_basic_btn"
         android:text="预定"
         android:textColor="#ffffff" 
         android:layout_alignParentRight="true"

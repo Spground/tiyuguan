@@ -14,7 +14,7 @@
     <string name="phone">电话预约</string>
     <string name="title">刘长春体育馆</string>
     <string name="inform">重要通知</string>
-    <string name="host" >http://192.168.0.100:8080/</string>
+    <string name="host">http://192.168.0.100:8080/</string>
     <string name="us_info">DUT移动互联网实验室出品</string>
     <string name="us_contact">Email:958340585@qq.com</string>
     <string name="us_addr">大连理工大学研教楼820室</string>

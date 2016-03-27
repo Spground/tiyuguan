@@ -1,35 +1,38 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:orientation="horizontal"
+        >
+        <cn.edu.dlut.tiyuguan.widget.VPagerTitle
+            android:id="@+id/cur_record_title"
+            android:gravity="center"
+            android:text="当前订单"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="@color/gray"
+            />
+        <cn.edu.dlut.tiyuguan.widget.VPagerTitle
+            android:id="@+id/his_record_title"
+            android:gravity="center"
+            android:text="历史订单"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+<android.support.v4.view.ViewPager
+    android:background="@color/light_gray"
+    android:id="@+id/id_record_list_viewpager"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cn.edu.dlut.tiyuguan.activity.RecordListActivity"
-    android:background="@color/light_gray"
-    android:paddingBottom="10dp"
-    android:paddingLeft="8dp"
-    android:paddingRight="8dp"
-    android:paddingTop="10dp"
-    android:orientation="vertical"
     >
-    <!--ListView-->
-    <cn.edu.dlut.tiyuguan.adapterview.MyListView
-        android:id="@+id/id_activity_record_list_listview"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="14"
-        android:choiceMode="singleChoice"
-        android:divider="@null"
-        android:backgroundTint="#EFEFEF"
-        >
-    </cn.edu.dlut.tiyuguan.adapterview.MyListView>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center|center"
-        android:drawableLeft="@drawable/ic_action_info"
-        android:text="仅能查询近三个月订单,更多订单查询请访问网站！"
-        android:textSize="13sp"
-        android:textColor="@color/black"
-        />
+</android.support.v4.view.ViewPager>
 </LinearLayout>

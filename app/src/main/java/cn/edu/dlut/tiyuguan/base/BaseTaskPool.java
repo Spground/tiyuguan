@@ -13,7 +13,7 @@ public class BaseTaskPool {
 
     private ExecutorService es;
     private BaseTaskPool(){
-        es = Executors.newSingleThreadExecutor();
+        es = Executors.newFixedThreadPool(5);
     }
 
     public static BaseTaskPool getInstance(){

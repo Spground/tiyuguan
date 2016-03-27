@@ -1,21 +1,5 @@
 package cn.edu.dlut.tiyuguan.activity;
 
-import cn.edu.dlut.tiyuguan.base.BaseService;
-import cn.edu.dlut.tiyuguan.base.BaseUi;
-import cn.edu.dlut.tiyuguan.fragment.MainTab01Fragment;
-import cn.edu.dlut.tiyuguan.fragment.MainTab02Fragment;
-import cn.edu.dlut.tiyuguan.fragment.MainTab03Fragment;
-
-import com.andreabaccega.widget.FormEditText;
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
-import cn.edu.dlut.tiyuguan.R;
-import cn.edu.dlut.tiyuguan.animation.lib.Effectstype;
-import cn.edu.dlut.tiyuguan.animation.lib.NiftyDialogBuilder;
-import cn.edu.dlut.tiyuguan.service.AutoLoginService;
-import cn.edu.dlut.tiyuguan.util.AppUtil;
-import cn.edu.dlut.tiyuguan.util.ToastUtil;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -25,10 +9,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TextView;
+
+import com.andreabaccega.widget.FormEditText;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+
+import cn.edu.dlut.tiyuguan.R;
+import cn.edu.dlut.tiyuguan.animation.lib.Effectstype;
+import cn.edu.dlut.tiyuguan.animation.lib.NiftyDialogBuilder;
+import cn.edu.dlut.tiyuguan.base.BaseService;
+import cn.edu.dlut.tiyuguan.base.BaseUi;
+import cn.edu.dlut.tiyuguan.fragment.MainTab01Fragment;
+import cn.edu.dlut.tiyuguan.fragment.MainTab02Fragment;
+import cn.edu.dlut.tiyuguan.fragment.MainTab03Fragment;
+import cn.edu.dlut.tiyuguan.service.AutoLoginService;
+import cn.edu.dlut.tiyuguan.util.AppUtil;
+import cn.edu.dlut.tiyuguan.util.ToastUtil;
 
 public class MainActivity extends BaseUi {
 	private long end_time = 0;//按下返回键的上一次时间
@@ -55,9 +54,9 @@ public class MainActivity extends BaseUi {
      	// 添加tab text和tab icon
         indicator = inflater.inflate(R.layout.tab_item_view, null);
         @SuppressWarnings("rawtypes")
-		Class[] fragmentArrary = {MainTab01Fragment.class,MainTab02Fragment.class,MainTab03Fragment.class};
+		Class[] fragmentArray = {MainTab01Fragment.class,MainTab02Fragment.class,MainTab03Fragment.class};
         int resTabItem = R.layout.tab_item_view;//布局资源indicator
-        initFragmentTabHost(mTabHost, fragmentArrary,resTabItem );
+        initFragmentTabHost(mTabHost, fragmentArray,resTabItem );
         mTabHost.setOnTabChangedListener(new OnTabChangeListener() {
 			@Override
 			public void onTabChanged(String tabId) {
@@ -65,8 +64,33 @@ public class MainActivity extends BaseUi {
 				updateTabStyle(mTabHost);
 			}
 		});
-
+		setSwipeBackEnable(false);
 	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		AppUtil.debugV("====TAG===", "MainActivity onResume()");
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		AppUtil.debugV("====TAG===", "MainActivity onPause()");
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		AppUtil.debugV("====TAG===", "MainActivity onStart()");
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		AppUtil.debugV("====TAG===", "MainActivity onStop()");
+	}
+
 	/**动态更新tab的样式**/
 	private void updateTabStyle(FragmentTabHost mTabHost) {
 		//reset the tab style
@@ -80,8 +104,7 @@ public class MainActivity extends BaseUi {
 		}
 	}
 	/**重设tab的样式,包括图片按钮，文字颜色**/
-	protected void resetTabStyle(FragmentTabHost mTabHost)
-	{
+	protected void resetTabStyle(FragmentTabHost mTabHost) {
 		for(int i = 0;i < mTabHost.getTabWidget().getChildCount();i++){
 			((ImageButton)mTabHost.getTabWidget().getChildAt(i).findViewById(R.id.tab_imgbtn)).setImageResource(resImage[i]);
 			((TextView)mTabHost.getTabWidget().getChildAt(i).findViewById(R.id.tab_textview)).setTextColor(getResources().getColor(R.color.tab_normal_textcolor));
@@ -89,11 +112,10 @@ public class MainActivity extends BaseUi {
 		}
 	}
 	/**初始化fragmenttabhost**/
-	private void initFragmentTabHost(FragmentTabHost mTabHost,@SuppressWarnings("rawtypes") Class fragmentArrary[],int resTabItem)
-	{
+	private void initFragmentTabHost(FragmentTabHost mTabHost,@SuppressWarnings("rawtypes") Class fragmentArrary[],int resTabItem) {
 		LayoutInflater inflater = getLayoutInflater();
 		int size = fragmentArrary.length;
-		for(int i = 0;i < size;i++){
+		for(int i = 0;i < size;i++) {
 			indicator = inflater.inflate(resTabItem, null);
 	        resetTabStyle(mTabHost);
 	        mTabHost.addTab(mTabHost.newTabSpec(textView[i]).setIndicator(indicator), fragmentArrary[i], null); 
@@ -102,7 +124,7 @@ public class MainActivity extends BaseUi {
 	}
 
 	/**切换Fragment**/
-	public void switchFragment(String index){
+	public void switchFragment(String index) {
 		mTabHost.onTabChanged(index);
 		mTabHost.setCurrentTab(2);
 		updateTabStyle(mTabHost);
@@ -130,7 +152,7 @@ public class MainActivity extends BaseUi {
 			  public void onClick(View v) {
 				  //all codes for login are here
 				  View parent = (View) v.getParent().getParent();//获取当前dialog的根视图
-				  View customPanel = (FrameLayout) parent.findViewById(R.id.customPanel);//获取Dialog_Layout布局中的FramLayout的视图
+				  View customPanel = parent.findViewById(R.id.customPanel);//获取Dialog_Layout布局中的FramLayout的视图
 				  if (customPanel == null) return;
 
 				  //将FrameLayout视图装换位ViewGroup
@@ -148,8 +170,7 @@ public class MainActivity extends BaseUi {
 					  userName = userNameEdt.getText().toString();
 					  passWord = passWordEdt.getText().toString();
 					  rememberme = isrememberme.isChecked();
-				  } else
-					  return;
+				  } else return;
 
 				  System.out.println("用户名为" + userName);
 				  System.out.println(userName + " " + passWord + "" + rememberme);
@@ -157,9 +178,6 @@ public class MainActivity extends BaseUi {
 				  if (!verifyInput(userName, passWord)) {
 					  //验证用户失败，然后弹出对话框
 					  YoYo.with(Techniques.Shake).playOn(childView);
-					  /*AppMsg.cancelAll(currentActivity);	//防止用户点击很多次
-					  	AppMsg.makeText(currentActivity, "用户名或密码不能为空", AppMsg.STYLE_ALERT).setLayoutGravity(Gravity.TOP).setAnimation(android.R.anim.slide_in_left, android.R.anim.slide_out_right).show();
-					  */
 				  } else {
 					  /**将用户名 密码 和 时间戳写进去**/
 					  SharedPreferences sp = AppUtil.getSharedPreferences(MainActivity.this);
@@ -181,26 +199,24 @@ public class MainActivity extends BaseUi {
 	      .setButton2Click(new View.OnClickListener() {
 			  @Override
 			  public void onClick(View v) {
-				  //Toast.makeText(v.getContext(),"i'm btn2",Toast.LENGTH_SHORT).show();
 				  dialogBuilder.dismiss();
 			  }
 		  })
 	      .show();
 	}
+
 	/**下面是验证用户的输入是否合法**/
 	private Boolean verifyInput(String userName,String passWord) {
-		if((userName.trim()).length() == 0||passWord.trim().length() == 0)
-			return false;
-		else
-			return true;
+		return !((userName.trim()).length() == 0 || passWord.trim().length() == 0);
 	}
+
 	/**按两次按钮退出**/
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
 		if (keyCode == KeyEvent.KEYCODE_BACK&& event.getAction() == KeyEvent.ACTION_DOWN) {
 			if (System.currentTimeMillis() - this.end_time >= 2000) {
-				ToastUtil.showToast(getApplication(),"再按一次退出程序");
+				ToastUtil.showInfoToast(getApplication(), "再按一次退出程序");
 				this.end_time = System.currentTimeMillis();
 			}
 			else {
@@ -212,11 +228,11 @@ public class MainActivity extends BaseUi {
 		}
 		return super.onKeyDown(keyCode, event);
 	}
+
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		mTabHost = null;  
 	}
-
 }

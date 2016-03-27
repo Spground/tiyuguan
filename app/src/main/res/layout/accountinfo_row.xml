@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:background="@drawable/listview_item_selector" 
+    android:background="@drawable/selector_listview_item"
     android:paddingLeft="15dip"
     android:paddingTop="10dip" 
     android:paddingBottom="10dip"
@@ -13,7 +13,7 @@
         android:id="@+id/accountinfo_row_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:textColor="@color/font_grey_700"
         android:textSize="@dimen/text_basic_size"
         android:text="用户名ID"
         />

@@ -28,7 +28,7 @@
           android:orientation="vertical">
           <!--显示用户信息和预约信息  -->
            <ListView
-               android:id="@+id/listview_aboutbook"
+               android:id="@+id/listview_top_about"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:layout_marginTop="10dip"
@@ -36,20 +36,20 @@
                android:listSelector="@drawable/selector_listview"
                android:cacheColorHint="@android:color/white"
                android:divider="@color/gray"
-               android:dividerHeight="2px"
+               android:dividerHeight="1px"
                />
            <!--显示其他相关项 -->
           <ListView
-              android:id="@+id/listview1_aboutbook"
+              android:id="@+id/listview_bottom_about"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_below="@id/listview_aboutbook"
+              android:layout_below="@id/listview_top_about"
               android:layout_marginTop="15dip"
               android:background="#ffffff"
               android:listSelector="@drawable/selector_listview"
               android:cacheColorHint="@android:color/white"
               android:divider="@color/gray"
-              android:dividerHeight="2px"
+              android:dividerHeight="1px"
               />
         </RelativeLayout>
     </LinearLayout>
