@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_gray"
+    android:paddingBottom="15dp"
+    android:orientation="vertical"
+    tools:context="cn.edu.dlut.tiyuguan.activity.OrderRemindActivity">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:text="最新提醒事项"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:textColor="@color/material_blue_grey_900"
+        />
+
+    <ListView
+        android:id="@+id/order_remind_listview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:dividerHeight="10dp"
+        android:layout_weight="10">
+    </ListView>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.2"
+        android:layout_gravity="center"
+        android:text="添加提醒"
+        android:background="@drawable/selector_basic_btn"
+        android:textColor="@color/white"
+        />
+</LinearLayout>

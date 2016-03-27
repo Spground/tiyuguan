@@ -45,12 +45,10 @@ public class AppUtil {
             drawableResourceMap.put(venuesNames[i],drawableIds[i]);
         }
     }
-    /**得到SharedPreferences的名字**/
     public static SharedPreferences getSharedPreferences(Context ctx) {
         return ctx.getSharedPreferences(NameConstant.SHARED_PREFERENCES_NAME,Context.MODE_PRIVATE);
     }
 
-    /**得到SharedPreferences的名字**/
     public static SharedPreferences getSharedPreferences(Service service) {
         return service.getSharedPreferences(NameConstant.SHARED_PREFERENCES_NAME,Context.MODE_PRIVATE);
     }
@@ -123,7 +121,7 @@ public class AppUtil {
     /**根据json原始字符串提取合成一个message对象**/
     public static BaseMessage getMessage(String jsonStr) throws Exception {
         BaseMessage message = new BaseMessage();
-        JSONObject jsonObject = null;
+        JSONObject jsonObject;
         try {
             jsonObject = new JSONObject(jsonStr);
             message.setCode(jsonObject.getInt("code"));

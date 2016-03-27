@@ -1,12 +1,12 @@
 package cn.edu.dlut.tiyuguan.adapter;
 
-import java.util.List;  
+import android.content.Context;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TextView;
 
-import android.content.Context;  
-import android.view.View;  
-import android.view.ViewGroup;  
-import android.widget.BaseAdapter;  
-import android.widget.TextView;  
+import java.util.List;
   
 public class ListViewAdapter extends BaseAdapter {
     private List<String> list;  
@@ -38,17 +38,5 @@ public class ListViewAdapter extends BaseAdapter {
         tv.setText(list.get(position));  
         return tv;  
     }  
-  
-}  
 
-
-/*
-<com.example.sports.MyListView
-android:id="@+id/ListView01"
-android:layout_width="fill_parent"
-android:layout_height="wrap_content"
-android:layout_below="@+id/textView1"
-android:choiceMode="singleChoice" 
->
-
-*/
+}

@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
  * Created by asus on 2015/10/6.
  */
 public class AppClient extends OkHttpClient{
-    private static AppClient instance = new AppClient();
+    private volatile static AppClient instance;
 
     private long timeout = 3 * 1000;
 
@@ -28,7 +28,7 @@ public class AppClient extends OkHttpClient{
         setConnectTimeout(timeout, TimeUnit.MILLISECONDS);
     }
     /**get the single client instance**/
-    public static AppClient getInstance(){
+    public static synchronized AppClient getInstance(){
         if(instance == null)
             instance = new AppClient();
         return instance;

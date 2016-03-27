@@ -77,17 +77,16 @@ public class Sport extends BaseModel {
     }
 
 
-    private static Sport sportInstance = new Sport();
+    private volatile static Sport sportInstance;
     //single instance
     private Sport(){
 
     }
-    public static Sport getInstance(){
 
+    public synchronized static Sport getInstance(){
         if(sportInstance == null){
             sportInstance = new Sport();
         }
-
         return sportInstance;
     }
 

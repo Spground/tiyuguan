@@ -131,10 +131,12 @@ public class User extends BaseModel {
     }
 
     //single instance pattern
-    private static User userInstance = new User();
+    private volatile static User userInstance;
     private User(){
     }
-    public static User getInstance(){
+    public static synchronized User getInstance(){
+        if(userInstance == null)
+            userInstance = new User();
         return userInstance;
     }
 }

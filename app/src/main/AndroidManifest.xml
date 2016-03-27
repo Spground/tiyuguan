@@ -51,9 +51,10 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/ActivityTheme_DefTitle_Style">
-        <!--<meta-data-->
-            <!--android:name="com.baidu.lbsapi.API_KEY"-->
-            <!--android:value="HIrV0knMDwLtjqrgMsC9SNMW" />-->
+
+        <!-- <meta-data -->
+        <!-- android:name="com.baidu.lbsapi.API_KEY" -->
+        <!-- android:value="HIrV0knMDwLtjqrgMsC9SNMW" /> -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="7IDupG8z9Od66Sx16Eh7lWFwKh5QcOSM" />
@@ -61,7 +62,7 @@
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote"></service>
+            android:process=":remote" />
         <!-- 欢迎界面 -->
         <!-- 欢迎界面 -->
         <activity
@@ -71,6 +72,7 @@
             android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -78,7 +80,7 @@
         <activity
             android:name=".activity.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar"></activity>
+            android:theme="@android:style/Theme.NoTitleBar" />
         <!-- 预约界面 -->
         <!-- android:theme="@style/test" -->
         <activity
@@ -88,8 +90,7 @@
         <!-- 用户反馈界面 -->
         <activity
             android:name=".activity.FeedBackActivity"
-            android:screenOrientation="portrait"
-           ></activity>
+            android:screenOrientation="portrait" />
         <!-- 账号信息界面. -->
         <activity
             android:name=".activity.AccountInfoActivity"
@@ -109,47 +110,51 @@
         <activity
             android:name=".activity.SportAnalysisActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/ActivityTheme_DefTitle_Style"></activity>
+            android:theme="@style/ActivityTheme_DefTitle_Style" />
         <activity
             android:name=".activity.TiyuguanGuideActivity"
             android:label="@string/title_activity_tiyuguan_guide"
             android:screenOrientation="portrait"
-            android:theme="@style/ActivityTheme_DefTitle_Style"></activity>
+            android:theme="@style/ActivityTheme_DefTitle_Style" />
         <!-- 运动指南 -->
         <activity
             android:name=".activity.FitAdviceActivity"
-            android:theme="@style/ActivityTheme_DefTitle_Style"></activity>
+            android:theme="@style/ActivityTheme_DefTitle_Style" />
         <!-- 订单记录 -->
         <activity
             android:name=".activity.RecordListActivity"
             android:label="@string/title_activity_record_list"
-            android:theme="@style/ActivityTheme_DefTitle_Style"></activity>
+            android:theme="@style/ActivityTheme_DefTitle_Style" />
         <activity
             android:name=".activity.MakeReserveActivity"
             android:label="@string/title_activity_make_reserve"
-            android:theme="@style/ActivityTheme_DefTitle_Style"></activity>
+            android:theme="@style/ActivityTheme_DefTitle_Style" />
         <activity
             android:name=".activity.ConfirmOrderActivity"
             android:label="@string/title_activity_confirm_order"
-            android:theme="@style/ActivityTheme_DefTitle_Style"></activity>
+            android:theme="@style/ActivityTheme_DefTitle_Style" />
         <activity
             android:name=".activity.MakeReserveSuccessActivity"
             android:label="@string/title_activity_make_reserve_success"
-            android:theme="@style/ActivityTheme_DefTitle_Style"></activity>
-        <activity android:name=".activity.AboutActivity"
-            android:theme="@style/ActivityTheme_DefTitle_Style"></activity>
+            android:theme="@style/ActivityTheme_DefTitle_Style" />
+        <activity
+            android:name=".activity.AboutActivity"
+            android:theme="@style/ActivityTheme_DefTitle_Style" />
+        <activity
+            android:name=".activity.OrderRemindActivity"
+            android:theme="@style/ActivityTheme_DefTitle_Style" />
         <!-- ************************************************************************************* -->
         <!-- Service Service Service Service Service Service Service　Service -->
         <service
             android:name=".service.AutoLoginService"
-            android:enabled="true"></service>
+            android:enabled="true" />
         <!-- Service -->
         <service
             android:name=".service.QueryRecordService"
-            android:enabled="true"></service>
+            android:enabled="true" />
         <service
             android:name=".service.QueryVenuesInfoService"
-            android:enabled="true"></service>
+            android:enabled="true" />
         <!-- Service Service Service Service Service Service Service　Service -->
         <!-- ************************************************************************************* -->
 

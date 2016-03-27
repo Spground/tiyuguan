@@ -48,13 +48,11 @@ public class MainTab02Fragment extends Fragment{
 		 return messageLayout;
 	}
 
-    /****/
     private void initView() {
 
         mListView = (MyListView)messageLayout.findViewById(R.id.ListView01);
         myAdapter = new MyAdapter();
         mListView.setAdapter(myAdapter);
-        //lv设置监听跳转到预约界面,监听用户选择哪一个场馆
         mListView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
@@ -98,7 +96,6 @@ public class MainTab02Fragment extends Fragment{
                 }
             }
         });
-        //刷新的监听
         mListView.setonRefreshListener(new OnRefreshListener() {
 
             @Override
@@ -136,7 +133,6 @@ public class MainTab02Fragment extends Fragment{
         });
     }
 
-    /**自定义适配器**/
     class MyAdapter extends  BaseAdapter{
 
 
