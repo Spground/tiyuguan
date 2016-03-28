@@ -8,12 +8,15 @@ import android.content.SharedPreferences.Editor;
 
 import com.baidu.mapapi.SDKInitializer;
 
+import cn.edu.dlut.tiyuguan.bean.OrderBean;
+import cn.edu.dlut.tiyuguan.dao.DaoMaster;
+import cn.edu.dlut.tiyuguan.dao.DaoSession;
+import cn.edu.dlut.tiyuguan.dao.OrderBeanDao;
+import cn.edu.dlut.tiyuguan.util.DBUtil;
+
 public class MApplication extends Application{
 
 	public static HttpClient httpClient;//用户打开程序用到的全局httpclient实例
-	private static String sessionName = "JSESSIONID";
-	private static String cookieName = "SESSION_LOGIN_USERNAME";
-	private static String cookieValue = "";//用来存放
 	public  static  Boolean rememberme;
 	private static SharedPreferences cookieFile;
 	private static Editor editor;
@@ -26,26 +29,19 @@ public class MApplication extends Application{
 		//只新建一次
 		cookieFile = this.getSharedPreferences("cookieFile", 0);
 		editor = cookieFile.edit();
-		cookieValue = cookieFile.getString("cookieValue", "");
 		rememberme = cookieFile.getBoolean("rememberme", false);
 		httpClient = new DefaultHttpClient();
 		SDKInitializer.initialize(getApplicationContext());//在调用任何百度地图组件的时候都得初始化
+		//initDB();
 	}
-	public String getcookieName() {
-		return cookieName;
+
+	private void initDB() {
+		DaoSession session = DBUtil.getDaoSession(this);
+		OrderBeanDao orderBeanDao = session.getOrderBeanDao();
+		OrderBean orderBean = new OrderBean("123456", System.currentTimeMillis() / 1000,
+				System.currentTimeMillis() / 1000 + 5000, "201203126");
+		orderBeanDao.insert(orderBean);
 	}
-	//
-	public  String getcookieValue() {
-		cookieValue=cookieFile.getString("cookieValue", "");
-		return cookieValue;
-	}
-	
-	public  void  setcookieValue(String cookieValue0) {
-		if(cookieValue0 != "")
-		{
-		editor.putString("cookieValue", cookieValue0);
-		editor.commit();
-		}
-		cookieValue = cookieValue0;
-	}
+
+
 }

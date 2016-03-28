@@ -48,4 +48,6 @@ public class NameConstant {
 //        public static String HOST_ADDR = "58.155.219.41";
         public static String HTTP_PORT = "8080";
     }
+
+    public static final String dbName = "tiyuguan_db";
 }

@@ -1,15 +1,27 @@
 package cn.edu.dlut.tiyuguan.base;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
+import android.os.Message;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import java.lang.ref.WeakReference;
+
 import cn.edu.dlut.tiyuguan.R;
+import cn.edu.dlut.tiyuguan.dao.DaoSession;
+import cn.edu.dlut.tiyuguan.util.DBUtil;
 import cn.edu.dlut.tiyuguan.util.ToastUtil;
 import cn.edu.dlut.tiyuguan.widget.CustomProgressDialog;
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
@@ -20,7 +32,7 @@ import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
  */
 public class BaseUi extends SwipeBackActivity {
 
-    protected BaseHandler handler;
+    protected MHandler handler;
     protected BaseTaskPool taskPool;
     protected BaseSqlite sqlite;
 
@@ -167,5 +179,54 @@ public class BaseUi extends SwipeBackActivity {
 
     public SwipeBackLayout getmSwipeBackLayout(){
         return mSwipeBackLayout;
+    }
+
+    public interface AsyncLoadDataFromDBCallback {
+        void asyncLoadDataFromDBCompleted(SQLiteDatabase database);
+    }
+
+    AsyncLoadDataFromDBCallback callback;
+
+    public void asynLoadDataFromDB(AsyncLoadDataFromDBCallback callback, String dbName) {
+        this.callback = callback;
+        new Thread(new AsyncLoadDataFromDB(this, dbName, new MHandler(this))).start();
+    }
+
+    static class MHandler extends Handler {
+        WeakReference<Activity> activityWeakReference;
+        MHandler(Activity activity) {
+            activityWeakReference = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            SQLiteDatabase database = (SQLiteDatabase)msg.obj;
+            if(activityWeakReference.get() != null) {
+                if(((BaseUi)activityWeakReference.get()).callback != null) {
+                    ((BaseUi)activityWeakReference.get()).callback
+                            .asyncLoadDataFromDBCompleted(database);
+                }
+            }
+        }
+    }
+
+    class AsyncLoadDataFromDB implements Runnable {
+        Context ctx;
+        String dbName;
+        Handler handler;
+        AsyncLoadDataFromDB(Activity ctx, String dbName, Handler handler) {
+            this.ctx = ctx;
+            this.dbName = dbName;
+            this.handler = handler;
+        }
+
+        @Override
+        public void run() {
+            SQLiteDatabase database = DBUtil.getDatabase(this.dbName, this.ctx.getApplicationContext());
+            Message message = Message.obtain();
+            message.obj = database;
+            this.handler.sendMessage(message);
+        }
     }
 }

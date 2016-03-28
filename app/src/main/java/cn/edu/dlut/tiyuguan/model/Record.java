@@ -8,7 +8,6 @@ import cn.edu.dlut.tiyuguan.base.BaseModel;
 public class Record extends BaseModel {
 
 
-
     public String getVenuesId() {
         return venuesId;
     }
@@ -65,7 +64,9 @@ public class Record extends BaseModel {
         this.venuesName = venuesName;
     }
 
-    /**数据库字段**/
+    /**
+     * 数据库字段
+     **/
     private String recordId;
     private String venuesId;
     private String userId;
@@ -74,9 +75,5 @@ public class Record extends BaseModel {
     private String location;//位置
     private String startTime;
     private String endTime;
-
-
-
-
 
 }

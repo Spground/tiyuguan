@@ -5,31 +5,38 @@
     android:layout_height="match_parent"
     android:background="@color/light_gray"
     android:paddingBottom="15dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
     android:orientation="vertical"
     tools:context="cn.edu.dlut.tiyuguan.activity.OrderRemindActivity">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
-        android:text="最新提醒事项"
-        android:textSize="24sp"
+        android:layout_weight="1"
+        android:text="离下个提醒还有15分钟"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:textSize="18sp"
         android:gravity="center"
-        android:textColor="@color/material_blue_grey_900"
+        android:textColor="@color/font_grey_700"
         />
-
     <ListView
         android:id="@+id/order_remind_listview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:scrollbarThumbVertical="@color/_font_grey_600"
+        android:scrollbarSize="1.5dp"
         android:dividerHeight="10dp"
         android:layout_weight="10">
     </ListView>
     <Button
+        android:id="@+id/addRemindBtn"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1.2"
         android:layout_gravity="center"
         android:text="添加提醒"
+        android:textSize="20sp"
         android:background="@drawable/selector_basic_btn"
         android:textColor="@color/white"
         />
