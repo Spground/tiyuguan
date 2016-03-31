@@ -87,17 +87,16 @@ public class RecordPageFragment extends Fragment implements MyListView.OnLoadMor
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /**得到用户的预定列表**/
+        /**得到用户的订单列表**/
         if (BaseAuth.isLogin()) {
             Map<String, Record> recordMap = BaseAuth.getUser().getRecordMap();
             AppUtil.map2List(this.tempDataSet, recordMap, true, record_type);
         }
 
         /**默认显示pageSize**/
-        for (int i = 0; i < 10; i++) {
+        int pageSize = this.tempDataSet.size() >= 10 ? 10 : this.tempDataSet.size();
+        for (int i = 0; i < pageSize; i++)
             this.dataSet.add(tempDataSet.get(i));
-        }
-
         init();
     }
 
@@ -190,7 +189,7 @@ public class RecordPageFragment extends Fragment implements MyListView.OnLoadMor
                 viewHolder.venuesImageView = (ImageView) view.findViewById(R.id.id_activity_record_list_listview_item_veues_image_view);
                 viewHolder.recordNumberTextView = (TextView) view.findViewById(R.id.id_activity_record_list_listview_item_recordnumber);
                 viewHolder.venuesNameTextView = (TextView) view.findViewById(R.id.id_activity_record_list_listview_item_text_view_venues_name);
-                viewHolder.venuesLocationTextView = (TextView) view.findViewById(R.id.id_activity_record_list_listview_item_text_view_venues_location);
+                viewHolder.venuesLocationIdTextView = (TextView) view.findViewById(R.id.id_activity_record_list_listview_item_text_view_venues_location);
                 viewHolder.recordTimePeriodTextView = (TextView) view.findViewById(R.id.id_activity_record_list_listview_item_record_time_period);
 
                 view.setTag(viewHolder);
@@ -208,8 +207,8 @@ public class RecordPageFragment extends Fragment implements MyListView.OnLoadMor
             viewHolder.venuesImageView.setImageResource(AppUtil.getDrawableResId(dataSet.get(i).getVenuesName()));
             viewHolder.recordNumberTextView.setText(dataSet.get(i).getRecordId());
             viewHolder.venuesNameTextView.setText(dataSet.get(i).getVenuesName());
-            viewHolder.venuesLocationTextView.setText(dataSet.get(i).getLocation());
-            viewHolder.recordTimePeriodTextView.setText(dataSet.get(i).getStartTime() + "至" + dataSet.get(i).getEndTime().substring(11));
+            viewHolder.venuesLocationIdTextView.setText(dataSet.get(i).getLocationId() + "");
+            viewHolder.recordTimePeriodTextView.setText(dataSet.get(i).getStartTime() + "至" + dataSet.get(i).getEndTime());
 
             return view;
         }
@@ -220,7 +219,7 @@ public class RecordPageFragment extends Fragment implements MyListView.OnLoadMor
 
         TextView recordNumberTextView;
         TextView venuesNameTextView;
-        TextView venuesLocationTextView;
+        TextView venuesLocationIdTextView;
         TextView recordTimePeriodTextView;
     }
 

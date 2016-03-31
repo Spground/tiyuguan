@@ -130,7 +130,7 @@ public class AccountInfoActivity extends BaseUi {
 					content = User.getInstance().getUserName();
 					break;
 				case 2:
-					content = User.getInstance().getCreditWorthiness();
+					content = User.getInstance().getCreditWorthiness() + "";
 					break;
 				default:
 					break;

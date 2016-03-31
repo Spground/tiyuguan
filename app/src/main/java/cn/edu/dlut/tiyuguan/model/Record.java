@@ -7,15 +7,6 @@ import cn.edu.dlut.tiyuguan.base.BaseModel;
  */
 public class Record extends BaseModel {
 
-
-    public String getVenuesId() {
-        return venuesId;
-    }
-
-    public void setVenuesId(String venuesId) {
-        this.venuesId = venuesId;
-    }
-
     public String getRecordId() {
         return recordId;
     }
@@ -32,27 +23,19 @@ public class Record extends BaseModel {
         this.userId = userId;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getStartTime() {
+    public long getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(long startTime) {
         this.startTime = startTime;
     }
 
-    public String getEndTime() {
+    public long getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(long endTime) {
         this.endTime = endTime;
     }
 
@@ -68,12 +51,27 @@ public class Record extends BaseModel {
      * 数据库字段
      **/
     private String recordId;
-    private String venuesId;
+    private int venuesId;
     private String userId;
 
     private String venuesName;
-    private String location;//位置
-    private String startTime;
-    private String endTime;
+    private int locationId;//位置
+    private long startTime;
+    private long endTime;
 
+    public int getVenuesId() {
+        return venuesId;
+    }
+
+    public int getLocationId() {
+        return locationId;
+    }
+
+    public void setLocationId(int locationId) {
+        this.locationId = locationId;
+    }
+
+    public void setVenuesId(int venuesId) {
+        this.venuesId = venuesId;
+    }
 }

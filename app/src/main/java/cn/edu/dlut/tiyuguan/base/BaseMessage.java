@@ -23,10 +23,10 @@ public class BaseMessage {
     private String message;
     private String dataStr;
 
-    private HashMap<String,BaseModel> dataMap;
-    private HashMap<String,ArrayList<BaseModel>> dataMapList;
+    private HashMap<String, BaseModel> dataMap;
+    private HashMap<String, ArrayList<BaseModel>> dataMapList;
 
-    public BaseMessage(){
+    public BaseMessage() {
         this.dataMap = new HashMap<>();
         this.dataMapList = new HashMap<>();
     }
@@ -51,36 +51,37 @@ public class BaseMessage {
         return dataStr;
     }
 
-    /**将data属性中的json数据转为各种model**/
-    public void setDataStr(String dataStr) throws Exception{
+    /**
+     * 将data属性中的json数据转为各种model
+     **/
+    public void setDataStr(String dataStr, String modelClassSimleName) throws Exception {
         this.dataStr = dataStr;
         //parse the dataStr
-        if(dataStr.length() <= 0) return;
+        if (dataStr.length() <= 0) return;
 
-        JSONObject jsonObject = null;
+        JSONObject jsonObject;
         try {
             jsonObject = new JSONObject(dataStr);
             Iterator<String> it = jsonObject.keys();
-            while (it.hasNext()){
+            while (it.hasNext()) {
                 String jsonKey = it.next();
-                String modelName =  getModelName(jsonKey);
-                String modelClassName = "cn.edu.dlut.tiyuguan.model." +modelName;
+                String modelClassName = "cn.edu.dlut.tiyuguan.model." + modelClassSimleName;
                 JSONArray modelJsonArray = jsonObject.optJSONArray(jsonKey);
                 //jsonObject
-                if(modelJsonArray == null){
-                   JSONObject modelJsonObj = jsonObject.optJSONObject(jsonKey);
-                    if(modelJsonObj == null){
+                if (modelJsonArray == null) {
+                    JSONObject modelJsonObj = jsonObject.optJSONObject(jsonKey);
+                    if (modelJsonObj == null) {
                         throw new Exception("message data is invalid!");
                     }
-                    this.dataMap.put(jsonKey,json2Model(modelClassName,modelJsonObj));
+                    this.dataMap.put(modelClassSimleName, json2Model(modelClassName, modelJsonObj));
                 }//jsonArray
-                else{
+                else {
                     ArrayList<BaseModel> modelList = new ArrayList<>();
-                    for(int i = 0 ; i < modelJsonArray.length(); i++){
+                    for (int i = 0; i < modelJsonArray.length(); i++) {
                         JSONObject modelJsonObj = modelJsonArray.optJSONObject(i);
-                        modelList.add(json2Model(modelClassName,modelJsonObj));
+                        modelList.add(json2Model(modelClassName, modelJsonObj));
                     }
-                    this.dataMapList.put(jsonKey,modelList);
+                    this.dataMapList.put(modelClassSimleName, modelList);
                 }
             }
         } catch (JSONException e) {
@@ -88,23 +89,27 @@ public class BaseMessage {
         }
     }
 
-    /**根据名字得到model**/
-    public BaseModel getData(String modelName){
+    /**
+     * 根据名字得到model
+     **/
+    public BaseModel getData(String modelName) {
         return this.dataMap.get(modelName);
     }
-    /**根据名字得到很多model**/
-    public ArrayList<? extends BaseModel> getDataList(String modelName){
+
+    /**
+     * 根据名字得到很多model
+     **/
+    public ArrayList<? extends BaseModel> getDataList(String modelName) {
         return this.dataMapList.get(modelName);
     }
-    private String getModelName(String jsonKey){
-        return jsonKey;
-    }
 
-    /**json对象转model对象**/
-    private BaseModel json2Model(String modelClassName,JSONObject modelJsonObject) throws Exception{
-        BaseModel modelObj = null;
+    /**
+     * TODO 需要考虑完整
+     **/
+    public BaseModel json2Model(String modelClassFullName, JSONObject modelJsonObject) throws Exception {
+        BaseModel modelObj;
         try {
-            modelObj = (BaseModel)(Class.forName(modelClassName).newInstance());
+            modelObj = (BaseModel) (Class.forName(modelClassFullName).newInstance());
         } catch (InstantiationException e) {
             throw e;
         } catch (IllegalAccessException e) {
@@ -112,8 +117,8 @@ public class BaseMessage {
             Object[] objects = null;
             Class<?>[] classes = null;
 
-            Method getInstanceMethod = Class.forName(modelClassName).getDeclaredMethod("getInstance",   classes);
-            modelObj = (BaseModel)getInstanceMethod.invoke(null,objects);
+            Method getInstanceMethod = Class.forName(modelClassFullName).getDeclaredMethod("getInstance", classes);
+            modelObj = (BaseModel) getInstanceMethod.invoke(null, objects);
         } catch (ClassNotFoundException e) {
             throw e;
         }
@@ -122,23 +127,48 @@ public class BaseMessage {
         // auto-setting model fields
         Iterator<String> it = modelJsonObject.keys();
         while (it.hasNext()) {
-            String varField = it.next();
-            String varValue = modelJsonObject.getString(varField);
-            Field field = modelClass.getDeclaredField(varField);//reflect useage
-            field.setAccessible(true); // have private to be accessable
-            field.set(modelObj, varValue);
+            String jsonKey = it.next();
+            String jsonValue = modelJsonObject.getString(jsonKey);
+            Field field = modelClass.getDeclaredField(jsonKey);//reflect useage
+            field.setAccessible(true); // have private to be accessible
+
+            //根据域类型来赋值
+            String filedTypeName = field.getType().getSimpleName().trim();
+            switch (filedTypeName) {
+                case "int" :
+                    field.set(modelObj, Integer.valueOf(jsonValue));
+                    break;
+                case "long" :
+                    field.set(modelObj, Long.valueOf(jsonValue));
+                    break;
+                case "double" :
+                    field.set(modelObj, Double.valueOf(jsonValue));
+                    break;
+                case "boolean" :
+                    field.set(modelObj, Boolean.valueOf(jsonValue));
+                    break;
+                case "float" :
+                    field.set(modelObj, Float.valueOf(jsonValue));
+                    break;
+                default:
+                    field.set(modelObj,jsonValue);
+                    break;
+            }
+
         }
         return modelObj;
     }
 
-    /**json对象转为HashMap**/
-    private Map<String,String> jsonToMap(JSONObject jsonObject){
-        HashMap<String,String> hashMap = new HashMap<>();
+    /**
+     * json对象转为HashMap
+     **/
+    private Map<String, String> jsonToMap(JSONObject jsonObject) {
+        HashMap<String, String> hashMap = new HashMap<>();
         Iterator<String> it = jsonObject.keys();
         while (it.hasNext()) {
             String jsonKey = it.next();
             try {
-                hashMap.put(jsonKey,jsonObject.getString(jsonKey));
+                hashMap.put(jsonKey, jsonObject.getString(jsonKey));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -146,11 +176,13 @@ public class BaseMessage {
         return hashMap;
     }
 
-    /**消息是否成功**/
-    public boolean isSuccessful(){
+    /**
+     * 消息是否成功
+     **/
+    public boolean isSuccessful() {
 
-        boolean success =  false;
-        JSONObject jsonObject = null;
+        boolean success;
+        JSONObject jsonObject;
         try {
             jsonObject = new JSONObject(message);
         } catch (JSONException e) {

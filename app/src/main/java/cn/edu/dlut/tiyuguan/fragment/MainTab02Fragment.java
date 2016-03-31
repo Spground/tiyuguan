@@ -28,29 +28,28 @@ import cn.edu.dlut.tiyuguan.util.ToastUtil;
 
 
 @SuppressWarnings("deprecation")
-public class MainTab02Fragment extends Fragment{
+public class MainTab02Fragment extends Fragment {
 
-	int[] drawableIds={R.drawable.bask,R.drawable.swim,
-			R.drawable.taiqiu,R.drawable.yumao,R.drawable.ping};
-	int[] nameIds={R.string.bask,R.string.swim,
-			R.string.taiqiu,R.string.yumao,R.string.ping};
-	 View messageLayout;
-     MyListView mListView;
-     MyAdapter myAdapter;
+    int[] drawableIds = {R.drawable.bask, R.drawable.swim,
+            R.drawable.taiqiu, R.drawable.yumao, R.drawable.ping};
+    int[] nameIds = {R.string.bask, R.string.swim,
+            R.string.taiqiu, R.string.yumao, R.string.ping};
+    View messageLayout;
+    MyListView mListView;
+    MyAdapter myAdapter;
 
-    AsyncTask<String,Void,String> refreshTask;
+    AsyncTask<String, Void, String> refreshTask;
 
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         messageLayout = inflater.inflate(R.layout.main_tab_02, container, false);
         initView();
-		//自定义适配器
-		 return messageLayout;
-	}
+        return messageLayout;
+    }
 
     private void initView() {
 
-        mListView = (MyListView)messageLayout.findViewById(R.id.ListView01);
+        mListView = (MyListView) messageLayout.findViewById(R.id.ListView01);
         myAdapter = new MyAdapter();
         mListView.setAdapter(myAdapter);
         mListView.setOnItemClickListener(new OnItemClickListener() {
@@ -60,14 +59,14 @@ public class MainTab02Fragment extends Fragment{
                                     long arg3) {
                 // TODO Auto-generated method stub
                 //if user is not login
-                if(!BaseAuth.isLogin()){
-                    ToastUtil.showInfoToast(getActivity(),"未登录，请您登陆再操作！");
-                    ((MainActivity)getActivity()).switchFragment("我的");
+                if (!BaseAuth.isLogin()) {
+                    ToastUtil.showInfoToast(getActivity(), "未登录，请您登陆再操作！");
+                    ((MainActivity) getActivity()).switchFragment("我的");
                     return;
                 }
-                Intent intent = new Intent(getActivity(),MakeReserveActivity.class);
-                AppUtil.debugV("====TAG====","选择的ListView Index" + postion);
-                switch(postion) {
+                Intent intent = new Intent(getActivity(), MakeReserveActivity.class);
+                AppUtil.debugV("====TAG====", "选择的ListView Index" + postion);
+                switch (postion) {
                     //篮球预约
                     case 1:
                         intent.putExtra("venues_id", 1);
@@ -100,7 +99,7 @@ public class MainTab02Fragment extends Fragment{
 
             @Override
             public void onRefresh() {
-                if(Sport.getInstance().getVenuesHashMap() == null
+                if (Sport.getInstance().getVenuesHashMap() == null
                         ||
                         Sport.getInstance().getVenuesHashMap().size() == 0
                         )
@@ -108,10 +107,10 @@ public class MainTab02Fragment extends Fragment{
                             .getInstance()
                             .addTask(new QueryVenuesInfoTask(NameConstant.api.queryVenuesInfo));
 
-                if(refreshTask != null && refreshTask.getStatus() == AsyncTask.Status.RUNNING)
+                if (refreshTask != null && refreshTask.getStatus() == AsyncTask.Status.RUNNING)
                     refreshTask.cancel(true);
                 String queryUrl = "";
-                refreshTask =  new AsyncTask<String, Void, String>() {
+                refreshTask = new AsyncTask<String, Void, String>() {
                     protected String doInBackground(String... params) {
                         try {
                             Thread.sleep(1000);
@@ -133,7 +132,7 @@ public class MainTab02Fragment extends Fragment{
         });
     }
 
-    class MyAdapter extends  BaseAdapter{
+    class MyAdapter extends BaseAdapter {
 
 
         @Override
@@ -154,27 +153,25 @@ public class MainTab02Fragment extends Fragment{
         @Override
         public View getView(int position, View convertView, ViewGroup viewGroup) {
             ViewHolder viewHolder;
-            if(convertView == null){
+            if (convertView == null) {
                 viewHolder = new ViewHolder();
-                convertView = LayoutInflater.from(getActivity()).inflate(R.layout.main_tab_02_listview_item,null);
-                viewHolder.imageView = (ImageView)convertView.findViewById(R.id.id_main_tab_02_listview_item_image_view);
-                viewHolder.textView = (TextView)convertView.findViewById(R.id.id_main_tab_02_listview_item_text_view);
-                viewHolder.numTextView = (TextView)convertView.findViewById(R.id.id_main_tab_02_istview_item_num_textview);
+                convertView = LayoutInflater.from(getActivity()).inflate(R.layout.main_tab_02_listview_item, null);
+                viewHolder.imageView = (ImageView) convertView.findViewById(R.id.id_main_tab_02_listview_item_image_view);
+                viewHolder.textView = (TextView) convertView.findViewById(R.id.id_main_tab_02_listview_item_text_view);
+                viewHolder.numTextView = (TextView) convertView.findViewById(R.id.id_main_tab_02_istview_item_num_textview);
                 convertView.setTag(viewHolder);
+            } else {
+                viewHolder = (ViewHolder) convertView.getTag();
             }
-            else{
-                viewHolder = (ViewHolder)convertView.getTag();
-            }
-            //fulfill view with data
             viewHolder.imageView.setImageResource(drawableIds[position]);
             viewHolder.textView.setText(nameIds[position]);
-            viewHolder.numTextView.setText((int)(50 * Math.random()) + "");
+            viewHolder.numTextView.setText((int) (50 * Math.random()) + "");
 
             return convertView;
         }
     }
 
-    static class ViewHolder{
+    static class ViewHolder {
         ImageView imageView;
         TextView textView;
         TextView numTextView;

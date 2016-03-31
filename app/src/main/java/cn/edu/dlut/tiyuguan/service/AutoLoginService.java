@@ -38,15 +38,15 @@ public class AutoLoginService extends BaseService {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if(intent == null || intent.getAction() == null){
+        if (intent == null || intent.getAction() == null) {
             stopSelf();
         }
 
-        if(intent.getAction().equals(NAME + BaseService.ACTION_START)){
+        if (intent.getAction().equals(NAME + BaseService.ACTION_START)) {
             isFirst = true;
             startService();
         }
-        if(intent.getAction().equals(NAME + BaseService.ACTION_STOP)){
+        if (intent.getAction().equals(NAME + BaseService.ACTION_STOP)) {
             stopSelf();
         }
         return super.onStartCommand(intent, flags, startId);
@@ -55,36 +55,35 @@ public class AutoLoginService extends BaseService {
 
 
     //begin login operation in background
-    private void startService(){
+    private void startService() {
         execService.execute(new Runnable() {
             @Override
             public void run() {
                 SharedPreferences sp = AppUtil.getSharedPreferences(AutoLoginService.this);
-                HashMap<String,String> urlParams = new HashMap<>();
-                String nowtime = AppUtil.getTimeTag();
+                HashMap<String, String> urlParams = new HashMap<>();
+                String nowTime = AppUtil.getTimeTag();
 
-                urlParams.put("userId",sp.getString("username",null));
-                urlParams.put("password",AppUtil.getSHA256(AppUtil.getSHA256(sp.getString("password",null)) + nowtime));
-                urlParams.put("nowTime",nowtime);
+                urlParams.put("userId", sp.getString("username", null));
+                urlParams.put("password", AppUtil.getSHA256(AppUtil.getSHA256(sp.getString("password", null)) + nowTime));
+                urlParams.put("nowTime", nowTime);
 
-                    //if user login
-                    if(!AppUtil.isConnected(getApplicationContext())){
-                        onNetworkError(new Exception("network is invalid！"));
-                        return;
-                    }
-                    if(BaseAuth.isLogin()){
-                        stopSelf();
-                        return;
-                    }
-                    else{
+                //if user login
+                if (!AppUtil.isConnected(getApplicationContext())) {
+                    onNetworkError(new Exception("network is invalid！"));
+                    return;
+                }
+                if (BaseAuth.isLogin()) {
+                    stopSelf();
+                    return;
+                } else {
                     //begin  remote login operation & query some important info about venus
-                        try {
-                            doTaskAsyn(NameConstant.task.login,NameConstant.api.login,urlParams);
-                            Thread.sleep(30 * 1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                    try {
+                        doTaskAsyn(NameConstant.task.login, NameConstant.api.login, urlParams);
+                        Thread.sleep(30 * 1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
+                }
             }
         });
     }
@@ -93,29 +92,31 @@ public class AutoLoginService extends BaseService {
     public void onTaskCompleted(int taskId, String data) {
         /**login请求完成以后**/
         /**ToastUtil.showInfoToast(this,data);**/
-        AppUtil.debugV("====AotoLogin Result:====",data);
+        AppUtil.debugV("====AotoLogin Result:====", data);
         try {
-            BaseMessage message = AppUtil.getMessage(data);
-            if(message.isSuccessful()){
-                User user = (User)message.getData("User");
+            BaseMessage message = AppUtil.getMessage(data, "User");
+            if (message.isSuccessful()) {
+                User user = (User) message.getData("User");
                 Log.v("TAG", "user对象\n:" + user.getUserName());
                 //login success
-                if((user).getUserName() != null){
+                if ((user).getUserName() != null) {
                     BaseAuth.setUser(user);
                     BaseAuth.setLogin(true);
 
                     /**登录成功以后，看是否Record为空**/
-                    if(BaseAuth.getUser().getRecordMap() == null){
-                        AppUtil.debugV("====TAG====","AutoLoginService 正在启动QueryRecordService");
-                        Intent intentQueryRecord = new Intent(this,QueryRecordService.class);
-                        intentQueryRecord.setAction(QueryRecordService.NAME + BaseService.ACTION_START );
+                    if (BaseAuth.getUser().getRecordMap() == null) {
+                        AppUtil.debugV("====TAG====", "AutoLoginService 正在启动QueryRecordService");
+                        Intent intentQueryRecord = new Intent(this, QueryRecordService.class);
+                        intentQueryRecord.setAction(QueryRecordService.NAME + BaseService.ACTION_START);
 
-                        Date now = new Date(System.currentTimeMillis());
-                        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-                        String endTime = format.format(now) + "240000";
-                        String startTime = AppUtil.getBeforeTime(3,format,now) + "000000";
-                        AppUtil.debugV("====TAG====","startTime:" + startTime + "endTime:" + endTime);
-                        intentQueryRecord.putExtra("queryUrl",NameConstant.api.queryUserRecord + "?userId=" + BaseAuth.getUser().getUserId()+"&startTime=" + startTime + "&endTime=" + endTime);
+                        long nowTime = System.currentTimeMillis() / 1000;
+                        long delta = 30 * 24 * 60 * 60;
+                        long endTime = nowTime + delta;//后一个月
+                        long startTime = nowTime - delta;//前一个月
+                        String queryUrl = NameConstant.api.queryUserRecord + "?userId=" + BaseAuth.getUser().getUserId()
+                                + "&startTime=" + startTime + "&endTime=" + endTime;
+                        AppUtil.debugV("====TAG====", "startTime:" + startTime + "endTime:" + endTime);
+                        intentQueryRecord.putExtra("queryUrl", queryUrl);
                         startService(intentQueryRecord);
                     }
                     /**post loginsuccessevent  to who need this**/
@@ -125,7 +126,7 @@ public class AutoLoginService extends BaseService {
                 }
             }
             //login failed
-            else{
+            else {
                 /**登录失败后，就设置记住密码为false**/
                 SharedPreferences sp = AppUtil.getSharedPreferences(this);
                 SharedPreferences.Editor editor = sp.edit();

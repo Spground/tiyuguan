@@ -8,21 +8,23 @@ import cn.edu.dlut.tiyuguan.base.BaseModel;
  * Created by asus on 2015/10/6.
  */
 public class User extends BaseModel {
-    /**http**/
-    private String sessionid;//用户的SessionID值
-
+    /**
+     * http
+     **/
     private String userEmail;
     private String face;
     private String department;//学部学院
     private String major;//专业
 
-    /**以下为数据库的字段名**/
+    /**
+     * 以下为数据库的字段名
+     **/
     private String userName;
     private String userId;
-    private String userRole;
-    private String creditWorthiness;
+    private int userRole;
+    private int creditWorthiness;
 
-    private LinkedHashMap<String,Record> recordMap;//订单记录 订单号---Record对象
+    private LinkedHashMap<String, Record> recordMap;//订单记录 订单号---Record对象
 
     public String getUserId() {
         return userId;
@@ -40,19 +42,19 @@ public class User extends BaseModel {
         User.userInstance = userInstance;
     }
 
-    public String getUserRole() {
+    public int getUserRole() {
         return userRole;
     }
 
-    public void setUserRole(String userRole) {
+    public void setUserRole(int userRole) {
         this.userRole = userRole;
     }
 
-    public String getCreditWorthiness() {
+    public int getCreditWorthiness() {
         return creditWorthiness;
     }
 
-    public void setCreditWorthiness(String creditWorthiness) {
+    public void setCreditWorthiness(int creditWorthiness) {
         this.creditWorthiness = creditWorthiness;
     }
 
@@ -61,7 +63,7 @@ public class User extends BaseModel {
     }
 
 
-    public synchronized LinkedHashMap<String,Record>  getRecordMap() {
+    public synchronized LinkedHashMap<String, Record> getRecordMap() {
         return recordMap;
     }
 
@@ -110,13 +112,6 @@ public class User extends BaseModel {
         this.major = major;
     }
 
-    public String getSessionid() {
-        return sessionid;
-    }
-
-    public void setSessionid(String sessionid) {
-        this.sessionid = sessionid;
-    }
     /*****/
     //login
     //default is no login
@@ -132,10 +127,12 @@ public class User extends BaseModel {
 
     //single instance pattern
     private volatile static User userInstance;
-    private User(){
+
+    private User() {
     }
-    public static synchronized User getInstance(){
-        if(userInstance == null)
+
+    public static synchronized User getInstance() {
+        if (userInstance == null)
             userInstance = new User();
         return userInstance;
     }

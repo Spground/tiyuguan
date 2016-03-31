@@ -18,9 +18,10 @@ import cn.edu.dlut.tiyuguan.util.AppUtil;
 public class QueryVenuesInfoTask extends BaseTask {
     private String url;
 
-    public QueryVenuesInfoTask(String url){
+    public QueryVenuesInfoTask(String url) {
         this.url = url;
     }
+
     @Override
     public void start() {
         AppClient appClient = AppClient.getInstance();
@@ -41,20 +42,20 @@ public class QueryVenuesInfoTask extends BaseTask {
         AppUtil.debugV("====TAG====", "QueryVenuesInfo response:" + response);
 
         try {
-            BaseMessage message = AppUtil.getMessage(response);
-            if(message.isSuccessful()){
-                ArrayList<Venue> listVenues = (ArrayList<Venue>)message.getDataList("Venues");
-                if(listVenues != null && listVenues.size() > 0){
-                    HashMap<String,Venue> venuesMap = new HashMap();
-                    for(int i = 0 ;i < listVenues.size() ; i++){
-                        AppUtil.debugV("====Venues Info====","venues_id: " + listVenues.get(i).getVenuesId() + " locationNum: " + listVenues.get(i).getLocationNum());
-                        venuesMap.put(listVenues.get(i).getVenuesId(),listVenues.get(i));
+            BaseMessage message = AppUtil.getMessage(response, "Venue");
+            if (message.isSuccessful()) {
+                ArrayList<Venue> listVenues = (ArrayList<Venue>) message.getDataList("Venue");
+                AppUtil.debugV("====TAG====", "listVenues is null ? " + (listVenues == null ? " null" : " not null"));
+                if (listVenues != null && listVenues.size() > 0) {
+                    HashMap<Integer, Venue> venuesMap = new HashMap();
+                    for (int i = 0; i < listVenues.size(); i++) {
+                        AppUtil.debugV("====Venues Info====", "venues_id: " + listVenues.get(i).getVenuesId() + " locationNum: " + listVenues.get(i).getLocationNum());
+                        venuesMap.put(listVenues.get(i).getVenuesId(), listVenues.get(i));
                     }
                     Sport sport = Sport.getInstance();
                     sport.setVenuesHashMap(venuesMap);
                 }
-            }
-            else{
+            } else {
                 throw new RequestException("request failed!");
             }
         } catch (Exception e) {

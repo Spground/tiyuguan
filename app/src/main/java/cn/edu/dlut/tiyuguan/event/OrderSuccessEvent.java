@@ -1,21 +1,20 @@
 package cn.edu.dlut.tiyuguan.event;
 
 import cn.edu.dlut.tiyuguan.base.BaseEvent;
+import cn.edu.dlut.tiyuguan.model.Record;
 
 /**
  * Created by asus on 2015/10/15.
  */
 public class OrderSuccessEvent extends BaseEvent {
-    public String getOrderId() {
-        return orderId;
+    public Record getRecord() {
+        return record;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
+    public void setRecord(Record record) {
+        this.record = record;
     }
 
-    private String orderId;
-    public OrderSuccessEvent(){
-    }
+    public Record record;
 
 }

@@ -38,7 +38,7 @@ public class GetTop5NewsTask extends BaseTask {
         super.onCompleted(response);
         AppUtil.debugV("====TAG====","GET top 5 news response:" + response);
         try {
-            BaseMessage message = AppUtil.getMessage(response);
+            BaseMessage message = AppUtil.getMessage(response, "News");
             if(message.isSuccessful()){
                 ArrayList<News> newsList = (ArrayList<News>) message.getDataList("News");
                 if(newsList.size() > 0){

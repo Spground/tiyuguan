@@ -20,9 +20,11 @@ import de.greenrobot.event.EventBus;
  */
 public class QueryUserOrderRecordTask extends BaseTask {
     private String queryUrl = "";
-    public QueryUserOrderRecordTask(String queryUrl){
+
+    public QueryUserOrderRecordTask(String queryUrl) {
         this.queryUrl = queryUrl;
     }
+
     @Override
     public void start() {
         AppUtil.debugV("====TAG====", "QueryUserOrderRecordTask查询任务已经启动");
@@ -33,7 +35,7 @@ public class QueryUserOrderRecordTask extends BaseTask {
             onCompleted(httpResult);
         } catch (IOException e) {
             e.printStackTrace();
-            AppUtil.debugV("====TAG====","QueryUserOrderRecordTask里面出现IO异常" + e);
+            AppUtil.debugV("====TAG====", "QueryUserOrderRecordTask里面出现IO异常" + e);
             onNetworkError(e);
         }
     }
@@ -55,9 +57,9 @@ public class QueryUserOrderRecordTask extends BaseTask {
     @Override
     public void onCompleted(String response) {
         super.onCompleted(response);
-        BaseMessage message = null;
+        BaseMessage message;
         try {
-            message = AppUtil.getMessage(response);
+            message = AppUtil.getMessage(response, "Record");
         } catch (Exception e) {
             e.printStackTrace();
             onExceptionError(e);
@@ -65,13 +67,13 @@ public class QueryUserOrderRecordTask extends BaseTask {
         }
         ArrayList<Record> arrayList = (ArrayList<Record>) message.getDataList("Record");
         /**没有查找到记录**/
-        LinkedHashMap<String,Record> map = new LinkedHashMap<>();
-        for(int i = 0;i < arrayList.size();i++){
+        LinkedHashMap<String, Record> map = new LinkedHashMap<>();
+        for (int i = 0; i < arrayList.size(); i++) {
             Record record = arrayList.get(i);
-            map.put(record.getRecordId(),record);
+            map.put(record.getRecordId(), record);
         }
-        if(BaseAuth.isLogin()){
-            AppUtil.debugV("====TAG====","QueryUserOrderRecordTask里面，User已经setRecordMap()成功");
+        if (BaseAuth.isLogin()) {
+            AppUtil.debugV("====TAG====", "QueryUserOrderRecordTask里面，User已经setRecordMap()成功");
             BaseAuth.getUser().setRecordMap(map);
         }
         RefreshCompletedEvent refreshCompletedEvent = new RefreshCompletedEvent();

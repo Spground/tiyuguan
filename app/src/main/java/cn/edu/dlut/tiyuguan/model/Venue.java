@@ -7,28 +7,28 @@ import cn.edu.dlut.tiyuguan.base.BaseModel;
 /**
  * Created by asus on 2015/10/7.
  */
-public class Venue extends BaseModel{
-    public String getVenuesId() {
+public class Venue extends BaseModel {
+    public int getVenuesId() {
         return venuesId;
     }
 
-    public void setVenuesId(String venuesId) {
+    public void setVenuesId(int venuesId) {
         this.venuesId = venuesId;
     }
 
-    public String getGymId() {
+    public int getGymId() {
         return gymId;
     }
 
-    public void setGymId(String gymId) {
+    public void setGymId(int gymId) {
         this.gymId = gymId;
     }
 
-    public String getSportId() {
+    public int getSportId() {
         return sportId;
     }
 
-    public void setSportId(String sportId) {
+    public void setSportId(int sportId) {
         this.sportId = sportId;
     }
 
@@ -56,61 +56,61 @@ public class Venue extends BaseModel{
         this.closeTime = closeTime;
     }
 
-    public String getVenuesNum() {
-        return venuesNum;
-    }
-
-    public void setVenuesNum(String venuesNum) {
-        this.venuesNum = venuesNum;
-    }
-
-    public String getVenuesCharge() {
+    public float getVenuesCharge() {
         return venuesCharge;
     }
 
-    public void setVenuesCharge(String venuesCharge) {
+    public void setVenuesCharge(float venuesCharge) {
         this.venuesCharge = venuesCharge;
     }
 
-    public String getIsOpen() {
+    public int getIsOpen() {
         return isOpen;
     }
 
-    public void setIsOpen(String isOpen) {
+    public void setIsOpen(int isOpen) {
         this.isOpen = isOpen;
     }
 
-    /**数据库字段**/
-    private String venuesId;//场馆id
-    private String  gymId;
-    private String sportId;
+    /**
+     * 数据库字段
+     **/
+    private int gymId;
+    private int sportId;
+
+    private int venuesId;//场馆id
     private String venuesName;
     private String openTime;//开放时间
     private String closeTime;//关闭时间
+    private int locationNum;//
+    private float venuesCharge;//收费
+    private int isOpen;
 
-    private String locationNum;//
-    private String venuesNum;//剩余数量
-    private String venuesCharge;//收费
+    private int availableLocationNum;//可用的剩余数量
+    public int getAvailableLocationNum() {
+        return availableLocationNum;
+    }
 
-    private String isOpen;
+    public void setAvailableLocationNum(int availableLocationNum) {
+        this.availableLocationNum = availableLocationNum;
+    }
 
-    public String getLocationNum() {
+    public int getLocationNum() {
         return locationNum;
     }
 
-    public void setLocationNum(String locationNum) {
+    public void setLocationNum(int locationNum) {
         this.locationNum = locationNum;
     }
 
-
-    public HashMap<String, Location> getLocationMap() {
+    public HashMap<Integer, Location> getLocationMap() {
         return locationMap;
     }
 
-    public void setLocationMap(HashMap<String, Location> locationMap) {
+    public void setLocationMap(HashMap<Integer, Location> locationMap) {
         this.locationMap = locationMap;
     }
 
-    private HashMap<String,Location> locationMap;//场馆的位置集合
+    private HashMap<Integer, Location> locationMap;//场馆的位置集合
 
 }

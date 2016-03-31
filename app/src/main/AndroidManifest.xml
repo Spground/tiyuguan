@@ -143,6 +143,9 @@
         <activity
             android:name=".activity.OrderRemindActivity"
             android:theme="@style/ActivityTheme_DefTitle_Style" />
+        <activity
+            android:name=".activity.WebViewActivity"
+            android:theme="@style/ActivityTheme_DefTitle_Style" />
         <!-- ************************************************************************************* -->
         <!-- Service Service Service Service Service Service Service　Service -->
         <service
@@ -157,8 +160,5 @@
             android:enabled="true" />
         <!-- Service Service Service Service Service Service Service　Service -->
         <!-- ************************************************************************************* -->
-
-
     </application>
-
 </manifest>

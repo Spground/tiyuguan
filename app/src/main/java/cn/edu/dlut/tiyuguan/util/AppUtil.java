@@ -119,14 +119,14 @@ public class AppUtil {
     }
 
     /**根据json原始字符串提取合成一个message对象**/
-    public static BaseMessage getMessage(String jsonStr) throws Exception {
+    public static BaseMessage getMessage(String jsonStr, String modelName) throws Exception {
         BaseMessage message = new BaseMessage();
         JSONObject jsonObject;
         try {
             jsonObject = new JSONObject(jsonStr);
             message.setCode(jsonObject.getInt("code"));
             message.setMessage(jsonObject.getString("message"));
-            message.setDataStr(jsonObject.getString("data"));
+            message.setDataStr(jsonObject.getString("data"), modelName);
         } catch (JSONException e) {
             throw new Exception("Json format error");
         } catch (Exception e) {
@@ -221,37 +221,5 @@ public class AppUtil {
             list.add(map.get(key));
         }
         return list;
-    }
-
-    private synchronized static void filter(ArrayList<Record> dataSet, int record_type) {
-        //TODO:修改服务器返回的时间字符串
-        AppUtil.debugV("===TAG===", "filterDataSet is invoked");
-        AppUtil.debugV("===TAG===", "this.dataSet.size() is" + dataSet.size());
-        Date now = new Date();
-        for(int i = 0; i < dataSet.size(); i++) {
-            Record record = dataSet.get(i);
-            if(record == null)
-                return;
-            Date endDate;
-            String endDateStr = record.getEndTime();
-            AppUtil.debugV("===TAG===", "endDateStr is " + endDateStr);
-            endDateStr = endDateStr.substring(0, endDateStr.length() - 2);
-            AppUtil.debugV("===TAG===", "endDateStr is " + endDateStr);
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
-            try {
-                endDate = simpleDateFormat.parse(endDateStr);
-            } catch (ParseException e) {
-                e.printStackTrace();
-                AppUtil.debugV("===TAG===", "data convert exception is " + e.toString());
-                return;
-            }
-            if((endDate.after(now) && RecordPageFragment.current_record == record_type)
-                    ||
-                    (endDate.before(now) && RecordPageFragment.history_record == record_type)
-                    ) {
-                AppUtil.debugV("===TAG===", "");
-                dataSet.remove(i);
-            }
-        }
     }
 }

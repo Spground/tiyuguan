@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 public class AppClient extends OkHttpClient{
     private volatile static AppClient instance;
 
-    private long timeout = 3 * 1000;
+    private long timeout = 8 * 1000;
 
     /**single instance**/
     private AppClient(){

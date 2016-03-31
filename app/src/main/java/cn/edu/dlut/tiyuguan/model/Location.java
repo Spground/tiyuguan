@@ -6,12 +6,12 @@ import cn.edu.dlut.tiyuguan.base.BaseModel;
  * Created by asus on 2015/10/13.
  */
 public class Location extends BaseModel {
-    public String getLocation() {
-        return location;
+    public int getLocationId() {
+        return locationId;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setLocationId(int locationId) {
+        this.locationId = locationId;
     }
 
     public String getLocationName() {
@@ -30,13 +30,6 @@ public class Location extends BaseModel {
         this.valid = valid;
     }
 
-    private String location;
-    private String locationName;
-    private String valid;
-
-    private String startTime;//不可用的开始时间
-    private String endTime;//不可用的结束时间
-
     public String getStartTime() {
         return startTime;
     }
@@ -52,4 +45,13 @@ public class Location extends BaseModel {
     public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
+
+    private int locationId;
+    private String locationName;
+    private String valid;
+
+    private String startTime;//不可用的开始时间
+    private String endTime;//不可用的结束时间
+
+
 }

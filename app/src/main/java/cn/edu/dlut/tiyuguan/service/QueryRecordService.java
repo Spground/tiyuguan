@@ -59,7 +59,7 @@ public class QueryRecordService extends BaseService {
                 try {
                     String httpResult = client.get(queryUrl);
                     AppUtil.debugV("====TAG====","QueryRecordService查询到的JSON数据" + httpResult);
-                    BaseMessage message = AppUtil.getMessage(httpResult);
+                    BaseMessage message = AppUtil.getMessage(httpResult, "Record");
                     ArrayList<Record> arrayList = (ArrayList<Record>) message.getDataList("Record");
                     /**没有查找到记录**/
                     LinkedHashMap<String,Record> map = new LinkedHashMap<>();

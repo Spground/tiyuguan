@@ -21,11 +21,13 @@ import de.greenrobot.event.EventBus;
  */
 public class QueryLocationInfoTask extends BaseTask {
     private String url;
-    private String venues_id;
-    public QueryLocationInfoTask(String url,String venues_id){
+    private int venues_id;
+
+    public QueryLocationInfoTask(String url, int venues_id) {
         this.url = url;
         this.venues_id = venues_id;
     }
+
     @Override
     public void start() {
         AppClient appClient = AppClient.getInstance();
@@ -43,32 +45,31 @@ public class QueryLocationInfoTask extends BaseTask {
         super.onCompleted(response);
         AppUtil.debugV("====TAG====", "QueryLocationInfo response:" + response);
         //置空
-        if(Sport.getInstance().getVenuesHashMap() != null)
+        if (Sport.getInstance().getVenuesHashMap() != null)
             Sport.getInstance().getVenuesHashMap().get(venues_id).setLocationMap(null);
 
         EventBus.getDefault().post(new RefreshCompletedEvent());
 
         try {
-            BaseMessage message = AppUtil.getMessage(response);
-            if(message.isSuccessful()){
-                ArrayList<Location> listLocation =  (ArrayList<Location>)message.getDataList("Location");
-                if(listLocation != null && listLocation.size() > 0){
-                    HashMap<String,Location> map = new HashMap<>();
-                    for(int i = 0; i < listLocation.size();i++){
-                        map.put(listLocation.get(i).getLocation(),listLocation.get(i));
+            BaseMessage message = AppUtil.getMessage(response, "Location");
+            if (message.isSuccessful()) {
+                ArrayList<Location> listLocation = (ArrayList<Location>) message.getDataList("Location");
+                if (listLocation != null && listLocation.size() > 0) {
+                    HashMap<Integer, Location> map = new HashMap<>();
+                    for (int i = 0; i < listLocation.size(); i++) {
+                        map.put(listLocation.get(i).getLocationId(), listLocation.get(i));
                     }
                     Sport sport = Sport.getInstance();
-                    if(sport.getVenuesHashMap() != null){
-                        if(sport.getVenuesHashMap().get(venues_id) != null){
+                    if (sport.getVenuesHashMap() != null) {
+                        if (sport.getVenuesHashMap().get(venues_id) != null) {
                             //刷新之前，将对应场馆的LocationMap置空
                             sport.getVenuesHashMap().get(venues_id).setLocationMap(map);
-                            AppUtil.debugV("====TAG====","setLocationMap()完成");
+                            AppUtil.debugV("====TAG====", "setLocationMap()完成");
                             EventBus.getDefault().post(new RefreshCompletedEvent());
                         }
                     }
                 }
-            }
-            else{
+            } else {
                 RequestException e = new RequestException("request return failed!");
                 e.printStackTrace();
                 onExceptionError(e);

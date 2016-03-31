@@ -57,7 +57,7 @@ public class QueryVenuesInfoService extends BaseService {
                 //block until post() method  return;
                 try {
                     String httpResult = client.get(queryUrl);
-                    BaseMessage message = AppUtil.getMessage(httpResult);
+                    BaseMessage message = AppUtil.getMessage(httpResult, "Record");
                     ArrayList<Record> arrayList = (ArrayList<Record>) message.getDataList("Record");
                     /**没有查找到记录**/
                     LinkedHashMap<String,Record> map = new LinkedHashMap<>();

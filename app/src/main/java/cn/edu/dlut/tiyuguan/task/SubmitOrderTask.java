@@ -37,13 +37,13 @@ public class SubmitOrderTask extends BaseTask {
         super.onCompleted(response);
         try {
             AppUtil.debugV("====TAG====","提交订单的response" + response);
-            BaseMessage message = AppUtil.getMessage(response);
+            BaseMessage message = AppUtil.getMessage(response, "Record");
 
             if(message.isSuccessful()){
                 Record record = (Record)message.getData("Record");
                 if(record != null){
                     OrderSuccessEvent orderSuccessEvent = new OrderSuccessEvent();
-                    orderSuccessEvent.setOrderId(record.getRecordId());
+                    orderSuccessEvent.setRecord(record);
                     EventBus.getDefault().post(orderSuccessEvent);
                 }
                 else

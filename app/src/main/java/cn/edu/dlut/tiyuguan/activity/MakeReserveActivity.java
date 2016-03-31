@@ -38,7 +38,7 @@ import de.greenrobot.event.EventBus;
 
 public class MakeReserveActivity extends BaseUi {
 
-    private TextView dateTextView,timeTextView;
+    private TextView dateTextView, timeTextView;
 
     private DatePickerDialog datePickDlg;
     private TimePickerDialog timePickDlg;
@@ -48,7 +48,7 @@ public class MakeReserveActivity extends BaseUi {
 
     private MyGridView myGridView;
     private MyGridViewAdapter myGridViewAdapter;
-    private HashMap<String,Location> dataSet;
+    private HashMap<Integer, Location> dataSet;
 
     private int venues_id;
     private boolean register = false;
@@ -59,15 +59,16 @@ public class MakeReserveActivity extends BaseUi {
     private Date endTime;
 
     private SimpleDateFormat HHmmDateFormat;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppUtil.debugV("MakeReserveActivity onCreate");
-        AppUtil.debugV("====TAG====","选择下订单的跳转Index" + venues_id);
         HHmmDateFormat = new SimpleDateFormat("HH:mm");
         registerEventBus();
         setContentView(R.layout.activity_make_reserve);
-        venues_id = getIntent().getIntExtra("venues_id",1);
+        venues_id = getIntent().getIntExtra("venues_id", 1);
+        AppUtil.debugV("====TAG====", "选择下订单的跳转Index" + venues_id);
         initActionBar("下单");
         init();
     }
@@ -94,8 +95,10 @@ public class MakeReserveActivity extends BaseUi {
         AppUtil.debugV("MakeReserveActivity onDestroy");
     }
 
-    /**初始化各种控件**/
-    private void init(){
+    /**
+     * 初始化各种控件
+     **/
+    private void init() {
 
         initTimeAndDatePicker();
 
@@ -104,19 +107,19 @@ public class MakeReserveActivity extends BaseUi {
         //venuesNameTextView = (TextView)findViewById(R.id.id_makereserve_venuesname_textview);
         //venuesNameTextView.setText(Sport.getInstance().getVenuesName(venues_id));
 
-        dateTextView = (TextView)findViewById(R.id.id_choosedate_text_view);
-        timeTextView = (TextView)findViewById(R.id.id_choosetime_text_view);
+        dateTextView = (TextView) findViewById(R.id.id_choosedate_text_view);
+        timeTextView = (TextView) findViewById(R.id.id_choosetime_text_view);
 
         dateTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                datePickDlg.show(getFragmentManager(),"DatePickDialog");
+                datePickDlg.show(getFragmentManager(), "DatePickDialog");
             }
         });
-        timeTextView.setOnClickListener(new View.OnClickListener(){
+        timeTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                timePickDlg.show(getFragmentManager(),"TimePickDialog");
+                timePickDlg.show(getFragmentManager(), "TimePickDialog");
             }
         });
 
@@ -129,11 +132,11 @@ public class MakeReserveActivity extends BaseUi {
         dateTextView.setText(simpleDateFormat1.format(date));
         timeTextView.setText(getNextIntegralHour(date));
 
-        spinner = (Spinner)findViewById(R.id.id_timeduration_spinner);
+        spinner = (Spinner) findViewById(R.id.id_timeduration_spinner);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                TextView spinnerItem = (TextView)view;
+                TextView spinnerItem = (TextView) view;
                 spinnerItem.setTextColor(getResources().getColor(R.color.black));
                 spinnerItem.setTextSize(16);
                 duration = (i + 1);//时长
@@ -144,13 +147,13 @@ public class MakeReserveActivity extends BaseUi {
 
             }
         });
-        queryBtn = (Button)findViewById(R.id.id_querylocation_query_button);
+        queryBtn = (Button) findViewById(R.id.id_querylocation_query_button);
         queryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String day = dateTextView.getText().toString().replace("-","").trim();
-                String queryStartTime = timeTextView.getText().toString().replace(":","").trim();
-                String queryEndTime = "";
+                String day = dateTextView.getText().toString().trim();
+                String queryStartTime = timeTextView.getText().toString().trim();
+                String queryEndTime;
                 //calculate endTime
                 try {
                     startTime = HHmmDateFormat.parse(timeTextView.getText().toString());
@@ -160,46 +163,45 @@ public class MakeReserveActivity extends BaseUi {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-
-                queryStartTime += "00";
-                queryEndTime = HHmmDateFormat.format(endTime).replace(":","").trim() + "00";
-
-                AppUtil.debugV("====TAG====","queryDay" + day + "queryStartTime" + queryStartTime + "queryEndTime" + queryEndTime);
+                queryEndTime = HHmmDateFormat.format(endTime).trim();
+                AppUtil.debugV("====TAG====", "queryDay" + day + "queryStartTime" + queryStartTime + "queryEndTime" + queryEndTime);
                 showProgressDlg();
-                queryInvalidLocation(day, queryStartTime,queryEndTime);
+                queryInvalidLocation(day, queryStartTime, queryEndTime);
             }
         });
 
         initGridView();
     }
 
-    /**init dlg**/
-    private void initTimeAndDatePicker(){
+    /**
+     * init dlg
+     **/
+    private void initTimeAndDatePicker() {
         Date now = new Date();
         Calendar calendar = Calendar.getInstance();
 
         datePickDlg = DatePickerDialog.newInstance(new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
-                if(verifySelectedDate(year,month,day))
-                    dateTextView.setText(year + "-" + (month + 1 ) + "-" + day);
-                else{
-                    ToastUtil.showInfoToast(MakeReserveActivity.this,"选择的日期不可用，请重新选择！");
+                if (verifySelectedDate(year, month, day)) {
+                    String formatStr = String.format("%02d-%02d-%02d", year, month + 1, day);
+                    dateTextView.setText(formatStr);
+                }
+                else {
+                    ToastUtil.showInfoToast(MakeReserveActivity.this, "选择的日期不可用，请重新选择！");
                 }
             }
-        },calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 
         timePickDlg = TimePickerDialog.newInstance(new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(RadialPickerLayout radialPickerLayout, int hour, int minute) {
-                timeTextView.setText(
-                                  (0 <= hour && hour <= 9) ?("0" + hour):(hour)
-                                + ":"
-                                + ((0 <= minute && minute <= 9)?("0" + minute):minute));
-                timePickDlg.setStartTime(hour,minute);
+                String formatStr = String.format("%02d:%02d", hour, minute);
+                timeTextView.setText(formatStr);
+                timePickDlg.setStartTime(hour, minute);
 
             }
-        },calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),true);
+        }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
 
         //set highlight & selectable days
         Calendar[] selectedDays = new Calendar[3];
@@ -216,17 +218,19 @@ public class MakeReserveActivity extends BaseUi {
 
     }
 
-    /**init the adapter**/
-    private void initGridView(){
-        myGridView = (MyGridView)findViewById(R.id.id_makereserve_gridview);
+    /**
+     * init the adapter
+     **/
+    private void initGridView() {
+        myGridView = (MyGridView) findViewById(R.id.id_makereserve_gridview);
         myGridViewAdapter = new MyGridViewAdapter();
         myGridView.setAdapter(myGridViewAdapter);
         myGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //get the location id
-                String locationId = (String)view.getTag(R.id.id_grid_item_makereserve_locationname_text_view);
-                AppUtil.debugV("====TAG====","locationId " + locationId);
+                int locationId = ((ViewHolder)view.getTag()).location_id;
+                AppUtil.debugV("====TAG====", "locationId " + locationId);
 
                 //calculate endTime & startTime
                 //
@@ -239,48 +243,62 @@ public class MakeReserveActivity extends BaseUi {
                     e.printStackTrace();
                 }
 
-                AppUtil.debugV("====TAG===","StartTime:" + startTime.getHours() + ":" + startTime.getMinutes());
-                AppUtil.debugV("====TAG===","EndTime:" + endTime.getHours() + ":" + endTime.getMinutes());
+                AppUtil.debugV("====TAG===", "StartTime:" + startTime.getHours() + ":" + startTime.getMinutes());
+                AppUtil.debugV("====TAG===", "EndTime:" + endTime.getHours() + ":" + endTime.getMinutes());
 
                 boolean ok;
                 try {
-                    ok = verifySelectedTime(startTime,endTime);
+                    ok = verifySelectedTime(startTime, endTime);
                 } catch (Exception e) {
                     e.printStackTrace();
                     ok = false;
                 }
-                if(!ok){
+                if (!ok) {
                     toastWarning("你选择的时间段不满足场馆的开闭馆要求，请重新选择");
                     return;
                 }
 
-                Intent intent = new Intent(MakeReserveActivity.this,ConfirmOrderActivity.class);
-                intent.putExtra("venues_id",venues_id + "");
-                intent.putExtra("location_id",locationId);
-                intent.putExtra("date",dateTextView.getText().toString());
-                intent.putExtra("start_time",startTime);
-                intent.putExtra("end_time",endTime);
-                intent.putExtra("time_duration",duration);
-
+                Intent intent = new Intent(MakeReserveActivity.this, ConfirmOrderActivity.class);
+                intent.putExtra("venues_id", venues_id);
+                intent.putExtra("location_id", locationId);
+                intent.putExtra("date", dateTextView.getText().toString());
+                //转换start_time 和 end_time
+                String str = dateTextView.getText().toString() + " " + timeTextView.getText().toString();
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                long startTimeStamp;
+                try {
+                    startTimeStamp = (format.parse(str).getTime()) / 1000;
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    ToastUtil.showErrorToast(MakeReserveActivity.this.getApplicationContext(), "出错了，请你稍后再试");
+                    return;
+                }
+                long endTimeStamp = startTimeStamp + duration * 60 * 60;
+                intent.putExtra("start_time", startTimeStamp);
+                intent.putExtra("end_time", endTimeStamp);
+                intent.putExtra("time_duration", duration);
                 startActivity(intent);
 
             }
         });
     }
 
-    /***验证时间是否可用**/
-    private boolean verifySelectedTime(Date startDate,Date endDate) throws Exception{
+    /***
+     * 验证时间是否可用
+     **/
+    private boolean verifySelectedTime(Date startDate, Date endDate) throws Exception {
 
-        if(endDate.before(startDate))
+        if (endDate.before(startDate))
             return false;
 
-        String openTimeStr = "" ,closeTimeStr = "";
+        String openTimeStr = "", closeTimeStr = "";
         Date openTime, closeTime;
 
-        if(Sport.getInstance().getVenuesHashMap() != null){
-            openTimeStr = Sport.getInstance().getVenuesHashMap().get(venues_id + "")
+        if (Sport.getInstance().getVenuesHashMap() != null
+                && Sport.getInstance().getVenuesHashMap().get(venues_id)!= null) {
+            openTimeStr = Sport.getInstance().getVenuesHashMap().get(venues_id)
                     .getOpenTime();
-            closeTimeStr = Sport.getInstance().getVenuesHashMap().get(venues_id + "")
+            closeTimeStr = Sport.getInstance().getVenuesHashMap().get(venues_id)
                     .getCloseTime();
         }
 
@@ -292,23 +310,25 @@ public class MakeReserveActivity extends BaseUi {
             e.printStackTrace();
             throw e;
         }
-        if(openTime == null || closeTime == null)
+        if (openTime == null || closeTime == null)
             throw new Exception("无法解析场馆的开闭馆时间");
         //比较时间大小
         return openTime.before(startDate) && openTime.before(endDate)
                 && closeTime.after(endDate) && closeTime.after(startDate);
     }
 
-    /**验证选择的日期是否可用**/
-    private boolean verifySelectedDate(int year,int month,int day )  {
+    /**
+     * 验证选择的日期是否可用
+     **/
+    private boolean verifySelectedDate(int year, int month, int day) {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(year,month,day);
+        calendar.set(year, month, day);
         Date now = new Date();
         Date selectedDate = new Date();
         selectedDate.setTime(calendar.getTimeInMillis());
         long differDays = 0;
         try {
-            differDays = AppUtil.getDaysBetweenDate(selectedDate,now);
+            differDays = AppUtil.getDaysBetweenDate(selectedDate, now);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -316,27 +336,32 @@ public class MakeReserveActivity extends BaseUi {
         return differDays <= 2 && differDays >= 0;
     }
 
-    /***得到指定日期的下一个整点时刻的HH:mm格式字符串**/
+    /***
+     * 得到指定日期的下一个整点时刻的HH:mm格式字符串
+     **/
     private String getNextIntegralHour(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
         int nextHour = (currentHour + 1) % 24;
-        String nextIntegralHourStr = (nextHour > 9 ? nextHour:("0" + nextHour)) + ":00";
+        String nextIntegralHourStr = (nextHour > 9 ? nextHour : ("0" + nextHour)) + ":00";
         return nextIntegralHourStr;
     }
-    /**GridView的适配器**/
+
+    /**
+     * GridView的适配器
+     **/
     class MyGridViewAdapter extends BaseAdapter {
 
         @Override
         public int getCount() {
             // TODO Auto-generated method stub
-            String locationNum = "0";
-            if(Sport.getInstance().getVenuesHashMap() != null){
+            int locationNum = 0;
+            if (Sport.getInstance().getVenuesHashMap() != null) {
                 locationNum = Sport.getInstance().getVenuesHashMap()
-                        .get(venues_id + "").getLocationNum();
+                        .get(venues_id).getLocationNum();
             }
-            return Integer.valueOf(locationNum.trim());
+            return locationNum;
         }
 
         @Override
@@ -354,29 +379,27 @@ public class MakeReserveActivity extends BaseUi {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             // TODO Auto-generated method stub
-            ViewHolder viewHolder = null;
-            if(convertView == null){
+            ViewHolder viewHolder;
+            if (convertView == null) {
                 viewHolder = new ViewHolder();
                 convertView = MakeReserveActivity.this.getLayoutInflater().inflate(R.layout.grid_item_view_makereserve, null);
-                viewHolder.locationNameTextView = (TextView)convertView.findViewById(R.id.id_grid_item_makereserve_locationname_text_view);
+                viewHolder.locationNameTextView = (TextView) convertView.findViewById(R.id.id_grid_item_makereserve_locationname_text_view);
                 convertView.setTag(viewHolder);
-                //set location id tag
-                convertView.setTag(R.id.id_grid_item_makereserve_locationname_text_view,(position + 1) + "");
-            }
-            else{
-                viewHolder = (ViewHolder)convertView.getTag();
+            } else {
+                viewHolder = (ViewHolder) convertView.getTag();
             }
 
             viewHolder.locationNameTextView.setText((position + 1) + "");
+            viewHolder.location_id = position + 1;
             viewHolder.locationNameTextView.setBackgroundColor(getResources().getColor(R.color.main_color));
             convertView.setClickable(false);
             viewHolder.locationNameTextView.setBackgroundResource(R.drawable.selector_location_grid_view_item);
             //判断是否可以用
-            if(dataSet != null){
-                String valid = dataSet.get((position + 1) + "") == null ? "true":(dataSet.get((position + 1) + "").getValid());
+            if (dataSet != null) {
+                String valid = dataSet.get((position + 1)) == null ? "true" : (dataSet.get((position + 1)).getValid());
                 //invalid location
-                if(valid != null && valid.equals("false")){
-                    AppUtil.debugV("====TAG====","有Location不可用");
+                if (valid != null && valid.equals("false")) {
+                    AppUtil.debugV("====TAG====", "有Location不可用");
                     viewHolder.locationNameTextView.setText("不可用");
                     viewHolder.locationNameTextView.setBackgroundColor(getResources().getColor(R.color.gray));
                     convertView.setClickable(true);
@@ -386,56 +409,75 @@ public class MakeReserveActivity extends BaseUi {
         }
     }
 
-    static class ViewHolder{
+    static class ViewHolder {
         public TextView locationNameTextView;
+        public int location_id;
     }
 
-    /**update dataSet & refresh view**/
+    /**
+     * update dataSet & refresh view
+     **/
     private void updateDataSet() {
-        if(Sport.getInstance().getVenuesHashMap() != null){
-            dataSet = Sport.getInstance().getVenuesHashMap().get(venues_id + "").getLocationMap();
+        if (Sport.getInstance().getVenuesHashMap() != null) {
+            dataSet = Sport.getInstance().getVenuesHashMap().get(venues_id).getLocationMap();
             myGridViewAdapter.notifyDataSetChanged();
-            AppUtil.debugV("====TAG====","updateDataSet() invoked!");
+            AppUtil.debugV("====TAG====", "updateDataSet() invoked!");
         }
-        AppUtil.debugV("====TAG====","getVenuesHashMap() == null!" + ((Sport.getInstance().getVenuesHashMap() == null)?"null":"not null"));
+        AppUtil.debugV("====TAG====", "getVenuesHashMap() == null!" + ((Sport.getInstance().getVenuesHashMap() == null) ? "null" : "not null"));
     }
 
-    /**刷新完成 EventBus回调的方法**/
-    public void onEventMainThread(RefreshCompletedEvent refreshCompletedEvent){
+    /**
+     * 刷新完成 EventBus回调的方法
+     **/
+    public void onEventMainThread(RefreshCompletedEvent refreshCompletedEvent) {
         AppUtil.debugV("=====TAG=====", "Location数据刷新完成");
         updateDataSet();
         hideProgressDlg();
     }
-    /**网络错误 EventBus回调的方法**/
-    public void onEventMainThread(NetworkErrorEvent networkErrorEvent){
+
+    /**
+     * 网络错误 EventBus回调的方法
+     **/
+    public void onEventMainThread(NetworkErrorEvent networkErrorEvent) {
         AppUtil.debugV("=====TAG=====", "网络错误");
-        ToastUtil.showInfoToast(MakeReserveActivity.this,"网络错误！");
+        ToastUtil.showInfoToast(MakeReserveActivity.this, "网络错误！");
         hideProgressDlg();
         updateDataSet();
     }
 
-    /**查询数据**/
-    private void queryInvalidLocation(String queryDay,String queryStartTime,String queryEndTime){
-        String url = NameConstant.api.queryInvalidLocationInfo + "?venuesId=" + venues_id + "&queryDay=" + queryDay + "&queryStartTime=" + queryStartTime + "&queryEndTime=" + queryEndTime;
-        AppUtil.debugV("====queryInvalidLocation URL====",url);
-        BaseTaskPool.getInstance().addTask(new QueryLocationInfoTask(url, String.valueOf(venues_id)));
+    /**
+     * 查询数据
+     **/
+    private void queryInvalidLocation(String queryDay, String queryStartTime, String queryEndTime) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        try {
+            queryStartTime = format.parse((queryDay + " " +  queryStartTime)).getTime() / 1000 + "";
+            queryEndTime = format.parse((queryDay + " " +  queryEndTime)).getTime() / 1000 + "";
+        } catch (ParseException e) {
+            e.printStackTrace();
+            queryEndTime = "0";
+            queryStartTime = "0";
+        }
+        String url = NameConstant.api.queryInvalidLocationInfo
+                + "?venuesId=" + venues_id
+                + "&queryStartTime=" + queryStartTime
+                + "&queryEndTime=" + queryEndTime;
+        AppUtil.debugV("====queryInvalidLocation URL====", url);
+        BaseTaskPool.getInstance().addTask(new QueryLocationInfoTask(url, venues_id));
     }
 
-    public void registerEventBus(){
-        if(!this.register){
+    public void registerEventBus() {
+        if (!this.register) {
             EventBus.getDefault().register(this);
             register = true;
         }
     }
 
-    public void unregisterEventBus(){
-        if(this.register){
+    public void unregisterEventBus() {
+        if (this.register) {
             EventBus.getDefault().unregister(this);
             register = false;
         }
     }
 
-    abstract class RecordFilter{
-        public abstract void filter(Map<String, Record> recordMap);
-    }
 }

@@ -24,8 +24,8 @@ public class WeatherService extends BaseService {
 			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 			conn.setRequestMethod("GET");
 			conn.setConnectTimeout(5 * 1000);
-			InputStream inStream = conn.getInputStream();//ͨ����������ȡhtml����
-			byte[] data = readInputStream(inStream);//�õ�html�Ķ���������
+			InputStream inStream = conn.getInputStream();//
+			byte[] data = readInputStream(inStream);//
 			String html = new String(data, "utf-8");
 			return html;
 		} catch (MalformedURLException e) {

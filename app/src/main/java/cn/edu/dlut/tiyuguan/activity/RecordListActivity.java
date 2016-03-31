@@ -143,11 +143,12 @@ public class RecordListActivity extends BaseUi implements RecordPageFragment.Ref
         //real refresh operation goes here
         this.dataSet = dataSet;
         this.showProgressDlg();
-        Date now = new Date(System.currentTimeMillis());
-        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-        String endTime = format.format(now) + "240000";
-        String startTime = AppUtil.getBeforeTime(3, format, now) + "000000";
-        String queryUrl = NameConstant.api.queryUserRecord + "?userId=" + BaseAuth.getUser().getUserId() + "&startTime=" + startTime + "&endTime=" + endTime;
+        long nowTime = System.currentTimeMillis() / 1000;
+        long delta = 30 * 24 * 60 * 60;
+        long endTime = nowTime + delta;//后一个月
+        long startTime = nowTime - delta;//前一个月
+        String queryUrl = NameConstant.api.queryUserRecord + "?userId=" + BaseAuth.getUser().getUserId()
+                + "&startTime=" + startTime + "&endTime=" + endTime;
         AppUtil.debugV("====TAG====", "queryUrl:" + queryUrl);
         BaseTaskPool.getInstance().addTask(new QueryUserOrderRecordTask(queryUrl));
     }
