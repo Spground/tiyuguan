@@ -26,9 +26,11 @@ import cn.edu.dlut.tiyuguan.activity.OrderRemindActivity;
 import cn.edu.dlut.tiyuguan.activity.SportAnalysisActivity;
 import cn.edu.dlut.tiyuguan.activity.TiyuguanGuideActivity;
 import cn.edu.dlut.tiyuguan.activity.WeatherActivity;
+import cn.edu.dlut.tiyuguan.activity.WebActivity;
 import cn.edu.dlut.tiyuguan.adapterview.MyGridView;
 import cn.edu.dlut.tiyuguan.model.News;
 import cn.edu.dlut.tiyuguan.model.Sport;
+import cn.edu.dlut.tiyuguan.util.AppUtil;
 import cn.edu.dlut.tiyuguan.util.ToastUtil;
 
 public class MainTab01Fragment extends Fragment implements BaseSliderView.OnSliderClickListener {
@@ -81,7 +83,6 @@ public class MainTab01Fragment extends Fragment implements BaseSliderView.OnSlid
 
         //从网络加载
         url_maps = new LinkedHashMap<>();
-        //网络操作，应该放在线程里面的
         HashMap<String, News> newsMap = Sport.getInstance().getNewsMap();
         if (newsMap != null) {
             for (String key : newsMap.keySet()) {
@@ -97,7 +98,7 @@ public class MainTab01Fragment extends Fragment implements BaseSliderView.OnSlid
         mDemoSlider = (SliderLayout) view.findViewById(R.id.slider);
 
         for (String name : url_maps.keySet()) {
-            TextSliderView textSliderView = new TextSliderView(getActivity());//根据url的数量去新建sliderView
+            TextSliderView textSliderView = new TextSliderView(getActivity());
             // initialize a SliderLayout
             textSliderView
                     .description(name)
@@ -128,11 +129,24 @@ public class MainTab01Fragment extends Fragment implements BaseSliderView.OnSlid
             ((ScrollView) view).smoothScrollTo(0, 0);
     }
 
-    /*下面是点击sliderView后的回调方法*/
     @Override
     public void onSliderClick(BaseSliderView slider) {
         // TODO Auto-generated method stub
-        ToastUtil.showInfoToast(getActivity(), slider.getBundle().get("extra") + "");
+        News model = Sport.getInstance().getNewsMap().get(slider.getBundle().get("extra"));
+        if(model == null) {
+            ToastUtil.showInfoToast(getActivity(), slider.getBundle().get("extra") + "");
+            return;
+        } else {
+            String url = model.getUrl();
+            String title = model.getTitle();
+            Intent showNews = new Intent(this.getActivity(), WebActivity.class);
+            AppUtil.debugV("===TAG===", "url is " + url);
+            showNews.putExtra(WebActivity.URL_EXTRAL, url);
+            showNews.putExtra(WebActivity.URL_TITLE,title);
+            startActivity(showNews);
+        }
+        return;
+
     }
 
     //GridView的适配器

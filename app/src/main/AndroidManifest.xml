@@ -144,7 +144,7 @@
             android:name=".activity.OrderRemindActivity"
             android:theme="@style/ActivityTheme_DefTitle_Style" />
         <activity
-            android:name=".activity.WebViewActivity"
+            android:name=".activity.WebActivity"
             android:theme="@style/ActivityTheme_DefTitle_Style" />
         <!-- ************************************************************************************* -->
         <!-- Service Service Service Service Service Service Service　Service -->
