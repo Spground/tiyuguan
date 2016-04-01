@@ -11,7 +11,7 @@
         <cn.edu.dlut.tiyuguan.widget.VPagerTitle
             android:id="@+id/cur_record_title"
             android:gravity="center"
-            android:text="当前订单"
+            android:text="未完成订单"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent" />

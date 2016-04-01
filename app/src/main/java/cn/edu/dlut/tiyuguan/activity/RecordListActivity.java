@@ -114,7 +114,7 @@ public class RecordListActivity extends BaseUi implements RecordPageFragment.Ref
     /**刷新完成 EventBus回调的方法**/
     public void onEventMainThread(RefreshCompletedEvent refreshCompletedEvent) {
         AppUtil.debugV("====TAG====", "RecordListActivity的刷新完成回调");
-        AppUtil.map2List(this.dataSet, BaseAuth.getUser().getRecordMap(), true, 0);
+        AppUtil.map2List(this.dataSet, BaseAuth.getUser().getRecordMap(), true, RecordPageFragment.RECORD_TYPE.CURRENT_RECORD);
         //notify fragment update data
         EventBus.getDefault().post(new RefreshRecordListViewEvent());
         this.hideProgressDlg();
@@ -166,9 +166,9 @@ public class RecordListActivity extends BaseUi implements RecordPageFragment.Ref
             AppUtil.debugV(TAG, "ViewPager position is " + position);
             Bundle bundle = new Bundle();
             if(position == 0)
-                bundle.putInt("record_type", RecordPageFragment.current_record);
+                bundle.putSerializable(RecordPageFragment.RECORD_TYPE_EXTRAL, RecordPageFragment.RECORD_TYPE.CURRENT_RECORD);
             else if(position == 1)
-                bundle.putInt("record_type", RecordPageFragment.history_record);
+                bundle.putSerializable(RecordPageFragment.RECORD_TYPE_EXTRAL, RecordPageFragment.RECORD_TYPE.HISTORY_RECORD);
             RecordPageFragment instance = new RecordPageFragment();
             instance.setArguments(bundle);
             return instance;

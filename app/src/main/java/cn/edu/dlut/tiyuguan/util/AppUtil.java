@@ -55,7 +55,7 @@ public class AppUtil {
 
     /**SHA加密方法**/
     public static String getSHA256(String strSrc) {
-        MessageDigest md = null;
+        MessageDigest md;
         StringBuilder sb = new StringBuilder();
 
         //将传进来的字符串变成字节数组
@@ -136,7 +136,7 @@ public class AppUtil {
     }
 
     /**得到当前时间戳**/
-    public static String getTimeTag() {
+    public static String getCurrentSystemTimeStamp() {
         //取系统当前时间
         String nowtime;
         Time time = new Time();
@@ -153,6 +153,21 @@ public class AppUtil {
         nowtime = Integer.toString(year)+Integer.toString(month)+Integer.toString(day)+Integer.toString(hour)+Integer.toString(minute)+Integer.toString(second);
         return nowtime;
 
+    }
+
+    /**
+     * 时间戳转时间字符
+     * @param timeStampInSeconds
+     * @param format
+     * @return
+     */
+    public static String timeStamp2timeStr(long timeStampInSeconds, String format) {
+        if(format == null)
+            format = "yyyy-MM-dd HH:mm";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(format);
+        Date date = new Date(timeStampInSeconds * 1000);
+        String result = dateFormat.format(date);
+        return result;
     }
 
     /**Debug Util**/
@@ -212,7 +227,7 @@ public class AppUtil {
      * @param isClear
      * @return
      */
-    public static ArrayList<Record> map2List(ArrayList<Record> list, Map<String,Record> map, boolean isClear, int record_type) {
+    public static ArrayList<Record> map2List(ArrayList<Record> list, Map<String,Record> map, boolean isClear, RecordPageFragment.RECORD_TYPE record_type) {
         if(map == null || list == null)
             return null;
         if(isClear)

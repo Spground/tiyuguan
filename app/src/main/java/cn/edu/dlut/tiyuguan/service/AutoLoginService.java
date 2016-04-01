@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -61,7 +59,7 @@ public class AutoLoginService extends BaseService {
             public void run() {
                 SharedPreferences sp = AppUtil.getSharedPreferences(AutoLoginService.this);
                 HashMap<String, String> urlParams = new HashMap<>();
-                String nowTime = AppUtil.getTimeTag();
+                String nowTime = AppUtil.getCurrentSystemTimeStamp();
 
                 urlParams.put("userId", sp.getString("username", null));
                 urlParams.put("password", AppUtil.getSHA256(AppUtil.getSHA256(sp.getString("password", null)) + nowTime));
