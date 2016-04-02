@@ -131,7 +131,6 @@
               android:gravity="center|center"
               android:entries="@array/duration"
               android:popupBackground="@color/main_color"
-              style="@android:style/Widget.DeviceDefault.Spinner"
               >
           </Spinner>
       </LinearLayout>

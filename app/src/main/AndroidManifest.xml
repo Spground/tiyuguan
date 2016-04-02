@@ -160,5 +160,7 @@
             android:enabled="true" />
         <!-- Service Service Service Service Service Service Service　Service -->
         <!-- ************************************************************************************* -->
+        <activity android:name=".activity.PostDetailActivity"></activity>
     </application>
+
 </manifest>

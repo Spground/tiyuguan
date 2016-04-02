@@ -51,6 +51,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="回到首页"
+            android:textSize="16sp"
+            android:background="@drawable/selector_basic_btn"
             android:layout_weight="1.0"
             />
         <Button
@@ -58,7 +60,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="继续预定"
+            android:textSize="16sp"
+            android:background="@drawable/selector_basic_btn"
             android:layout_weight="1.0"
             />
     </LinearLayout>
+    <Button
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/addRemindBtn"
+        android:background="@drawable/selector_basic_btn"
+        android:textSize="16sp"
+        android:text="到点提醒我"
+        />
 </LinearLayout>

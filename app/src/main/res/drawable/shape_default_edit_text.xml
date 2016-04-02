@@ -5,10 +5,10 @@
 			<solid
 				android:color="#FCFCFC"/>
 			<corners
-				android:bottomRightRadius="5dip"
-				android:bottomLeftRadius="5dip"
-				android:topLeftRadius="5dip"
-				android:topRightRadius="5dip"/>
+				android:bottomRightRadius="5dp"
+				android:bottomLeftRadius="5dp"
+				android:topLeftRadius="5dp"
+				android:topRightRadius="5dp"/>
 			<stroke
 				android:width="0.5px"
 				android:color="@color/btn_blue_normal"/>

@@ -27,6 +27,7 @@ import com.baidu.mapapi.model.LatLng;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -39,7 +40,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MapActivity extends Activity implements BDLocationListener,
-        BaiduMap.OnMarkerClickListener, InfoWindow.OnInfoWindowClickListener {
+        BaiduMap.OnMarkerClickListener, InfoWindow.OnInfoWindowClickListener, View.OnClickListener {
     //成员变量
     private MapView mMapView = null;
     private Boolean isFirstLoc = true;
@@ -229,6 +230,12 @@ public class MapActivity extends Activity implements BDLocationListener,
     }
 
     @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(this, PostDetailActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
     public void onInfoWindowClick() {
         this.mBaiduMap.hideInfoWindow();
     }
@@ -236,9 +243,11 @@ public class MapActivity extends Activity implements BDLocationListener,
     private InfoWindow generateInfoWindow(LatLng pt, String info) {
         View view = View.inflate(this, R.layout.marker, null);
         ((TextView)view).setText(info);
+        view.setOnClickListener(this);
         InfoWindow infoWindow = new InfoWindow(view, pt, -150);
         return infoWindow;
     }
+
 
     /**
      * 根据经纬度返回model
