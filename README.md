@@ -1,4 +1,5 @@
 # tiyuguan
+[![Build Status](https://travis-ci.org/Spground/tiyuguan.svg?branch=master)](https://travis-ci.org/Spground/tiyuguan)
 #1.About
 DUT Changchun Liu gymnasium Reservasion System for Android platform
 #2.Status
