@@ -16,30 +16,13 @@ android:
 
     # Additional components
     - extra
-    - extra-google-google_play_services
     - extra-google-m2repository
     - extra-android-m2repository
     - extra-android-support
-    - addon-google_apis-google-19
-
 
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
-    - sys-img-armeabi-v7a-android-15
-    - sys-img-armeabi-v7a-android-16
-    - sys-img-armeabi-v7a-android-17
-    - sys-img-armeabi-v7a-android-18
-    - sys-img-armeabi-v7a-android-19
-    - sys-img-armeabi-v7a-android-20
-    - sys-img-armeabi-v7a-android-21
     - sys-img-armeabi-v7a-android-22
-    - sys-img-x86-android-15
-    - sys-img-x86-android-16
-    - sys-img-x86-android-17
-    - sys-img-x86-android-18
-    - sys-img-x86-android-19
-    - sys-img-x86-android-20
-    - sys-img-x86-android-21
     - sys-img-x86-android-22
 
     #avoid cache
@@ -49,3 +32,10 @@ android:
     directories:
         - $HOME/.gradle/caches/
         - $HOME/.gradle/wrapper/
+
+  # Emulator Management: Create, Start and Wait
+  before_script:
+    - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
+    - emulator -avd test -no-audio -no-window &
+    - android-wait-for-emulator
+    - adb shell input keyevent 82 &
