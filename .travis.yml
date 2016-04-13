@@ -40,13 +40,13 @@ android:
     - sys-img-x86-android-21
     - sys-img-x86-android-22
 
-before_install:
+  before_install:
     - chmod +x gradlew
 
     #avoid cache
-before_cache:
+  before_cache:
     - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
-    cache:
-      directories:
+  cache:
+    directories:
         - $HOME/.gradle/caches/
         - $HOME/.gradle/wrapper/
