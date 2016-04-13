@@ -1,5 +1,7 @@
 language: android
 android:
+  before_install:
+    - chmod +x gradlew
   components:
     # Uncomment the lines below if you want to
     # use the latest revision of Android SDK Tools
@@ -39,9 +41,6 @@ android:
     - sys-img-x86-android-20
     - sys-img-x86-android-21
     - sys-img-x86-android-22
-
-  before_install:
-    - chmod +x gradlew
 
     #avoid cache
   before_cache:
