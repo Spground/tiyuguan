@@ -19,7 +19,7 @@ android {
     }
     signingConfigs {
         debug {
-            storeFile file("C:\\Users\\android_keystore\\tiyuguan\\debug.store")
+            storeFile file("$projectDir/debug.store")
             storePassword "123456"
             keyPassword "123456"
             keyAlias "android_debugkeystore"
