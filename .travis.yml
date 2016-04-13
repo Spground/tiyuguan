@@ -28,18 +28,18 @@ android:
   licenses:
      - 'android-sdk-license-.+'
 
-  env:
-    global:
-     # install timeout in minutes (2 minutes by default)
-      - ADB_INSTALL_TIMEOUT=20
+env:
+  global:
+    # install timeout in minutes (2 minutes by default)
+    - ADB_INSTALL_TIMEOUT=20
 
   # Emulator Management: Create, Start and Wait
-  before_script:
-    - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
-    - emulator -avd test -no-audio -no-window &
-    - android-wait-for-emulator
-    - adb shell input keyevent 82 &
+before_script:
+   - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
+   - emulator -avd test -no-audio -no-window &
+   - android-wait-for-emulator
+   - adb shell input keyevent 82 &
 
-  script:
-    - android list target
-    - ./gradlew connectedAndroidTest -PdisablePreDex
+script:
+  - android list target
+  - ./gradlew connectedAndroidTest -PdisablePreDex
