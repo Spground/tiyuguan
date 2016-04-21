@@ -74,8 +74,8 @@ public class MapActivity extends Activity implements BDLocationListener,
     @Override
     protected void onDestroy() {
         // TODO Auto-generated method stub
-        super.onDestroy();
         this.mMapView.onDestroy();
+        super.onDestroy();
     }
 
     @Override

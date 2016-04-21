@@ -44,7 +44,7 @@ tasks.withType(JavaCompile) {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.squareup.picasso:picasso:2.4.0'
     compile 'com.nineoldandroids:library:2.4.0'
@@ -63,6 +63,7 @@ dependencies {
     compile files('libs/android-viewbadger.jar')
     compile 'me.imid.swipebacklayout.lib:library:1.0.0'
     compile 'de.greenrobot:greendao:2.1.0'
+    compile project(':PushSDK')
 }
 
 

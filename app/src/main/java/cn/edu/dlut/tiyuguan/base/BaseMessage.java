@@ -151,7 +151,7 @@ public class BaseMessage {
                     field.set(modelObj, Float.valueOf(jsonValue));
                     break;
                 default:
-                    field.set(modelObj,jsonValue);
+                    field.set(modelObj, jsonValue);
                     break;
             }
 

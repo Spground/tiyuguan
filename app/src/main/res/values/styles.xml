@@ -7,11 +7,12 @@
     </style>
 
     <!-- 自定义主题样式 带ActionBar -->
-    <style name="ActivityTheme_DefTitle_Style" parent="@android:style/Theme.DeviceDefault" >
+    <style name="ActivityTheme_DefTitle_Style" parent="@android:style/Theme.DeviceDefault.Light" >
         <item name="android:actionBarStyle">@style/actionbar_def_style</item>
         <item name="android:actionBarSize">48dp</item>
         <item name="android:homeAsUpIndicator">@drawable/ic_action_back</item>
         <item name="android:windowIsTranslucent">true</item>
+        <item name="android:spinnerStyle">@android:style/Widget.Holo.Light.Spinner</item>
     </style>
 
     <!-- actionbar自定义的样式文件 -->

@@ -13,6 +13,7 @@ public class MDaoGenerator {
         Schema schema = new Schema(1, "cn.edu.dlut.tiyuguan.bean");
         schema.setDefaultJavaPackageDao("cn.edu.dlut.tiyuguan.dao");
         addRemind(schema);
+        addNotice(schema);
         try {
             new DaoGenerator().generateAll(schema,
                     "../tiyuguan/app/src/main/java");
@@ -50,5 +51,15 @@ public class MDaoGenerator {
         user.addStringProperty("userRole");
         user.addStringProperty("creditWorthiness");
         return user;
+    }
+
+    public static Entity addNotice(Schema schema) {
+        Entity notice = schema.addEntity("NoticeBean");
+        notice.addIdProperty().autoincrement();
+        notice.addStringProperty("noticeTitle");
+        notice.addStringProperty("noticeContent");
+        notice.addStringProperty("noticeTime");
+        notice.addStringProperty("noticePublisher");
+        return notice;
     }
 }

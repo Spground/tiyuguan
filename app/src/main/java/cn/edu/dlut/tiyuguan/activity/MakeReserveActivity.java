@@ -2,6 +2,7 @@ package cn.edu.dlut.tiyuguan.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -137,6 +138,7 @@ public class MakeReserveActivity extends BaseUi {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 TextView spinnerItem = (TextView) view;
+                spinnerItem.setGravity(Gravity.CENTER);
                 spinnerItem.setTextColor(getResources().getColor(R.color.black));
                 spinnerItem.setTextSize(16);
                 duration = (i + 1);//时长

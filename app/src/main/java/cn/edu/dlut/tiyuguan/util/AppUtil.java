@@ -128,8 +128,11 @@ public class AppUtil {
             message.setMessage(jsonObject.getString("message"));
             message.setDataStr(jsonObject.getString("data"), modelName);
         } catch (JSONException e) {
+            System.err.print(e.toString());
+            AppUtil.debugV(e.toString());
             throw new Exception("Json format error");
         } catch (Exception e) {
+            AppUtil.debugV(e.toString());
             e.printStackTrace();
         }
         return message;

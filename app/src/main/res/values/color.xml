@@ -37,6 +37,7 @@
     <color name="orange">#F26401</color>
     <color name="light_light_gray">#F2F2F2</color>
     <color name="main_color">#17b3ed</color>
+    <color name="light_main_color">#17b3ed</color>
     <color name="deep_main_color">#17b3ad</color>
 
     <color name="btn_blue_normal">#17b3ed</color>

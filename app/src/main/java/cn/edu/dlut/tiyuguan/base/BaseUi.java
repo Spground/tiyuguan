@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -15,6 +16,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
@@ -45,6 +48,7 @@ public class BaseUi extends SwipeBackActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setStatusBarColor();
         progressDlg = CustomProgressDialog.createDialog(this, "正在处理请稍后...", true);
         mSwipeBackLayout = this.getSwipeBackLayout();
         mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
@@ -62,6 +66,8 @@ public class BaseUi extends SwipeBackActivity {
     protected void initActionBar(String title) {
         //初始化actionbar
         ActionBar actionBar = this.getActionBar();
+        if(actionBar == null)
+            return;
         actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setTitle(" ");
@@ -72,7 +78,17 @@ public class BaseUi extends SwipeBackActivity {
         actionBar.setCustomView(actionbarView, layout);
     }
 
-
+    private void setStatusBarColor(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = this.getWindow();
+            // clear FLAG_TRANSLUCENT_STATUS flag:
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            // finally change the color
+            window.setStatusBarColor(getResources().getColor(R.color.main_color));
+        }
+    }
     @Override
     protected void onResume() {
         super.onResume();

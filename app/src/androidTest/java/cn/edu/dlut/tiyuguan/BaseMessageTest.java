@@ -3,9 +3,15 @@ package cn.edu.dlut.tiyuguan;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import cn.edu.dlut.tiyuguan.base.BaseMessage;
 import cn.edu.dlut.tiyuguan.base.BaseModel;
+import cn.edu.dlut.tiyuguan.model.NoticeModel;
 import cn.edu.dlut.tiyuguan.model.Venue;
+import cn.edu.dlut.tiyuguan.util.AppUtil;
+import cn.edu.dlut.tiyuguan.util.ToastUtil;
 
 /**
  * Created by asus on 2016/3/31.
@@ -14,25 +20,20 @@ public class BaseMessageTest extends ApplicationTest {
 
     public void testJson2Model() {
         try {
-            JSONObject o = new JSONObject("{\n" +
-                    "        \"venuesName\": \"篮球馆\",\n" +
-                    "        \"closeTime\": \"20:00:00\",\n" +
-                    "        \"venuesCharge\": \"20\",\n" +
-                    "        \"venuesId\": \"1\",\n" +
-                    "        \"locationNum\": \"10\",\n" +
-                    "        \"openTime\": \"09:00:00\"\n" +
-                    "      }");
+            String noticeJsonStr = "{ \"code\":1005, \"data\": { \"NoticeModel\": {\"noticeTitle\": \"篮球馆\",\"noticeTime\": \"22:00:00\",\"noticePublisher\": \"20\",\"noticeContent\": \"周六不开门\"}},\"message\": {\"result\": \"success\"}}";
+            Pattern p = Pattern.compile("\\s*|\t|\r|\n");
+            Matcher m = p.matcher(noticeJsonStr);
+            String formatJsonStr = m.replaceAll("");
+            BaseMessage message = AppUtil.getMessage(formatJsonStr, "NoticeModel");
+            NoticeModel model = (NoticeModel) message.getData("NoticeModel");
+            assertNotNull(model);
+            assertEquals("25", model.getNoticePublisher());
 
-            BaseMessage message = new BaseMessage();
-            BaseModel model = message.json2Model("cn.edu.dlut.tiyuguan.model.Venue", o);
-            assertEquals("篮球馆", ((Venue)model).getVenuesName());
-            assertEquals(20f, ((Venue)model).getVenuesCharge());
-            assertEquals(1, ((Venue)model).getVenuesId());
-            assertEquals("09:00:00", ((Venue)model).getOpenTime());
-            System.out.print(model);
         } catch (JSONException e) {
+            System.err.print(e.toString());
             e.printStackTrace();
         } catch (Exception e) {
+            System.err.print(e.toString());
             e.printStackTrace();
         }
     }

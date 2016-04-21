@@ -8,6 +8,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.WindowManager;
 
+import com.umeng.message.PushAgent;
+
 import java.lang.ref.WeakReference;
 
 import cn.edu.dlut.tiyuguan.R;
@@ -22,7 +24,6 @@ import cn.edu.dlut.tiyuguan.util.AppUtil;
 import cn.edu.dlut.tiyuguan.util.ToastUtil;
 
 public class WelcomeActivity extends Activity {
-
     public Handler parentHandler = new SHandler(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,12 @@ public class WelcomeActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.welcome_activity);
         init();
+        initUmengPush();
+    }
 
+    private void initUmengPush() {
+        PushAgent mPushAgent = PushAgent.getInstance(this.getApplicationContext());
+        mPushAgent.enable();
     }
 
     private void init() {
