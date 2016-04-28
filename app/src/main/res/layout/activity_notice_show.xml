@@ -3,14 +3,73 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="cn.edu.dlut.tiyuguan.activity.NoticeShowActivity">
 <TextView
     android:id="@+id/notice_title"
     android:layout_width="match_parent"
     android:paddingBottom="5dp"
     android:paddingTop="5dp"
-    android:textSize="25sp"
+    android:textSize="16sp"
     android:gravity="center"
+    android:textColor="@android:color/holo_red_light"
     android:text="放假通知"
     android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:id="@+id/notice_time"
+            android:layout_width="wrap_content"
+            android:paddingBottom="2dp"
+            android:paddingTop="2dp"
+            android:layout_marginRight="5dp"
+            android:textSize="11sp"
+            android:gravity="center"
+            android:textColor="@android:color/darker_gray"
+            android:text="2012-12-20"
+            android:layout_gravity="center|center"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/notice_publisher"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center|center"
+            android:layout_marginLeft="5dp"
+            android:paddingBottom="2dp"
+            android:paddingTop="2dp"
+            android:textSize="11sp"
+            android:gravity="center"
+            android:textColor="@android:color/darker_gray"
+            android:text="admin"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <EditText
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:id="@+id/notice_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:lineSpacingExtra="5dp"
+        android:text="1.周六不开门,三分俄方饿饭饿份额服务生万恶发额外份额份额份额份额份额\n2.周五不开门"
+        android:gravity="start|top"
+        android:padding="5dp"
+        android:editable="false"
+        android:inputType="none"
+        android:textColor="@color/font_grey_600"
+        android:background="@null"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:gravity="right"
+        android:textSize="10sp"
+        android:layout_marginRight="20dp"
+        android:text="大连理工大学体育馆办公室"
+        />
 </LinearLayout>
